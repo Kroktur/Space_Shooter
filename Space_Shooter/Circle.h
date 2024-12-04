@@ -3,6 +3,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+
+
+
 enum mykeypressed
 {
 	Right,
