@@ -18,7 +18,14 @@ std::vector<sf::Vector2f> getStarVertices(float radius, sf::Vector2f center, flo
 
     return result;
 }
+struct Projectile {
+    sf::CircleShape shape;
+    sf::Vector2f velocity;
+    sf::Texture texturepaw;
+    
 
+};
+std::vector<Projectile> projectiles;
 
 int main()
 {
@@ -137,6 +144,27 @@ int main()
                 inWindow = false;
             }
 
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+
+                sf::CircleShape projectile(10);
+                sf::Texture texturemissile;
+                texturemissile.loadFromFile("resource\\space_cat_paw.png");
+                projectile.setTexture(&texturemissile);
+               
+                
+                projectile.setOrigin(projectile.getRadius(), projectile.getRadius());
+                projectile.setPosition(testc.returnmyShape().getPosition());
+
+                sf::Vector2f target(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+                sf::Vector2f direction = target - testc.returnmyShape().getPosition();
+                float magnitude = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+                sf::Vector2f velocity = (direction / magnitude) * 5.f;
+
+                projectiles.push_back({ projectile, velocity, texturemissile });
+            }
+
         }
 
 
@@ -213,8 +241,16 @@ int main()
         float angle_ = std::atan2(deltaY, deltaX) * 180 / 3.14159f;
 
 
-        /*testc.returnmyShape().setRotation(40);*/
+        sf::Vector2f rectanglepos = rectangle.getPosition();
+        float deltaX_r = mousePos.x - rectanglepos.x;
+        float deltaY_r = mousePos.y - rectanglepos.y;
 
+        float angle_rec = std::atan2(deltaY_r, deltaX_r) * 180 / 3.14159f;
+
+
+
+        /*testc.returnmyShape().setRotation(40);*/
+        
 
 
         if (inWindow)
@@ -230,13 +266,32 @@ int main()
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
                 testc.deplacement(deltaTime.asSeconds(), Up);
             testc.rotation(angle_);
+            rectangle.getGlobalBounds();
+            rectangle.getLocalBounds();
+            rectangle.setRotation(60);
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+           
+
+            for (auto& projectile : projectiles)
+            {
+                projectile.shape.move(projectile.velocity);
+            }
+
+
+
+          /*  if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 lunchmissile = !lunchmissile;
                 m.LunchMissile(angle_);
 
+            }*/
+            auto testcBound = testc.returnmyShape().getGlobalBounds();
+            auto rectanglebound = rectangle.getGlobalBounds();
+            if (testcBound.intersects(rectanglebound))
+            {
+                 rectangle.setFillColor(sf::Color::Black);
             }
+
         }
         if (lunchmissile)
         {
@@ -244,8 +299,13 @@ int main()
             window.draw(m.returnmyShape());
             m.setposition(deltaTime);
         }
+        for (const auto& projectile : projectiles)
+        {
+            projectile.shape.setTexture(&projectile.texturepaw);
+            window.draw(projectile.shape);
+        }
 
-
+       
         window.draw(rectangle);
         window.draw(testc.returnmyShape());
         window.draw(text);
@@ -253,6 +313,6 @@ int main()
 
         window.display();
     }
-
+ 
     return 0;
 }

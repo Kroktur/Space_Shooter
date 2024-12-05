@@ -77,7 +77,7 @@ public:
 	void set()
 	{
 
-		m_texture.loadFromFile("C:\\image\\ovni3.png");
+		m_texture.loadFromFile("resource\\space_cat_.png");
 		m_circle.setPosition(960, 540);
 		m_circle.setTexture(&m_texture);
 		m_circle.setOrigin(m_circle.getRadius(), m_circle.getRadius());
@@ -98,7 +98,7 @@ class Missile
 protected:
 	sf::RenderWindow& m_window;
 	sf::CircleShape m_circle;
-	sf::RectangleShape m_rectangle{ sf::Vector2f(20.f, 10.f) };
+	sf::RectangleShape m_rectangle{ sf::Vector2f(60.f,30.f) };
 	sf::Texture m_texture;
 	float m_angle;
 public:
@@ -107,7 +107,7 @@ public:
 	{
 
 
-		m_texture.loadFromFile("C:\\image\\Mcat.png");
+		m_texture.loadFromFile("resource\\space_cat_paw.png");
 		m_rectangle.setPosition(m_circle.getPosition().x, m_circle.getPosition().y);
 		m_rectangle.setTexture(&m_texture);
 		m_rectangle.setOrigin(m_rectangle.getSize().x / 2 - m_circle.getRadius(), m_rectangle.getSize().x / 2);
@@ -121,10 +121,10 @@ public:
 	}
 	void setposition(const sf::Time& deltaTime)
 	{
-		float moveSpeed = 1.f;
+		/*float moveSpeed = 1.f;
 		float angleradius = m_angle * (3.141592 / 180);
 		float tangente = std::tan(angleradius);
-		m_rectangle.move(sf::Vector2f(moveSpeed, tangente * moveSpeed));
+		m_rectangle.move(sf::Vector2f(moveSpeed, tangente * moveSpeed));*/
 	}
 	sf::RectangleShape returnmyShape()
 	{
