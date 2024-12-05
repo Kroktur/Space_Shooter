@@ -81,8 +81,8 @@ public:
 		m_circle.setPosition(960, 540);
 		m_circle.setTexture(&m_texture);
 		m_circle.setOrigin(m_circle.getRadius(), m_circle.getRadius());
-		m_circle.setOutlineColor(sf::Color::Red);
-		m_circle.setOutlineThickness(5);
+		/*m_circle.setOutlineColor(sf::Color::Red);
+		m_circle.setOutlineThickness(5);*/
 	}
 	sf::CircleShape returnmyShape()
 	{
@@ -136,7 +136,7 @@ public:
 class Projectile {
 private:
 	sf::RenderWindow& m_window;
-	sf::CircleShape m_shape{10};
+	sf::CircleShape m_shape{25};
 	sf::Vector2f m_velocity;
 	sf::Texture m_texturepaw;
 	sf::CircleShape m_heroShip;
@@ -171,7 +171,7 @@ public :
 	}
 	sf::CircleShape drawmyShape()
 	{
-		m_texturepaw.loadFromFile("C:\\Users\\ablanchet\\source\\repos\\Space_Shootertest1\\Space_Shooter\\resource\\space_cat_paw.png");
+		m_texturepaw.loadFromFile("resource\\space_cat_paw.png");
 		m_shape.setTexture(&m_texturepaw);
 		return m_shape;
 	}

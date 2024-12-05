@@ -29,6 +29,10 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
     CircleShape testc(window);
+    sf::RectangleShape background(sf::Vector2f(window.getSize()));
+    sf::Texture backgroundtexture;
+    backgroundtexture.loadFromFile("resource\\galaxie.bmp");
+    background.setTexture(&backgroundtexture);
     window.setFramerateLimit(240);
     sf::CircleShape shape(300.f, 3);
     shape.setFillColor(sf::Color::Green);
@@ -288,6 +292,10 @@ int main()
             }
 
         }
+
+        window.draw(background);
+
+
         if (lunchmissile)
         {
 
@@ -302,7 +310,7 @@ int main()
         }
 
        
-        window.draw(rectangle);
+      /*  window.draw(rectangle);*/
         window.draw(testc.returnmyShape());
         window.draw(text);
 
