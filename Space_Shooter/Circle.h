@@ -133,3 +133,46 @@ public:
 
 
 };
+class Projectile {
+private:
+	sf::RenderWindow& m_window;
+	sf::CircleShape m_shape{10};
+	sf::Vector2f m_velocity;
+	sf::Texture m_texturepaw;
+	sf::CircleShape m_heroShip;
+public : 
+	Projectile(sf::RenderWindow& window ,sf::CircleShape circle) :m_window(window), m_heroShip(circle) { set(); }
+	void set()
+	{
+		/*m_texturepaw.loadFromFile("C:\\Users\\ablanchet\\source\\repos\\Space_Shootertest1\\Space_Shooter\\resource\\space_cat_paw.png");
+		m_shape.setTexture(&m_texturepaw);*/
+		m_shape.setOrigin(m_shape.getRadius(), m_shape.getRadius());
+		m_shape.setPosition(m_heroShip.getPosition());
+		auto angle = m_heroShip.getRotation();
+		m_shape.setRotation(angle);
+
+	}
+	void setvelocity(sf::Vector2f velocity)
+	{
+		m_velocity = velocity;
+	}
+	 sf::Vector2f getvelocity()
+	{
+		return m_velocity;
+	}
+	 void move(sf::Vector2f velocity, float deltatime)
+	 {
+		 m_shape.move(velocity * deltatime);
+	 }
+	sf::CircleShape returnmyShape()
+	{
+
+		return m_shape;
+	}
+	sf::CircleShape drawmyShape()
+	{
+		m_texturepaw.loadFromFile("C:\\Users\\ablanchet\\source\\repos\\Space_Shootertest1\\Space_Shooter\\resource\\space_cat_paw.png");
+		m_shape.setTexture(&m_texturepaw);
+		return m_shape;
+	}
+};

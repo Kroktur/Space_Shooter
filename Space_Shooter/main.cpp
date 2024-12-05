@@ -18,17 +18,10 @@ std::vector<sf::Vector2f> getStarVertices(float radius, sf::Vector2f center, flo
 
     return result;
 }
-struct Projectile {
-    sf::CircleShape shape;
-    sf::Vector2f velocity;
-    sf::Texture texturepaw;
-    
-
-};
-std::vector<Projectile> projectiles;
 
 int main()
 {
+    std::vector<Projectile> projectiles;
 
     sf::Clock movement;
 
@@ -36,7 +29,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
     CircleShape testc(window);
-    window.setFramerateLimit(60);
+    window.setFramerateLimit(240);
     sf::CircleShape shape(300.f, 3);
     shape.setFillColor(sf::Color::Green);
 
@@ -148,21 +141,22 @@ int main()
             {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
 
-                sf::CircleShape projectile(10);
+               Projectile project(window,testc.returnmyShape());
+               /* sf::CircleShape projectile(10);
                 sf::Texture texturemissile;
                 texturemissile.loadFromFile("resource\\space_cat_paw.png");
                 projectile.setTexture(&texturemissile);
-               
+               */
                 
-                projectile.setOrigin(projectile.getRadius(), projectile.getRadius());
-                projectile.setPosition(testc.returnmyShape().getPosition());
+                /*projectile.setOrigin(projectile.getRadius(), projectile.getRadius());
+                projectile.setPosition(testc.returnmyShape().getPosition());*/
 
                 sf::Vector2f target(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
                 sf::Vector2f direction = target - testc.returnmyShape().getPosition();
                 float magnitude = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-                sf::Vector2f velocity = (direction / magnitude) * 5.f;
-
-                projectiles.push_back({ projectile, velocity, texturemissile });
+                sf::Vector2f velocity = (direction / magnitude) * 300.f;
+                project.setvelocity(velocity);
+                projectiles.push_back({ project  });
             }
 
         }
@@ -274,7 +268,7 @@ int main()
 
             for (auto& projectile : projectiles)
             {
-                projectile.shape.move(projectile.velocity);
+                projectile.move(projectile.getvelocity(), deltaTime.asSeconds());
             }
 
 
@@ -299,10 +293,11 @@ int main()
             window.draw(m.returnmyShape());
             m.setposition(deltaTime);
         }
-        for (const auto& projectile : projectiles)
+        for ( auto& projectile : projectiles)
         {
-            projectile.shape.setTexture(&projectile.texturepaw);
-            window.draw(projectile.shape);
+            
+            window.draw(projectile.drawmyShape());
+           
         }
 
        
