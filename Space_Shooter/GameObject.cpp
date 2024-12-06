@@ -7,7 +7,7 @@ Ship::Ship(Game& game) : m_ship(50) , m_angle(0)
 {
 	m_ship.setOrigin(m_ship.getRadius(), m_ship.getRadius());
 	m_ship.setPosition(game.getWindowSize().x/2,game.getWindowSize().y/2);
-	m_ship.setTexture(&game.gettexture().getTexture("C:\\Users\\ablanchet\\source\\repos\\Space_Shootertest3\\Space_Shooter\\resource\\space_cat_.png"));
+	m_ship.setTexture(&game.gettexture().getTexture("resource\\space_cat_.png"));
 	m_positionrate.x = 0.f;
 	m_positionrate.y = 0.f;
 	

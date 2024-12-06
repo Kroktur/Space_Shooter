@@ -32,7 +32,7 @@ void Game::init()
     ship = new Ship(*this);
     m_allGameObject.push_back(ship);
     m_Background.setSize(static_cast<sf::Vector2f>(m_window.getSize()));
-    m_Background.setTexture(&m_texture.getTexture("C:\\Users\\ablanchet\\source\\repos\\Space_Shootertest3\\Space_Shooter\\resource\\galaxie.bmp"));
+    m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
 }
 
 sf::Vector2u Game::getWindowSize()
