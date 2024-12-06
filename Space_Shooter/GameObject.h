@@ -5,18 +5,20 @@
 #include <cmath>
 #include <vector>
 #include"IGameObject.h"
-
+class Game;
 
 class Ship : public IGameObject
 {
 public:
-    Ship();
+    Ship(Game& game);
    void HandleInput() override;
    void Update() override;
    void Render(sf::RenderWindow& window) override;
+   float anglecalcul();
 private:
-    sf::Texture m_texture;
-    sf::Sprite m_sprite;
+    sf::CircleShape m_ship;
+    sf::Vector2f m_positionrate;
+    sf::RenderWindow m_window;
     float m_angle;
-    sf::Vector2f m_position;
+
 };

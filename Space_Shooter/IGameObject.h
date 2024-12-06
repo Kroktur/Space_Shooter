@@ -1,6 +1,6 @@
 #pragma once
-namespace sf { class Renderwindow; }
 
+#include <SFML/Graphics.hpp>
 class IGameObject
 {
 public:
