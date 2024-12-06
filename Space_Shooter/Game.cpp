@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "IGameObject.h"
 #include "GameObject.h"
+#include "IWeapon.h"
+#include "Weapon.h"
 Game::Game() : m_window(sf::VideoMode(1920, 1080), "SFML works!") { m_window.setFramerateLimit(60); }
 
 Game::~Game()
@@ -45,6 +47,11 @@ TextureCache& Game::gettexture()
     return m_texture;
 }
 
+sf::RenderWindow& Game::getWindow()
+{
+    return m_window;
+}
+
 
 
 void Game::HandleInput()
@@ -61,6 +68,10 @@ void Game::HandleInput()
         if (event.type == sf::Event::MouseLeft)
         {
             inWindow = false;
+        }
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            m_allGameObject[0]->Fire();
         }
     }
 

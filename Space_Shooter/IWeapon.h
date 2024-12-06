@@ -1,14 +1,13 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-class IGameObject
+class IWeapon
 {
 public:
-    virtual void HandleInput() = 0;
+
     virtual void Update() = 0;
-    virtual void Fire() = 0;
     virtual void Render(sf::RenderWindow& window) = 0;
-    virtual ~IGameObject() = default;
+    virtual ~IWeapon() = default;
 private:
 
 };

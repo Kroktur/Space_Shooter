@@ -16,6 +16,7 @@ public:
     void init();
     sf::Vector2u getWindowSize();
     TextureCache& gettexture();
+    sf::RenderWindow& getWindow();
     void HandleInput();
     void Update();
     void Render();
