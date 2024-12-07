@@ -28,13 +28,13 @@ void Ship::HandleInput()
 	m_positionrate.y = 0;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		m_positionrate.x = 10.f;	
+		m_positionrate.x = 5.f;	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))	
-		 m_positionrate.x = -10.f;
+		 m_positionrate.x = -5.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		m_positionrate.y = 10.f;
+		m_positionrate.y = 5.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-		m_positionrate.y = -10.f;
+		m_positionrate.y = -5.f;
 
 	
 	m_angle = anglecalcul();

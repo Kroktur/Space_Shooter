@@ -14,7 +14,7 @@ Missile::Missile(sf::CircleShape& circle, Game& game) : m_missile(25)
 	sf::Vector2f target(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
 	sf::Vector2f direction = target - circle.getPosition();
 	float magnitude = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-	m_velocity = (direction / magnitude) * 10.f;
+	m_velocity = (direction / magnitude) * 20.f;
 	auto angle = circle.getRotation();
 	m_missile.setRotation(angle);
 	m_missile.setTexture(&game.gettexture().getTexture("resource\\space_cat_paw.png"));
