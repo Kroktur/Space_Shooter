@@ -18,9 +18,11 @@ void Game::run()
     while (m_window.isOpen())
     {
         m_window.clear();
-        
+      
         HandleInput();
 
+            
+        
         Update();
 
         Render();
@@ -75,27 +77,32 @@ void Game::HandleInput()
         }
     }
 
-    if (inWindow)
-    {
+   
+   /* if(inWindow)*/
         m_allGameObject[0]->HandleInput();
        
-    }
+    
 }
 
 void Game::Update()
 {
-    for (auto Object : m_allGameObject)
+    if (inWindow)
     {
-        Object->Update();
+        for (auto Object : m_allGameObject)
+        {
+            Object->Update();
+        }
     }
 }
 
 inline void Game::Render()
 {
-    m_window.draw(m_Background);
-    for (auto Object : m_allGameObject)
-    {
-        Object->Render(m_window);
-    }
-    m_window.display();
+  
+        m_window.draw(m_Background);
+        for (auto Object : m_allGameObject)
+        {
+            Object->Render(m_window);
+        }
+        m_window.display();
+    
 }

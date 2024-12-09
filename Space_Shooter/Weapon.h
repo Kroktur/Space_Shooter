@@ -13,6 +13,8 @@ public:
 	Missile(sf::CircleShape& circle, Game& game);
 	void Update() override;
 	void Render(sf::RenderWindow& window) override;
+	sf::Vector2f getPosition() override;
+	float getRadius();
 private:
 	sf::CircleShape m_missile;
 	sf::Vector2f m_velocity;

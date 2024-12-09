@@ -27,13 +27,13 @@ void Ship::HandleInput()
 	m_positionrate.x = 0;
 	m_positionrate.y = 0;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && (m_ship.getPosition().x +m_ship.getRadius()) < m_game.getWindowSize().x )
 		m_positionrate.x = 5.f;	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)&& (m_ship.getPosition().x - m_ship.getRadius()) > 0)
 		 m_positionrate.x = -5.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (m_ship.getPosition().y + m_ship.getRadius()) < m_game.getWindowSize().y)
 		m_positionrate.y = 5.f;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && (m_ship.getPosition().y - m_ship.getRadius()) > 0)
 		m_positionrate.y = -5.f;
 
 	
@@ -43,10 +43,17 @@ void Ship::HandleInput()
 
 void Ship::Update()
 {
-	for (auto weaponidx : m_allWeapon)
+	
+	for (auto idx = 0; idx < m_allWeapon.size(); ++idx)
 	{
-		weaponidx->Update();
+		m_allWeapon[idx]->Update();
+		if (m_allWeapon[idx]->getPosition().x + m_allWeapon[idx]->getRadius() < 0 || m_allWeapon[idx]->getPosition().y + m_allWeapon[idx]->getRadius() < 0 || m_allWeapon[idx]->getPosition().x - m_allWeapon[idx]->getRadius() > 1920 || m_allWeapon[idx]->getPosition().y - m_allWeapon[idx]->getRadius() > 1080)
+		{
+			delete m_allWeapon[idx];
+			m_allWeapon.erase(m_allWeapon.begin() + idx);
+		}
 	}
+	
 	m_ship.move(m_positionrate.x, m_positionrate.y);
 	m_ship.setRotation(m_angle);
 	

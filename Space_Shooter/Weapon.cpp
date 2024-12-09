@@ -23,9 +23,20 @@ Missile::Missile(sf::CircleShape& circle, Game& game) : m_missile(25)
 void Missile::Update()
 {
 	m_missile.move(m_velocity.x , m_velocity.y);
+	
 }
 
 void Missile::Render(sf::RenderWindow& window)
 {
 	window.draw(m_missile);
+}
+
+sf::Vector2f Missile::getPosition()
+{
+	return m_missile.getPosition();
+}
+
+float Missile::getRadius()
+{
+	return m_missile.getRadius();
 }
