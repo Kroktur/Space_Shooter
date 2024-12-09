@@ -19,11 +19,36 @@ public:
     void Fire() ;
    void Render(sf::RenderWindow& window) override;
    float anglecalcul();
+   sf::CircleShape getShape();
   
 private:
     sf::CircleShape m_ship;
-    sf::Vector2f m_positionrate;
+    sf::Vector2f m_position;
     Game& m_game;
     float m_angle;
     std::vector<IWeapon*> m_allWeapon;
+    
+};
+
+
+class Ennemie_Ship : public IGameObject
+{
+public:
+    Ennemie_Ship(Game& game );
+    ~Ennemie_Ship();
+    void HandleInput() override;
+    void Update() override;
+    void Fire();
+    void Render(sf::RenderWindow& window) override;
+    float anglecalcul();
+    sf::CircleShape getShape();
+
+
+private:
+    sf::CircleShape m_ship;
+    sf::Vector2f m_position;
+    Game& m_game;
+    float m_angle;
+    std::vector<IWeapon*> m_allWeapon;
+
 };

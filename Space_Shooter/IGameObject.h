@@ -1,6 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
+
+
 class IGameObject
 {
 public:
@@ -8,7 +11,9 @@ public:
     virtual void Update() = 0;
     virtual void Fire() = 0;
     virtual void Render(sf::RenderWindow& window) = 0;
+    virtual sf::CircleShape getShape() = 0;
     virtual ~IGameObject() = default;
+   
 private:
 
 };
