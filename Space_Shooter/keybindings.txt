@@ -1,0 +1,9 @@
+Back=20
+Change Resolution=38
+Configure Controls=19
+Fire=57
+MoveDown=18
+MoveLeft=0
+MoveRight=3
+MoveUp=22
+Shield=5

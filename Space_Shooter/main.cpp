@@ -1,6 +1,7 @@
 #include "menuSpaceshooter.h"
 
-int main() {
+int main() 
+{
 	Menu* menu = new Menu();
 	menu->runMenu();
 	delete menu;

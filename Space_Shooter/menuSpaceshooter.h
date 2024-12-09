@@ -4,7 +4,7 @@
 
 class Menu {
     int pos;
-    bool keyHeld, optionSelected;
+    bool keyHeld, optionSelected, inMainMenu;
 
     sf::RenderWindow* window;
     sf::RectangleShape* winclose;
@@ -12,6 +12,10 @@ class Menu {
     sf::Texture* image;
     sf::Sprite* menuBackground;
     sf::Music* menuMusic;
+    sf::SoundBuffer hoverBuffer;
+    sf::SoundBuffer clickBuffer;
+    sf::Sound hoverSound;
+    sf::Sound clickSound;
 
     sf::Vector2i pos_mouse;
     sf::Vector2f mouse_coord;
@@ -24,6 +28,8 @@ class Menu {
 protected:
     void setValues();
     void loopEvents();
+    void KeyboardNav();
+    void MouseNav();
     void drawAll();
 
 public:
