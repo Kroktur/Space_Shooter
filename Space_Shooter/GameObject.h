@@ -20,3 +20,17 @@ private:
     float m_angle;
     sf::Vector2f m_position;
 };
+
+class Enemy : public IGameObject
+{
+public:
+    Enemy();
+    void HandleInput() override;
+    void Update() override;
+    void Render(sf::RenderWindow& window) override;
+private:
+    sf::Texture m_texture;
+    sf::Sprite m_sprite;
+    float m_angle;
+    sf::Vector2f m_position;
+};

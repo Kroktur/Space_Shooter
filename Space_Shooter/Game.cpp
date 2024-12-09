@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "IGameObject.h"
+
 Game::Game() : m_window(sf::VideoMode(1920, 1080), "SFML works!") { m_window.setFramerateLimit(60); }
 
 Game::~Game()
