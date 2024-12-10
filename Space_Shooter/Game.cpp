@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "IWeapon.h"
 #include "Weapon.h"
-Game::Game(float framerate) : m_window(sf::VideoMode(1920, 1080), "SFML works!"), framerate(0.016){ m_window.setFramerateLimit(framerate); }
+Game::Game() : m_window(sf::VideoMode(1920, 1080), "SFML works!") { m_window.setFramerateLimit(60); }
 
 Game::~Game()
 {
@@ -17,19 +17,18 @@ void Game::run()
     init();
     while (m_window.isOpen())
     {
-        elapsedTime = clock.getElapsedTime();
+        
         m_window.clear();
       
        
 
             
-        if (elapsedTime.asSeconds() >= framerate)
-        {
+       
             HandleInput();
             Update();
             Render();
-            clock.restart();
-        }
+           
+      
 
      
     }
