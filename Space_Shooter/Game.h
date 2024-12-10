@@ -10,7 +10,7 @@ class IGameObject;
 class Game
 {
 public:
-    Game();
+    Game(float framerate =60);
     ~Game(); 
     void run();
     void init();
@@ -27,4 +27,7 @@ private:
     bool inWindow = false;
     TextureCache m_texture;
     sf::RectangleShape m_Background;
+    sf::Clock clock;
+    sf::Time elapsedTime;
+    float framerate;
 };

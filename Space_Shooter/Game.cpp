@@ -3,7 +3,7 @@
 #include "GameObject.h"
 #include "IWeapon.h"
 #include "Weapon.h"
-Game::Game() : m_window(sf::VideoMode(1920, 1080), "SFML works!") { m_window.setFramerateLimit(60); }
+Game::Game(float framerate) : m_window(sf::VideoMode(1920, 1080), "SFML works!"), framerate(0.016){ m_window.setFramerateLimit(framerate); }
 
 Game::~Game()
 {
@@ -17,15 +17,21 @@ void Game::run()
     init();
     while (m_window.isOpen())
     {
+        elapsedTime = clock.getElapsedTime();
         m_window.clear();
       
-        HandleInput();
+       
 
             
-        
-        Update();
+        if (elapsedTime.asSeconds() >= framerate)
+        {
+            HandleInput();
+            Update();
+            Render();
+            clock.restart();
+        }
 
-        Render();
+     
     }
     
 }
@@ -34,7 +40,10 @@ void Game::init()
 {
     IGameObject* ship;
     ship = new Ship(*this);
+    IGameObject* enemie;
+    enemie = new Ennemie_Ship(*this, ship->getShape());
     m_allGameObject.push_back(ship);
+    m_allGameObject.push_back(enemie);
     m_Background.setSize(static_cast<sf::Vector2f>(m_window.getSize()));
     m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
 }
@@ -71,15 +80,15 @@ void Game::HandleInput()
         {
             inWindow = false;
         }
-        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-        {
-            m_allGameObject[0]->Fire();
-        }
+      
     }
 
    
-   /* if(inWindow)*/
-        m_allGameObject[0]->HandleInput();
+   
+    for (auto Object : m_allGameObject)
+    {
+        Object->HandleInput();
+    }
        
     
 }
