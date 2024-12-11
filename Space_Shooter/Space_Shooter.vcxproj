@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ressourceCache.cpp" />
     <ClCompile Include="Weapon.cpp" />

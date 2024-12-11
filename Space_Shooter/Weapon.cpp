@@ -4,8 +4,10 @@
 
 
 
-Missile::Missile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(50)
+Missile::Missile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(25)
 {
+	auto angle = circle.getRotation();
+	m_missile.setRotation(angle);
 	m_missile.setOrigin(m_missile.getRadius(), m_missile.getRadius());
 	m_missile.setPosition(circle.getPosition());
 
@@ -15,8 +17,8 @@ Missile::Missile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(
 	sf::Vector2f direction = target - circle.getPosition();
 	float magnitude = std::sqrt(direction.x * direction.x + direction.y * direction.y);
 	m_velocity = (direction / magnitude) * velcity;
-	auto angle = circle.getRotation();
-	m_missile.setRotation(angle);
+	
+	
 	m_missile.setTexture(&game.gettexture().getTexture("resource\\space_cat_paw.png"));
 }
 
@@ -42,12 +44,15 @@ float Missile::getRadius()
 }
 
 
-EnnemieMissile::EnnemieMissile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(50)
+EnnemieMissile::EnnemieMissile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(12.5)
 {
-	m_missile.setOrigin(m_missile.getRadius(), m_missile.getRadius());
-	m_missile.setPosition(circle.getPosition());
 	auto angle = circle.getRotation();
 	auto radiantangle = angle * (3.14159f / 180.f);
+	m_missile.setRotation(angle);
+
+	m_missile.setOrigin(m_missile.getRadius(), m_missile.getRadius());
+	m_missile.setPosition(circle.getPosition());
+	
 
 	
 	
@@ -55,7 +60,7 @@ EnnemieMissile::EnnemieMissile(sf::CircleShape& circle, Game& game) : m_missile(
 	
 	m_velocity = direction * velcity;
 	
-	m_missile.setRotation(angle);
+	
 	m_missile.setTexture(&game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
 }
 

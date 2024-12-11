@@ -39,7 +39,8 @@ void Ship::HandleInput()
 	{
 		if (elapsedTime.asSeconds() >= firerate)
 		{
-			Fire();
+			fire = true;
+			
 			clock.restart();
 		}
 		
@@ -51,6 +52,14 @@ void Ship::HandleInput()
 
 void Ship::Update()
 {
+	m_ship.move(m_position.x, m_position.y);
+	m_ship.setRotation(m_angle);
+	if (fire == true)
+	{
+		fire = false;
+		Fire();
+		 
+	}
 	
 	for (auto idx = 0; idx < m_allWeapon.size(); ++idx)
 	{
@@ -62,8 +71,7 @@ void Ship::Update()
 		}
 	}
 	
-	m_ship.move(m_position.x, m_position.y);
-	m_ship.setRotation(m_angle);
+
 	
 }
 
@@ -99,7 +107,7 @@ sf::CircleShape& Ship::getShape()
 }
 
 
-Ennemie_Ship::Ennemie_Ship(Game& game,sf::CircleShape& shape ) :m_enemie(50), m_angle(0), m_game(game) , m_ship(shape), velocity(2.5f) , firerate(1.f)
+Ennemie_Ship::Ennemie_Ship(Game& game,sf::CircleShape& shape ) :m_enemie(50), m_angle(0), m_game(game) , m_ship(shape), velocity(1.5f) , firerate(1.f)
 {
 	m_enemie.setOrigin(m_enemie.getRadius(), m_enemie.getRadius());
 	m_enemie.setPosition(SetPosition());
@@ -124,16 +132,23 @@ void Ennemie_Ship::HandleInput()
 {
 	deltacalcul();
 	anglecalcul();
-	m_position.x = 0;
-	m_position.y = 0;
 	elapsedTime = clock.getElapsedTime();
+	if (actioncout == 20)
+	{
+		actioncout = 0;
+	}
+	if (actioncout == 0)
+	{
+		m_position.x = 0;
+		m_position.y = 0;
+		random_number = rand->getrandomnumber(0, 5);
+	}
+	
+	auto remainingDistance = 0;
 
 	
 	srand(time(0));
-		int min = 0;
-		int max = 5;
-		int random_number = min + rand() % (max - min + 1);
-		float remainingDistance = 0;
+		
 		switch (random_number)
 		{
 		case 0:
@@ -144,7 +159,7 @@ void Ennemie_Ship::HandleInput()
 				else
 					m_position.x = velocity;
 			}
-
+			actioncout++;
 			break;
 		case 1:
 			if ((m_enemie.getPosition().x - m_enemie.getRadius()) > 0)
@@ -154,6 +169,7 @@ void Ennemie_Ship::HandleInput()
 				else
 					m_position.x = -velocity;
 			}
+			actioncout++;
 			break;
 		case 2:
 			if ((m_enemie.getPosition().y + m_enemie.getRadius()) < m_game.getWindowSize().y)
@@ -164,6 +180,7 @@ void Ennemie_Ship::HandleInput()
 					m_position.y = velocity;
 
 			}
+			actioncout++;
 			break;
 		case 3:
 			if ((m_enemie.getPosition().y - m_enemie.getRadius()) > 0)
@@ -173,9 +190,11 @@ void Ennemie_Ship::HandleInput()
 				else
 					m_position.y = -velocity;
 			}
+			actioncout++;
 			break;
 		case 4:
 			Getcloserfromship();
+			actioncout++;
 			break;
 		case 5:
 			if (elapsedTime.asSeconds() >= firerate)
@@ -183,8 +202,10 @@ void Ennemie_Ship::HandleInput()
 			Fire();
 			clock.restart();
 			}
+			actioncout++;
 			break;
 		default:
+			actioncout++;
 			break;
 		}
 
@@ -250,9 +271,9 @@ sf::Vector2f Ennemie_Ship::SetPosition()
 	int max_y = m_game.getWindowSize().y - m_enemie.getRadius();
 	int min = 0;
 	int max = 3;
-	int random_border = min + rand() % (max - min + 1);
-	int rabdom_Window_x = min_x + rand() % (max_x - min_x + 1);
-	int rabdom_Window_y = min_y + rand() % (max_y - min_y + 1);
+	int random_border = rand->getrandomnumber(min, max);
+	int rabdom_Window_x = rand->getrandomnumber(min_x, max_x);
+	int rabdom_Window_y = rand->getrandomnumber(min_y, max_y);
 	switch (random_border)
 	{
 	case 0:

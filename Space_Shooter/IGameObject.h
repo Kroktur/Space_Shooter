@@ -1,8 +1,18 @@
 #pragma once
-
+#include <iostream>
+#include <random>
+#include <ctime>
 #include <SFML/Graphics.hpp>
 #include <ctime>
+class Randomnumber
+{
+public:
+   
+    int getrandomnumber(int min, int max);
 
+
+
+};
 
 class IGameObject
 {
@@ -14,6 +24,6 @@ public:
     virtual sf::CircleShape& getShape() = 0;
     virtual ~IGameObject() = default;
    
-private:
-
+protected:
+    Randomnumber* rand;
 };

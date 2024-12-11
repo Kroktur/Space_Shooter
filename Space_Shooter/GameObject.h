@@ -32,6 +32,9 @@ private:
     sf::Clock clock;
     sf::Time elapsedTime;
      
+
+
+    bool fire = false;
 };
 
 
@@ -65,4 +68,6 @@ private:
     float firerate;
     sf::Clock clock;
     sf::Time elapsedTime;
+    int random_number = 0;
+    int actioncout = 0;
 };

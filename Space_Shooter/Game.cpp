@@ -41,8 +41,17 @@ void Game::init()
     ship = new Ship(*this);
     IGameObject* enemie;
     enemie = new Ennemie_Ship(*this, ship->getShape());
+    IGameObject* enemie2;
+    enemie2 = new Ennemie_Ship(*this, ship->getShape());
+    IGameObject* enemie3;
+    enemie3 = new Ennemie_Ship(*this, ship->getShape());
+    IGameObject* enemie4;
+    enemie4 = new Ennemie_Ship(*this, ship->getShape());
     m_allGameObject.push_back(ship);
     m_allGameObject.push_back(enemie);
+    m_allGameObject.push_back(enemie2);
+    m_allGameObject.push_back(enemie3);
+    m_allGameObject.push_back(enemie4);
     m_Background.setSize(static_cast<sf::Vector2f>(m_window.getSize()));
     m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
 }
