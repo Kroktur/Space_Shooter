@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
 #include <cmath>
 #include <vector>
 #include "circle.h"
@@ -21,13 +22,54 @@ std::vector<sf::Vector2f> getStarVertices(float radius, sf::Vector2f center, flo
 
 int main()
 {
-    std::vector<Projectile> projectiles;
+    
+  
 
-    sf::Clock movement;
+   
+
+    
+  
+
+   
+  
+   
+
+
+   
+      
+
+     
+
+
+  
+    
 
     bool inWindow = false;
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
+
+    sf::Texture run;
+    run.loadFromFile("C:\\Users\\ablanchet\\Downloads\\Gangsters_1\\Gangsters_1\\Run.png");
+    sf::RectangleShape rec(sf::Vector2f(128, 128));
+    rec.setTexture(&run);
+    rec.setPosition(50.f, 60.f);
+
+    const int frameWidth = 128;
+    const int frameHeight = 128;
+    const int numFrames = 10;
+    int currentFrame = 0;
+    sf::Clock movement;
+    const sf::Clock clock;
+    sf::Clock animation;
+
+
+    const sf::Clock spawnClock;
+
+
+    std::vector<Projectile> projectiles;
+
+
+
     CircleShape testc(window);
     sf::RectangleShape background(sf::Vector2f(window.getSize()));
     sf::Texture backgroundtexture;
@@ -65,8 +107,7 @@ int main()
     text.setCharacterSize(24); // in pixels, not points!
     text.setFillColor(sf::Color::White);
 
-    const sf::Clock clock;
-    const sf::Clock spawnClock;
+   
     const sf::Time refreshTime = sf::seconds(1.f / 60.f);
     auto startSpawn = spawnClock.getElapsedTime().asMilliseconds();
     auto previous = clock.getElapsedTime().asMilliseconds();
@@ -252,6 +293,7 @@ int main()
         
 
 
+
         if (inWindow)
         {
             window.draw(text1);
@@ -290,6 +332,14 @@ int main()
             {
                  rectangle.setFillColor(sf::Color::Black);
             }
+            if (animation.getElapsedTime().asSeconds() >= 0.1)
+            {
+                
+               
+                rec.setTextureRect(sf::IntRect(currentFrame *128, 0, frameWidth, frameHeight));
+                currentFrame = (currentFrame + 1)% numFrames ;
+                animation.restart();
+            }
 
         }
 
@@ -314,7 +364,7 @@ int main()
         window.draw(testc.returnmyShape());
         window.draw(text);
 
-
+        window.draw(rec);
         window.display();
     }
  
