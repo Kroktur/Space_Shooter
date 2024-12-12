@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "Ressource.h"
 
 class SceneBase
 {
@@ -14,7 +14,12 @@ public:
     {
         return m_refreshTime;
     }
+    TextureCache& gettexture()
+    {
+        return m_texture;
+    }
 protected:
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;
+    TextureCache m_texture;
 };

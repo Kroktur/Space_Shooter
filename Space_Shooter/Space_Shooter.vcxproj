@@ -145,6 +145,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="MyMath.cpp" />
+    <ClCompile Include="playableGameObject.cpp" />
+    <ClCompile Include="Ressource.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Scenemanager.cpp" />
     <ClCompile Include="WidgetGameObject.cpp" />
@@ -152,10 +155,12 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="MyMath.h" />
     <ClInclude Include="playableGameObject.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="MyGame.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Ressource.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="Scenemanager.h" />
     <ClInclude Include="WidgetGameObject.h" />

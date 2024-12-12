@@ -18,4 +18,14 @@ void Game::render()
 
 }
 
+sf::Vector2u Game::getWindowSize()
+{
+	return m_renderwindow->getSize();
+}
+
+sf::RenderWindow* Game::getWindow()
+{
+	return m_renderwindow;
+}
+
 
