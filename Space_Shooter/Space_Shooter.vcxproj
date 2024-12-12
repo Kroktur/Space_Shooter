@@ -140,7 +140,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="Scenemanager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="playableGameObject.h" />
+    <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="MyGame.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="Scenemanager.h" />
+    <ClInclude Include="WidgetGameObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
