@@ -147,6 +147,7 @@
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Scenemanager.cpp" />
+    <ClCompile Include="WidgetGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
