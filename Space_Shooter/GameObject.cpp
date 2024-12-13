@@ -2,6 +2,8 @@
 #include "Game.h"
 #include <cmath>
 
+
+
 Ship::Ship(Game& game) : m_ship(50), m_angle(0), m_game(game) , firerate(0.25f)
 {
 	
@@ -106,6 +108,14 @@ sf::CircleShape& Ship::getShape()
 	return m_ship;
 }
 
+void Ship::boundingBoxS()
+{
+	float aminx = m_ship.getPosition().x - m_ship.getRadius() / 2;
+	float aminy = m_ship.getPosition().y - m_ship.getRadius() / 2;
+	float amaxx = m_ship.getPosition().x + m_ship.getRadius() / 2;
+	float amaxy = m_ship.getPosition().y + m_ship.getRadius() / 2;
+	AABB bbs = { { aminx,aminy }, { amaxx, amaxy } };
+}
 
 Ennemie_Ship::Ennemie_Ship(Game& game,sf::CircleShape& shape ) :m_enemie(50), m_angle(0), m_game(game) , m_ship(shape), velocity(1.5f) , firerate(1.f)
 {
@@ -115,8 +125,6 @@ Ennemie_Ship::Ennemie_Ship(Game& game,sf::CircleShape& shape ) :m_enemie(50), m_
 	m_position.x = 0.f;
 	m_position.y = 0.f;
 	m_magnetude = 0.f;
-
-	
 }
 
 Ennemie_Ship::~Ennemie_Ship()
@@ -320,3 +328,14 @@ sf::CircleShape& Ennemie_Ship::getShape()
 {
 	return m_enemie;
 }
+
+void Ennemie_Ship::boundingBoxE()
+{
+
+	float aminx = m_enemie.getPosition().x - m_enemie.getRadius() / 2;
+	float aminy = m_enemie.getPosition().y - m_enemie.getRadius() / 2;
+	float amaxx = m_enemie.getPosition().x + m_enemie.getRadius() / 2;
+	float amaxy = m_enemie.getPosition().y + m_enemie.getRadius() / 2;
+	AABB bbe = { { aminx,aminy }, { amaxx, amaxy } };
+};
+

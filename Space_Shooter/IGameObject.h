@@ -27,3 +27,27 @@ public:
 protected:
     Randomnumber* rand;
 };
+
+
+struct Vect2
+{
+	Vect2(float x, float y)
+	{
+		value[0] = x;
+		value[1] = y;
+
+	}
+	float value[2];
+
+};
+
+struct AABB
+{
+	AABB(Vect2 min_, Vect2 max_) :
+		min(min_)
+		, max(max_)
+	{}
+	Vect2 min;
+	Vect2 max;
+
+};

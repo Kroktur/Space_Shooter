@@ -13,6 +13,7 @@ public:
 	Missile(sf::CircleShape& circle, Game& game);
 	void Update() override;
 	void Render(sf::RenderWindow& window) override;
+	void boundingBoxM();
 	sf::Vector2f getPosition() override;
 	float getRadius();
 private:
@@ -27,6 +28,7 @@ public:
 	EnnemieMissile(sf::CircleShape& circle, Game& game);
 	void Update() override;
 	void Render(sf::RenderWindow& window) override;
+	void boundingBoxEM();
 	sf::Vector2f getPosition() override;
 	float getRadius();
 private:

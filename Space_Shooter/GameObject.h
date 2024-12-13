@@ -15,11 +15,13 @@ public:
     Ship(Game& game);
     ~Ship();
    void HandleInput() override;
+
    void Update() override;
-    void Fire() ;
+   void Fire() ;
    void Render(sf::RenderWindow& window) override;
    float anglecalcul();
    sf::CircleShape& getShape();
+   void boundingBoxS();
   
 private:
     sf::CircleShape m_ship;
@@ -53,6 +55,7 @@ public:
     void Getcloserfromship();
     void SetMagnetude();
     sf::CircleShape& getShape();
+    void boundingBoxE();
 
 
 private:

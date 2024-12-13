@@ -1,7 +1,6 @@
 #include "Weapon.h"
 #include "Game.h"
-
-
+#include "IGameObject.h"
 
 
 Missile::Missile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(25)
@@ -43,6 +42,14 @@ float Missile::getRadius()
 	return m_missile.getRadius();
 }
 
+void Missile::boundingBoxM()
+{
+	float aminx = Missile::m_missile.getPosition().x - Missile::m_missile.getPosition().y / 2;
+	float aminy = Missile::m_missile.getPosition().y - Missile::m_missile.getPosition().y / 2;
+	float amaxx = Missile::m_missile.getPosition().x + Missile::m_missile.getPosition().x / 2;
+	float amaxy = Missile::m_missile.getPosition().y + Missile::m_missile.getPosition().x / 2;
+	AABB bbme = { { aminx,aminy }, { amaxx, amaxy } };
+}
 
 EnnemieMissile::EnnemieMissile(sf::CircleShape& circle, Game& game) : m_missile(100), velcity(12.5)
 {
@@ -83,4 +90,13 @@ sf::Vector2f EnnemieMissile::getPosition()
 float EnnemieMissile::getRadius()
 {
 	return m_missile.getRadius();
+}
+
+void EnnemieMissile::boundingBoxEM()
+{
+	float aminx = EnnemieMissile::m_missile.getPosition().x - EnnemieMissile::m_missile.getPosition().y / 2;
+	float aminy = EnnemieMissile::m_missile.getPosition().y - EnnemieMissile::m_missile.getPosition().y / 2;
+	float amaxx = EnnemieMissile::m_missile.getPosition().x + EnnemieMissile::m_missile.getPosition().x / 2;
+	float amaxy = EnnemieMissile::m_missile.getPosition().y + EnnemieMissile::m_missile.getPosition().x / 2;
+	AABB bbme = { { aminx,aminy }, { amaxx, amaxy } };
 }
