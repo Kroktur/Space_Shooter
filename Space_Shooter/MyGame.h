@@ -1,15 +1,15 @@
 #pragma once
-class SceneManager;
-#include <iostream>
 
+#include <iostream>
+class SceneManager;
 
 class myGame
 {
 public:
-    myGame(SceneManager* scene);
+    myGame(SceneManager& scene);
     ~myGame() = default;
     void Exe();
 private:
-    SceneManager* m_scene;
+    SceneManager& m_scene;
 };
 
