@@ -18,7 +18,7 @@ public:
     void render() override;
     int& gettype() override;
     void resetmooveposition();
-    AABB& GetBoundingBox() override;
+    AABB GetBoundingBox() override;
     sf::CircleShape& getcircle();
 private:
     
@@ -51,7 +51,7 @@ public:
     void resetmooveposition();
     void deltapositin();
     void anglecalcul();
-    AABB& GetBoundingBox() override;
+    AABB GetBoundingBox() override;
 
 private:
 
@@ -82,7 +82,7 @@ public:
     void update(float deltatime)override;
     void render() override;
     int& gettype() override;
-    AABB& GetBoundingBox() override;
+    AABB GetBoundingBox() override;
 
 private:
 

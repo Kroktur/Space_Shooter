@@ -41,7 +41,7 @@ void Ship::update(float deltatime)
 	if (m_fire)
 	{
 		m_fire = false;
-		new Missile(m_game, m_ship, Type_missile);
+		new Missile(m_game, m_ship, Type_Missile);
 	}
 }
 
@@ -63,7 +63,7 @@ void Ship::resetmooveposition()
 	m_position.y = 0;
 }
 
-AABB& Ship::GetBoundingBox()
+AABB Ship::GetBoundingBox()
 {
 	
 	 Amin.x = m_ship.getPosition().x - m_ship.getRadius();
@@ -108,7 +108,7 @@ void EnemieShip::anglecalcul()
 	m_angle = angle * 180.0f / 3.1415926f;
 
 }
-AABB& EnemieShip::GetBoundingBox()
+AABB EnemieShip::GetBoundingBox()
 {
 	Amin.x = m_ennemie.getPosition().x - m_ennemie.getRadius();
 	Amin.y = m_ennemie.getPosition().y - m_ennemie.getRadius();
@@ -179,7 +179,7 @@ void EnemieShip::update(float deltatime)
 	if (m_fire)
 	{
 		m_fire = false;
-		new Missile(m_game, m_ennemie, Type_ennemie_missile);
+		new Missile(m_game, m_ennemie, Type_Ennemie_Missile);
 	}
 	
 }
@@ -203,9 +203,9 @@ Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObje
 void Missile::set()
 {
 	//set texture
-	if (m_type == Type_missile)
+	if (m_type == Type_Missile)
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_paw.png"));
-	if (m_type == Type_ennemie_missile)
+	if (m_type == Type_Ennemie_Missile)
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
 	//set Ship position and Origin
 	m_missile.setOrigin(m_missile.getRadius(), m_missile.getRadius());
@@ -239,7 +239,7 @@ int& Missile::gettype()
 	return m_type;
 }
 
-AABB& Missile::GetBoundingBox()
+AABB Missile::GetBoundingBox()
 {
 	Amin.x = m_missile.getPosition().x - m_missile.getRadius();
 	Amin.y = m_missile.getPosition().y - m_missile.getRadius();

@@ -7,8 +7,8 @@ enum  GameOvject
 {
     Type_Ship = 0
     ,Type_Ennemie_Ship = 1
-    , Type_missile = 2
-    , Type_ennemie_missile = 3
+    , Type_Missile = 2
+    , Type_Ennemie_Missile = 3
 
 };
 class IGameObject
@@ -21,7 +21,7 @@ public:
     virtual void update(float deltatime) = 0;
     virtual void render() = 0;
     virtual int& gettype() =0;
-    virtual AABB& GetBoundingBox() = 0;
+    virtual AABB GetBoundingBox() = 0;
 
 protected:
     Game& m_game;

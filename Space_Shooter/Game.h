@@ -15,7 +15,7 @@ public:
     void render();
     void init();
     void testColision(IGameObject* A, IGameObject* B);
-    bool colision(AABB& A, AABB& B);
+    bool colision(AABB A, AABB B);
     //window 
     sf::Vector2u getWindowSize();
     sf::RenderWindow* getWindow();
