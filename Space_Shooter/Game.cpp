@@ -1,7 +1,8 @@
 #include "Game.h"
 #include "playableGameObject.h"
-Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta)
+Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize()))
 {
+	m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
 	init();
 }
 
@@ -39,6 +40,7 @@ void Game::update(const float& deltaTime)
 
 void Game::render()
 {
+	m_renderwindow->draw(m_Background);
 	for (auto Object : m_allGameObject)
 	{
 		Object->render();

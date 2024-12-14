@@ -52,14 +52,14 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 	if (m_actioncout == 500)
 		m_actioncout = 0;
 	if (m_actioncout == 0)
-	 m_random_number = objectenemie.m_rand->getrandomnumber(0, 5);
+	 m_random_number = objectenemie.m_rand->getrandomnumber(0, 6);
 
 	auto m_magnetude = sqrt((objectenemie.m_delta.x) * (objectenemie.m_delta.x) + (objectenemie.m_delta.y) * (objectenemie.m_delta.y));
 	srand(time(0));
 
 	switch (m_random_number)
 	{
-	case 0:
+	case Move_Right:
 		if ((m_ennemie.getPosition().x + m_ennemie.getRadius()) < objectenemie.m_game.getWindowSize().x)
 		{
 			if (remainingDistance = objectenemie.m_game.getWindowSize().x - (m_ennemie.getPosition().x + m_ennemie.getRadius()) < m_velocity)
@@ -69,7 +69,7 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 		}
 		m_actioncout++;
 		break;
-	case 1:
+	case Move_Left:
 		if ((m_ennemie.getPosition().x - m_ennemie.getRadius()) > 0)
 		{
 			if (remainingDistance = m_ennemie.getPosition().x - m_ennemie.getRadius() < m_velocity)
@@ -79,7 +79,7 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 		}
 		m_actioncout++;
 		break;
-	case 2:
+	case Move_Down:
 		if ((m_ennemie.getPosition().y + m_ennemie.getRadius()) < objectenemie.m_game.getWindowSize().y)
 		{
 			if (remainingDistance = objectenemie.m_game.getWindowSize().y - (m_ennemie.getPosition().y + m_ennemie.getRadius()) < m_velocity)
@@ -90,7 +90,7 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 		}
 		m_actioncout++;
 		break;
-	case 3:
+	case Move_Up:
 		if ((m_ennemie.getPosition().y - m_ennemie.getRadius()) > 0)
 		{
 			if (remainingDistance = m_ennemie.getPosition().y - m_ennemie.getRadius() < m_velocity)
@@ -100,13 +100,13 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 		}
 		m_actioncout++;
 		break;
-	case 4:
+	case Move_Closer_Player:
 		
 		objectenemie.m_position.x = objectenemie.m_delta.x / m_magnetude;
 		objectenemie.m_position.y = objectenemie.m_delta.y / m_magnetude;
 		m_actioncout++;
 		break;
-	case 5:
+	case Shoot:
 		if (objectenemie.m_elapsedTime.asSeconds() >= objectenemie.m_firerate)
 		{
 			objectenemie.m_fire = true;
@@ -114,8 +114,10 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 		}
 		m_actioncout++;
 		break;
-	default:
+	case Do_Nothing:
 		m_actioncout++;
+		break;
+	default:
 		break;
 	}
 

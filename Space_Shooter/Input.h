@@ -2,6 +2,17 @@
 #include <SFML/Graphics.hpp>
 #include "playableGameObject.h"
 #include "IGameObject.h"
+enum AI_move
+{
+	Move_Right
+	,Move_Left
+	,Move_Down
+	,Move_Up
+	,Move_Closer_Player
+	,Shoot
+	,Do_Nothing
+};
+
 class Iinput 
 {
 public:

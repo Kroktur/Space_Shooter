@@ -21,7 +21,7 @@ public:
     sf::RenderWindow* getWindow();
 
 private :
-
+    sf::RectangleShape m_Background;
     std::vector<IGameObject*> m_allGameObject;
     std::vector<IGameObject*> m_goingtoaddGameObject;
 };
