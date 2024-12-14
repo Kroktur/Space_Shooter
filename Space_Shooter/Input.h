@@ -28,4 +28,5 @@ public:
 private:
 	int m_actioncout;
 	float m_velocity;
+	int  m_random_number;
 };

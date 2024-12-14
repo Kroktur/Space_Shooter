@@ -6,7 +6,7 @@
 class SceneManager
 {
 public:
-    SceneManager(const int& width, const int& height, const std::string& title , const int& style = 0);
+    SceneManager(const int& width, const int& height, const std::string& title , const int& style = 7);
     void Exe();
     void processInput();
     void push_back(std::unique_ptr<SceneBase> scene);

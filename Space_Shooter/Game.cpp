@@ -28,6 +28,13 @@ void Game::update(const float& deltaTime)
 	{
 		Object->update(deltaTime);
 	}
+	for (int idx_x = 0; idx_x < m_allGameObject.size(); ++idx_x)
+	{
+		for (int idx_y = idx_x + 1; idx_y < m_allGameObject.size(); ++idx_y)
+		{
+			testColision(m_allGameObject[idx_x], m_allGameObject[idx_y]);
+		}
+	}
 }
 
 void Game::render()
@@ -44,6 +51,8 @@ void Game::init()
 	auto test_ = dynamic_cast<Ship*>(test);
 	new EnemieShip(*this, test_->getcircle());
 }
+
+
 
 
 

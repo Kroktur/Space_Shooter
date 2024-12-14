@@ -38,7 +38,7 @@ void PlayerInput::processinput(IGameObject& object, sf::Event& event)
 
 
 
-IaInput::IaInput() : m_actioncout(0), m_velocity(5.f)
+IaInput::IaInput() : m_actioncout(0), m_velocity(2.5f), m_random_number(0)
 {
 }
 
@@ -48,22 +48,16 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 	auto& m_ennemie = objectenemie.m_ennemie;
 	objectenemie.m_elapsedTime = objectenemie.m_clock.getElapsedTime();
 	auto remainingDistance = 0;
-	int random_number =0 ;
-	if (m_actioncout == 20)
-	{
-		m_actioncout = 0;
-	}
-	if (m_actioncout == 0)
-	{
 	
-	 random_number = objectenemie.m_rand->getrandomnumber(0, 5);
-	}
-
+	if (m_actioncout == 500)
+		m_actioncout = 0;
+	if (m_actioncout == 0)
+	 m_random_number = objectenemie.m_rand->getrandomnumber(0, 5);
 
 	auto m_magnetude = sqrt((objectenemie.m_delta.x) * (objectenemie.m_delta.x) + (objectenemie.m_delta.y) * (objectenemie.m_delta.y));
 	srand(time(0));
 
-	switch (random_number)
+	switch (m_random_number)
 	{
 	case 0:
 		if ((m_ennemie.getPosition().x + m_ennemie.getRadius()) < objectenemie.m_game.getWindowSize().x)

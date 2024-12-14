@@ -50,7 +50,7 @@ void Ship::render()
 	m_game.getWindow()->draw(m_ship);
 }
 
-int Ship::gettype()
+int& Ship::gettype()
 {
 	return m_type;
 }
@@ -61,6 +61,18 @@ void Ship::resetmooveposition()
 {
 	m_position.x = 0;
 	m_position.y = 0;
+}
+
+AABB& Ship::GetBoundingBox()
+{
+	
+	 Amin.x = m_ship.getPosition().x - m_ship.getRadius();
+	 Amin.y = m_ship.getPosition().y - m_ship.getRadius();
+
+	 Amax.x = m_ship.getPosition().x + m_ship.getRadius();
+	 Amax.y = m_ship.getPosition().y + m_ship.getRadius();
+	 AABB boundingbox(Amin, Amax);
+	 return boundingbox;
 }
 
 sf::CircleShape& Ship::getcircle()
@@ -95,6 +107,17 @@ void EnemieShip::anglecalcul()
 	float angle = atan2(m_delta.y, m_delta.x);
 	m_angle = angle * 180.0f / 3.1415926f;
 
+}
+AABB& EnemieShip::GetBoundingBox()
+{
+	Amin.x = m_ennemie.getPosition().x - m_ennemie.getRadius();
+	Amin.y = m_ennemie.getPosition().y - m_ennemie.getRadius();
+
+	Amax.x = m_ennemie.getPosition().x + m_ennemie.getRadius();
+	Amax.y = m_ennemie.getPosition().y + m_ennemie.getRadius();
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
 }
 void EnemieShip::resetmooveposition()
 {
@@ -166,7 +189,7 @@ void EnemieShip::render()
 	m_game.getWindow()->draw(m_ennemie);
 }
 
-int EnemieShip::gettype()
+int& EnemieShip::gettype()
 {
 	return m_type;
 }
@@ -211,8 +234,20 @@ void Missile::render()
 	m_game.getWindow()->draw(m_missile);
 }
 
-int Missile::gettype()
+int& Missile::gettype()
 {
 	return m_type;
+}
+
+AABB& Missile::GetBoundingBox()
+{
+	Amin.x = m_missile.getPosition().x - m_missile.getRadius();
+	Amin.y = m_missile.getPosition().y - m_missile.getRadius();
+
+	Amax.x = m_missile.getPosition().x + m_missile.getRadius();
+	Amax.y = m_missile.getPosition().y + m_missile.getRadius();
+
+	AABB boundingbox(Amin, Amax );
+	return boundingbox;
 }
 

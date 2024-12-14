@@ -16,16 +16,19 @@ public:
     void input(sf::Event event) override;
     void update(float deltatime)override;
     void render() override;
-    int gettype() override;
+    int& gettype() override;
     void resetmooveposition();
+    AABB& GetBoundingBox() override;
     sf::CircleShape& getcircle();
 private:
     
- 
+    Vec2 Amin;
+    Vec2 Amax;
+
     sf::CircleShape m_ship;
     sf::Vector2f m_position;
     float m_angle;
-    const int m_type;
+     int m_type;
 
     Iinput* m_input;
 
@@ -44,18 +47,23 @@ public:
     void input(sf::Event event) override;
     void update(float deltatime)override;
     void render() override;
-    int gettype() override;
+    int& gettype() override;
     void resetmooveposition();
     void deltapositin();
     void anglecalcul();
-   
+    AABB& GetBoundingBox() override;
+
 private:
+
+    Vec2 Amin;
+    Vec2 Amax;
+
     sf::Vector2f m_delta;
     sf::CircleShape m_ennemie;
     sf::CircleShape& m_ship;
     sf::Vector2f m_position;
     float m_angle;
-    const int m_type;
+  int m_type;
 
      Iinput* m_input;
 
@@ -73,14 +81,21 @@ public:
     void input(sf::Event event) override;
     void update(float deltatime)override;
     void render() override;
-    int gettype() override;
-    
+    int& gettype() override;
+    AABB& GetBoundingBox() override;
+
 private:
+
+    Vec2 Amin;
+    Vec2 Amax;
+
+
+
     sf::CircleShape m_missile;
     sf::Vector2f m_position;
     float m_velocity;
     sf::CircleShape& m_shape;
-    const int m_type;
+     int m_type;
 };
 
 
