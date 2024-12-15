@@ -19,7 +19,9 @@ public:
     int& gettype() override;
     void resetmooveposition();
     AABB GetBoundingBox() override;
+   
     sf::CircleShape& getcircle();
+    void TakeDomage();
 private:
     
     Vec2 Amin;
@@ -31,7 +33,7 @@ private:
      int m_type;
 
     Iinput* m_input;
-
+    int m_vie;
     bool m_fire;
     const float m_firerate;
     sf::Clock m_clock;
@@ -52,7 +54,7 @@ public:
     void deltapositin();
     void anglecalcul();
     AABB GetBoundingBox() override;
-
+    void TakeDomage();
 private:
 
     Vec2 Amin;
@@ -66,7 +68,7 @@ private:
   int m_type;
 
      Iinput* m_input;
-
+     int m_vie;
     bool m_fire;
     const float m_firerate;
     sf::Clock m_clock;
@@ -83,14 +85,14 @@ public:
     void render() override;
     int& gettype() override;
     AABB GetBoundingBox() override;
-
+    void TakeDomage();
 private:
 
     Vec2 Amin;
     Vec2 Amax;
 
-
-
+    int m_vie;
+    float m_angle;
     sf::CircleShape m_missile;
     sf::Vector2f m_position;
     float m_velocity;

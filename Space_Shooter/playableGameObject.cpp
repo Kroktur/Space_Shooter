@@ -1,9 +1,9 @@
 #include "playableGameObject.h"
 #include "Input.h"
 
-Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_type(Type_Ship),m_position(0,0)
+Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_type(Type_Ship), m_position(0, 0), m_vie(3)
 {
-	
+	m_vie = 3;
 	setShip();
 }
 
@@ -80,8 +80,16 @@ sf::CircleShape& Ship::getcircle()
 	return m_ship;
 }
 
-EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :IGameObject(game), m_ennemie(50), m_ship(circle), m_angle(0), m_fire(false), m_firerate(1.f), m_type(Type_Ennemie_Ship), m_position(0, 0), m_delta(0, 0)
+void Ship::TakeDomage()
 {
+	--m_vie;
+	if (m_vie == 0)
+		delete this;
+}
+
+EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :IGameObject(game), m_ennemie(50), m_ship(circle), m_angle(0), m_fire(false), m_firerate(1.f), m_type(Type_Ennemie_Ship), m_position(0, 0), m_delta(0, 0), m_vie(1)
+{
+	m_vie = 1;
 	setennemie();
 }
 
@@ -118,6 +126,12 @@ AABB EnemieShip::GetBoundingBox()
 
 	AABB boundingbox(Amin, Amax);
 	return boundingbox;
+}
+void EnemieShip::TakeDomage()
+{
+	--m_vie;
+	if (m_vie == 0)
+		delete this;
 }
 void EnemieShip::resetmooveposition()
 {
@@ -194,7 +208,7 @@ int& EnemieShip::gettype()
 	return m_type;
 }
 
-Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(25), m_velocity(12.5f) ,m_shape(circle), m_type(type)
+Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(25), m_velocity(12.5f) ,m_shape(circle), m_type(type), m_vie(1)
 {	
 
 	set();
@@ -211,10 +225,10 @@ void Missile::set()
 	m_missile.setOrigin(m_missile.getRadius(), m_missile.getRadius());
 	m_missile.setPosition(m_shape.getPosition());
 	//set angle
-	auto angle = m_shape.getRotation();
-	m_missile.setRotation(angle);
+	m_angle = m_shape.getRotation();
+	m_missile.setRotation(m_angle);
 	// set move 
-	float angle_rad = angle * (3.14159265f / 180.f);
+	float angle_rad = m_angle * (3.14159265f / 180.f);
 	m_position.x = m_velocity * std::cos(angle_rad);
 	m_position.y = m_velocity * std::sin(angle_rad);
 
@@ -249,5 +263,12 @@ AABB Missile::GetBoundingBox()
 
 	AABB boundingbox(Amin, Amax );
 	return boundingbox;
+}
+
+void Missile::TakeDomage()
+{
+	--m_vie;
+	if (m_vie == 0)
+		delete this;
 }
 

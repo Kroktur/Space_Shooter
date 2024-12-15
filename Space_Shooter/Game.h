@@ -20,8 +20,12 @@ public:
     sf::Vector2u getWindowSize();
     sf::RenderWindow* getWindow();
 
+    void addObject();
+    void deleteObject();
+
 private :
     sf::RectangleShape m_Background;
     std::vector<IGameObject*> m_allGameObject;
-    std::vector<IGameObject*> m_goingtoaddGameObject;
+    std::vector<IGameObject*> m_tobeaddGameObject;
+    std::vector<IGameObject*> m_toberemovedGameObject;
 };

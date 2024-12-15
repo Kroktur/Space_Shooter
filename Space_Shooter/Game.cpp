@@ -24,10 +24,10 @@ void Game::processInput(const sf::Event& event)
 
 void Game::update(const float& deltaTime)
 {
-	m_allGameObject = m_goingtoaddGameObject;
+	addObject();
 	for (auto Object : m_allGameObject)
 	{
-		Object->update(deltaTime);
+ 		Object->update(deltaTime);
 	}
 	for (int idx_x = 0; idx_x < m_allGameObject.size(); ++idx_x)
 	{
@@ -36,6 +36,7 @@ void Game::update(const float& deltaTime)
 			testColision(m_allGameObject[idx_x], m_allGameObject[idx_y]);
 		}
 	}
+
 }
 
 void Game::render()
@@ -66,6 +67,19 @@ sf::Vector2u Game::getWindowSize()
 sf::RenderWindow* Game::getWindow()
 {
 	return m_renderwindow;
+}
+
+void Game::addObject()
+{
+	for (auto toaddgameobject : m_tobeaddGameObject)
+		m_allGameObject.push_back(toaddgameobject);
+	m_tobeaddGameObject.clear();
+}
+
+void Game::deleteObject()
+{
+	for(auto idx =0; idx < m_toberemovedGameObject.size();++ idx )
+	m_allGameObject.erase(m_toberemovedGameObject.begin() , m_toberemovedGameObject.end() , idx)
 }
 
 

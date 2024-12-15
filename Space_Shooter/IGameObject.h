@@ -15,17 +15,18 @@ class IGameObject
 {
 public:
    
-    virtual ~IGameObject() = default;
+    virtual ~IGameObject();
     IGameObject(Game& game);
     virtual void input(sf::Event event) = 0;
     virtual void update(float deltatime) = 0;
     virtual void render() = 0;
     virtual int& gettype() =0;
     virtual AABB GetBoundingBox() = 0;
-
+    virtual void TakeDomage() = 0;
 protected:
     Game& m_game;
     Randomnumber* m_rand;
+  
    
 };
 
