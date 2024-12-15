@@ -3,11 +3,13 @@
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
+class GameInput;
 class Ship;
+class Iinput;
 class Game : public SceneBase
 {
 public:
-
+    friend GameInput;
     friend IGameObject;
     Game(sf::RenderWindow* window, const float& framereta);
     ~Game();
@@ -34,4 +36,5 @@ private :
     std::vector<IGameObject*> m_toberemovedGameObject;
     Ship* m_player;
     bool m_showAABB = false;
+    Iinput* m_input;
 };

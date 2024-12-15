@@ -7,6 +7,11 @@ Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false)
 	setShip();
 }
 
+Ship::~Ship()
+{
+	delete m_input;
+}
+
 void Ship::setShip()
 {
 	//set texture
@@ -15,7 +20,7 @@ void Ship::setShip()
 	m_ship.setOrigin(m_ship.getRadius(), m_ship.getRadius());
 	m_ship.setPosition(m_game.getWindowSize().x / 2, m_game.getWindowSize().y / 2);
 	//input
-	m_input = new PlayerInput;
+	m_input = new PlayerInput(*this);
 }
 void Ship::anglecalcul()
 {
@@ -30,7 +35,7 @@ void Ship::anglecalcul()
 void Ship::input(sf::Event event)
 {		
 	resetmooveposition();
-	m_input->processinput(*this, event);
+	m_input->processinput( event);
 }
 
 void Ship::update(float deltatime)
@@ -93,6 +98,11 @@ EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :IGameObject(game), 
 	setennemie();
 }
 
+EnemieShip::~EnemieShip()
+{
+	delete m_input;
+}
+
 void EnemieShip::setennemie()
 {
 	//set Ship position and Origin
@@ -101,7 +111,7 @@ void EnemieShip::setennemie()
 	//set texture
 	m_ennemie.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie.png"));
 	//input
-	m_input = new IaInput;
+	m_input = new IaInput(*this);
 
 }
 void EnemieShip::deltapositin()
@@ -181,7 +191,7 @@ sf::Vector2f EnemieShip::SetrandomPosition()
 void EnemieShip::input(sf::Event event)
 {
 	resetmooveposition();
-	m_input->processinput(*this, event);
+	m_input->processinput( event);
 }
 
 void EnemieShip::update(float deltatime)

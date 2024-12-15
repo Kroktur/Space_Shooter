@@ -17,7 +17,7 @@ class Iinput
 {
 public:
 		virtual ~Iinput() = default;
-		virtual void processinput(IGameObject& object, sf::Event& event) =0;
+		virtual void processinput( sf::Event& event) =0;
 
 	
 };
@@ -26,23 +26,33 @@ public:
 class PlayerInput : public Iinput
 {
 public:	
-	void processinput(IGameObject& object, sf::Event& event)override;
+	PlayerInput(IGameObject& object);
+	void processinput( sf::Event& event)override;
 private:
 	float m_velocity;
+	IGameObject& m_object;
 };
 
 class IaInput : public Iinput
 {
 public:
-	IaInput();
-	void processinput(IGameObject& object, sf::Event& event) override;
+	
+	IaInput(IGameObject& object);
+	void processinput( sf::Event& event) override;
 private:
 	int m_actioncout;
 	float m_velocity;
 	int  m_random_number;
+	IGameObject& m_object;
 };
 class  GameInput : public Iinput
 {
-public:
-	void processinput(IGameObject& object, sf::Event& event)override;
+	public:	
+		GameInput(Game& game);
+	void processinput( sf::Event& event)override;
+private :
+	Game& m_game;
+	sf::Clock m_clock;
+	sf::Time m_Time;
+	float m_lag;
 };

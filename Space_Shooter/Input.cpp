@@ -1,9 +1,13 @@
 #include "Input.h"
 
 
-void PlayerInput::processinput(IGameObject& object, sf::Event& event)
+PlayerInput::PlayerInput(IGameObject& object): m_object(object)
 {
-	auto& objectship = dynamic_cast<Ship&>(object);
+}
+
+void PlayerInput::processinput( sf::Event& event)
+{
+	auto& objectship = dynamic_cast<Ship&>(m_object);
 	auto& m_ship = objectship.m_ship;
 	auto windowsize = objectship.m_game.getWindowSize();
 	objectship.m_elapsedTime = objectship.m_clock.getElapsedTime();
@@ -38,13 +42,14 @@ void PlayerInput::processinput(IGameObject& object, sf::Event& event)
 
 
 
-IaInput::IaInput() : m_actioncout(0), m_velocity(2.5f), m_random_number(0)
+
+IaInput::IaInput(IGameObject& object) : m_actioncout(0), m_velocity(2.5f), m_random_number(0), m_object(object)
 {
 }
 
-void IaInput::processinput(IGameObject& object, sf::Event& event) 
+void IaInput::processinput( sf::Event& event) 
 {
-	auto& objectenemie = dynamic_cast<EnemieShip&>(object);
+	auto& objectenemie = dynamic_cast<EnemieShip&>(m_object);
 	auto& m_ennemie = objectenemie.m_ennemie;
 	objectenemie.m_elapsedTime = objectenemie.m_clock.getElapsedTime();
 	auto remainingDistance = 0;
@@ -126,6 +131,20 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 
 }
 
-void GameInput::processinput(IGameObject& object, sf::Event& event)
+GameInput::GameInput(Game& game): m_game(game) ,m_lag(0.25)
 {
+}
+
+void GameInput::processinput( sf::Event& event)
+{
+	m_Time = m_clock.getElapsedTime();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		if (m_Time.asSeconds() >= m_lag)
+		{
+			m_game.m_showAABB = !m_game.m_showAABB;
+			m_clock.restart();
+		}
+	}
+	
 }

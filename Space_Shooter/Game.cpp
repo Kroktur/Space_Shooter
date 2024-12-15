@@ -1,30 +1,27 @@
 #include "Game.h"
 #include "playableGameObject.h"
-// a enlever
-#include<iostream>
+#include "Input.h"
+
 
 Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize()))
 {
+	m_input = new GameInput(*this);
 	m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
 	init();
 }
 
 Game::~Game()
 {
+
 	for (auto Object : m_allGameObject)
 		delete Object;
-	
+	delete m_input;
 }
 
 void Game::processInput(sf::Event& event)
 {
-	while (m_renderwindow->pollEvent(event))
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-			m_showAABB = !m_showAABB;
-		std::cout << "espace";
-	}
-		objectinput(event);
+	m_input->processinput(event);
+    objectinput(event);
 			
 
 	
@@ -32,6 +29,7 @@ void Game::processInput(sf::Event& event)
 
 void Game::objectinput(sf::Event& event)
 {
+	
 	for (auto Object : m_allGameObject)
 	{
 		Object->input(event);
@@ -40,6 +38,7 @@ void Game::objectinput(sf::Event& event)
 
 void Game::update(const float& deltaTime)
 {
+	
 	spawnObject();
 	addObject();
 	for (auto Object : m_allGameObject)

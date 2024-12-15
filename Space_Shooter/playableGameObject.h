@@ -11,6 +11,7 @@ class Ship : public IGameObject
 public:
     friend PlayerInput;
     Ship(Game& game);
+    ~Ship();
     void setShip();
     void anglecalcul();
     void input(sf::Event event) override;
@@ -44,6 +45,7 @@ class EnemieShip : public IGameObject
 public:
     friend IaInput;
     EnemieShip(Game& game, sf::CircleShape& circle);
+    ~EnemieShip();
     void setennemie();
     sf::Vector2f SetrandomPosition();
     void input(sf::Event event) override;
