@@ -18,5 +18,5 @@ private:
     std::unique_ptr<sf::RenderWindow> m_window;
     std::vector<std::unique_ptr<SceneBase>> m_scenes;
     SceneBase* m_currentScene;
-    sf::Event event;
+    sf::Event m_event;
 };

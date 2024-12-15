@@ -93,7 +93,7 @@ private:
 
     int m_vie;
     float m_angle;
-    sf::CircleShape m_missile;
+    sf::RectangleShape m_missile;
     sf::Vector2f m_position;
     float m_velocity;
     sf::CircleShape& m_shape;

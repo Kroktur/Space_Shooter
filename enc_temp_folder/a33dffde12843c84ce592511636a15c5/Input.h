@@ -41,8 +41,3 @@ private:
 	float m_velocity;
 	int  m_random_number;
 };
-class  GameInput : public Iinput
-{
-public:
-	void processinput(IGameObject& object, sf::Event& event)override;
-};

@@ -3,7 +3,7 @@
 
 IGameObject::~IGameObject()
 {
-	m_game.m_toberemovedGameObject.push_back(this);
+
 }
 
 IGameObject::IGameObject(Game& game) : m_game(game)

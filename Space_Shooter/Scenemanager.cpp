@@ -9,13 +9,13 @@ SceneManager::SceneManager(const int& width, const int& height, const std::strin
 void SceneManager::processInput()
 {
     // input
-    sf::Event event;
-    while (m_window->pollEvent(event))
+   
+    while (m_window->pollEvent(m_event))
     {
-        if (event.type == sf::Event::Closed)
+        if (m_event.type == sf::Event::Closed)
             m_window->close();
 
-        if (event.type == sf::Event::KeyPressed)
+        if (m_event.type == sf::Event::KeyPressed)
         {
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
@@ -57,12 +57,7 @@ void SceneManager::Exe()
    /* int counter = 0;*/
     while (m_window->isOpen())
     {
-       /* if (const float lastSpawnTick = spawnClock.getElapsedTime().asMilliseconds(); lastSpawnTick - startSpawn > 1000)
-        {
-            std::cout << "FPS: " << counter << std::endl;
-            startSpawn = lastSpawnTick;
-            counter = 0;
-        }*/
+   
 
         const float current = clock.getElapsedTime().asMilliseconds();
         const auto elapsed = current - previous;
@@ -72,7 +67,8 @@ void SceneManager::Exe()
         m_window->clear();
 
         processInput();
-        m_currentScene->processInput(event);
+        m_currentScene->processInput(m_event);
+       
         while (m_currentScene->getRefreshTime().asMilliseconds() > 0.0
             && lag >= m_currentScene->getRefreshTime().asMilliseconds())
         {

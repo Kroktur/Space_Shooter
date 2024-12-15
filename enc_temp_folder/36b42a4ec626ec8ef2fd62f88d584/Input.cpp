@@ -126,6 +126,4 @@ void IaInput::processinput(IGameObject& object, sf::Event& event)
 
 }
 
-void GameInput::processinput(IGameObject& object, sf::Event& event)
-{
-}
+

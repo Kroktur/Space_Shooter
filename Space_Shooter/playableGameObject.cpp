@@ -82,9 +82,9 @@ sf::CircleShape& Ship::getcircle()
 
 void Ship::TakeDomage()
 {
-	--m_vie;
+	/*--m_vie;
 	if (m_vie == 0)
-		delete this;
+		m_game.toberemoved(this);*/
 }
 
 EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :IGameObject(game), m_ennemie(50), m_ship(circle), m_angle(0), m_fire(false), m_firerate(1.f), m_type(Type_Ennemie_Ship), m_position(0, 0), m_delta(0, 0), m_vie(1)
@@ -131,7 +131,7 @@ void EnemieShip::TakeDomage()
 {
 	--m_vie;
 	if (m_vie == 0)
-		delete this;
+		m_game.toberemoved(this);
 }
 void EnemieShip::resetmooveposition()
 {
@@ -208,7 +208,7 @@ int& EnemieShip::gettype()
 	return m_type;
 }
 
-Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(25), m_velocity(12.5f) ,m_shape(circle), m_type(type), m_vie(1)
+Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(sf::Vector2f(25,5)), m_velocity(12.5f) ,m_shape(circle), m_type(type), m_vie(1)
 {	
 
 	set();
@@ -222,7 +222,7 @@ void Missile::set()
 	if (m_type == Type_Ennemie_Missile)
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
 	//set Ship position and Origin
-	m_missile.setOrigin(m_missile.getRadius(), m_missile.getRadius());
+	m_missile.setOrigin(m_missile.getSize().x/2, m_missile.getSize().y / 2);
 	m_missile.setPosition(m_shape.getPosition());
 	//set angle
 	m_angle = m_shape.getRotation();
@@ -255,11 +255,11 @@ int& Missile::gettype()
 
 AABB Missile::GetBoundingBox()
 {
-	Amin.x = m_missile.getPosition().x - m_missile.getRadius();
-	Amin.y = m_missile.getPosition().y - m_missile.getRadius();
+	Amin.x = m_missile.getPosition().x - m_missile.getSize().x;
+	Amin.y = m_missile.getPosition().y - m_missile.getSize().y;
 
-	Amax.x = m_missile.getPosition().x + m_missile.getRadius();
-	Amax.y = m_missile.getPosition().y + m_missile.getRadius();
+	Amax.x = m_missile.getPosition().x + m_missile.getSize().x;
+	Amax.y = m_missile.getPosition().y + m_missile.getSize().y;
 
 	AABB boundingbox(Amin, Amax );
 	return boundingbox;
@@ -269,6 +269,6 @@ void Missile::TakeDomage()
 {
 	--m_vie;
 	if (m_vie == 0)
-		delete this;
+		m_game.toberemoved(this);
 }
 

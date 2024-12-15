@@ -12,17 +12,21 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 			if ((A->gettype() == Type_Missile && B->gettype() == Type_Ennemie_Ship)
 				|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Missile))
 			{
-				/*A->TakeDomage();
-				B->TakeDomage();*/
+				A->TakeDomage();
+				B->TakeDomage();
 			}
 			if ((A->gettype() == Type_Ship && B->gettype() == Type_Ennemie_Ship)
 					|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Ship))
 			{
+				A->TakeDomage();
+				B->TakeDomage();
 					std::cout << "enemie colision me";
 			}
 			if ((A->gettype() == Type_Ennemie_Missile && B->gettype() == Type_Ship)
 				|| (A->gettype() == Type_Ship && B->gettype() == Type_Ennemie_Missile))
 			{
+				A->TakeDomage();
+				B->TakeDomage();
 				std::cout << "ennemie touched me";
 			}
 

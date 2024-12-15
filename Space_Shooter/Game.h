@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
+class Ship;
 class Game : public SceneBase
 {
 public:
@@ -10,7 +11,8 @@ public:
     friend IGameObject;
     Game(sf::RenderWindow* window, const float& framereta);
     ~Game();
-    void processInput(const sf::Event& event);
+    void processInput( sf::Event& event);
+    void objectinput(sf::Event& event);
     void update(const float& deltaTime);
     void render();
     void init();
@@ -19,13 +21,17 @@ public:
     //window 
     sf::Vector2u getWindowSize();
     sf::RenderWindow* getWindow();
-
+    void spawnObject();
     void addObject();
+    void toberemoved(IGameObject* it);
     void deleteObject();
-
+    void renderAABB();
 private :
+
     sf::RectangleShape m_Background;
     std::vector<IGameObject*> m_allGameObject;
     std::vector<IGameObject*> m_tobeaddGameObject;
     std::vector<IGameObject*> m_toberemovedGameObject;
+    Ship* m_player;
+    bool m_showAABB = false;
 };
