@@ -3,6 +3,7 @@
 Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta)
 {
 	init();
+
 }
 
 Game::~Game()
@@ -35,6 +36,18 @@ void Game::update(const float& deltaTime)
 			testColision(m_allGameObject[idx_x], m_allGameObject[idx_y]);
 		}
 	}
+	for (auto obj : m_objectsToRemove)
+	{
+		auto it = std::find(m_allGameObject.begin(), m_allGameObject.end(), obj);
+		if (it != m_allGameObject.end())
+		{
+			delete *it;
+			m_allGameObject.erase(it);
+		}
+	}
+
+	m_objectsToRemove.clear();
+
 }
 
 void Game::render()
@@ -50,6 +63,9 @@ void Game::init()
 	auto test = new Ship(*this);
 	auto test_ = dynamic_cast<Ship*>(test);
 	new EnemieShip(*this, test_->getcircle());
+	sf::Clock m_ennemieSpawnClock;
+	float m_ennemieSpawnInterval = 3.0f;
+	
 }
 
 

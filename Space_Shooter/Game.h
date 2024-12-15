@@ -24,4 +24,5 @@ private :
 
     std::vector<IGameObject*> m_allGameObject;
     std::vector<IGameObject*> m_goingtoaddGameObject;
+    std::vector<IGameObject*> m_objectsToRemove;
 };

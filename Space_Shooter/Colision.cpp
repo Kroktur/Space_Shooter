@@ -12,19 +12,27 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 			if ((A->gettype() == Type_Missile && B->gettype() == Type_Ennemie_Ship)
 				|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Missile))
 			{
-				std::cout << "i touched ennemie";
+				m_objectsToRemove.push_back(A);
+				m_objectsToRemove.push_back(B);
 			}
 			if ((A->gettype() == Type_Ship && B->gettype() == Type_Ennemie_Ship)
 					|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Ship))
 			{
-					std::cout << "enemie colision me";
+				m_objectsToRemove.push_back(A);
+				m_objectsToRemove.push_back(B);
 			}
 			if ((A->gettype() == Type_Ennemie_Missile && B->gettype() == Type_Ship)
 				|| (A->gettype() == Type_Ship && B->gettype() == Type_Ennemie_Missile))
 			{
-				std::cout << "ennemie touched me";
+				m_objectsToRemove.push_back(A);
+				m_objectsToRemove.push_back(B);
 			}
-
+			if ((A->gettype() == Type_Ennemie_Missile && B->gettype() == Type_Missile)
+				|| (A->gettype() == Type_Missile && B->gettype() == Type_Ennemie_Missile))
+			{
+				m_objectsToRemove.push_back(A);
+				m_objectsToRemove.push_back(B);
+			}
 		}
 		
 	
