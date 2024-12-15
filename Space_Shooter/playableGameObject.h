@@ -101,6 +101,26 @@ private:
     sf::CircleShape& m_shape;
      int m_type;
 };
+class Barrier : public IGameObject
+{
+public:
+    Barrier(Game& game, Vec2& Position1 , Vec2& Position2);
+    void initBarrer();
+    void input(sf::Event event);
+    void update(float deltatime);
+    void render();
+    int& gettype();
+    AABB GetBoundingBox();
+    void TakeDomage();
 
+private:
+    Vec2 Amin;
+    Vec2 Amax;
+    Vec2& Position_min;
+    Vec2& Position_max;
+    int m_type;
+    sf::RectangleShape m_Barrer;
+
+};
 
 

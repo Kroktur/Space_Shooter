@@ -1,6 +1,9 @@
 #include "playableGameObject.h"
 #include "Input.h"
+#include <cmath>
 
+//a enlever
+#include <iostream>
 Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_type(Type_Ship), m_position(0, 0), m_vie(3)
 {
 	m_vie = 3;
@@ -105,7 +108,7 @@ EnemieShip::~EnemieShip()
 
 void EnemieShip::setennemie()
 {
-	//set Ship position and Origin
+	//set EnemieShip position and Origin
 	m_ennemie.setOrigin(m_ennemie.getRadius(), m_ennemie.getRadius());
 	m_ennemie.setPosition(SetrandomPosition());
 	//set texture
@@ -231,7 +234,7 @@ void Missile::set()
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_paw.png"));
 	if (m_type == Type_Ennemie_Missile)
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
-	//set Ship position and Origin
+	//set Missile position and Origin
 	m_missile.setOrigin(m_missile.getSize().x/2, m_missile.getSize().y / 2);
 	m_missile.setPosition(m_shape.getPosition());
 	//set angle
@@ -256,6 +259,8 @@ void Missile::update(float deltatime)
 void Missile::render()
 {
 	m_game.getWindow()->draw(m_missile);
+	std::cout << m_missile.getPosition().x << " , " << m_missile.getPosition().y;
+	std::cout << std::endl;
 }
 
 int& Missile::gettype()
@@ -265,11 +270,11 @@ int& Missile::gettype()
 
 AABB Missile::GetBoundingBox()
 {
-	Amin.x = m_missile.getPosition().x - m_missile.getSize().x;
-	Amin.y = m_missile.getPosition().y - m_missile.getSize().y;
+	Amin.x = m_missile.getPosition().x - m_missile.getSize().x/2;
+	Amin.y = m_missile.getPosition().y - m_missile.getSize().y/2;
 
-	Amax.x = m_missile.getPosition().x + m_missile.getSize().x;
-	Amax.y = m_missile.getPosition().y + m_missile.getSize().y;
+	Amax.x = m_missile.getPosition().x + m_missile.getSize().x/2;
+	Amax.y = m_missile.getPosition().y + m_missile.getSize().y/2;
 
 	AABB boundingbox(Amin, Amax );
 	return boundingbox;
@@ -282,3 +287,51 @@ void Missile::TakeDomage()
 		m_game.toberemoved(this);
 }
 
+Barrier::Barrier(Game& game, Vec2& position1, Vec2& Position2) :IGameObject(game), Position_min(position1), Position_max(Position2), m_type(Type_Barrier)
+{
+	initBarrer();
+}
+
+void Barrier::initBarrer()
+{
+	
+	m_Barrer.setSize(sf::Vector2f(std::abs(Position_max.x - Position_min.x), std::abs(Position_max.y - Position_min.y)));
+	m_Barrer.setOrigin(m_Barrer.getSize().x / 2, m_Barrer.getSize().y / 2);
+	m_Barrer.setPosition(sf::Vector2f(Position_min.x +(Position_max.x-Position_min.x)/2, Position_min.y + std::abs(Position_max.y - Position_min.y) / 2));
+}
+
+void Barrier::input(sf::Event event)
+{
+}
+
+void Barrier::update(float deltatime)
+{
+}
+
+void Barrier::render()
+{
+	m_game.getWindow()->draw(m_Barrer);
+
+}
+
+int& Barrier::gettype()
+{
+	return m_type;
+}
+
+AABB Barrier::GetBoundingBox()
+{
+	Amin.x = m_Barrer.getPosition().x - m_Barrer.getSize().x/2;
+	Amin.y = m_Barrer.getPosition().y - m_Barrer.getSize().y/2;
+
+	Amax.x = m_Barrer.getPosition().x + m_Barrer.getSize().x/2;
+	Amax.y = m_Barrer.getPosition().y + m_Barrer.getSize().y/2;
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void Barrier::TakeDomage()
+{
+
+}

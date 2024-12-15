@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "playableGameObject.h"
 #include "Input.h"
-
+#include "MyMath.h"
 
 Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize()))
 {
@@ -68,8 +68,19 @@ void Game::render()
 
 void Game::init()
 {
+	m_Borderlimit = 50;
 	m_player = dynamic_cast<Ship*>(new Ship(*this));
+	auto leftTopBarrierCorner  = Vec2{0,0 };
+	auto leftDownBarrierCorner = Vec2{ 0,static_cast<float>(m_renderwindow->getSize().y)  };
+
+	auto RightTopBarrierCorner = Vec2{  static_cast<float>(m_renderwindow->getSize().x), 0 };
+	auto RightDownBarrierCorner = Vec2{ static_cast<float>(m_renderwindow->getSize().x) ,m_Borderlimit+static_cast<float>(m_renderwindow->getSize().y) };
 	
+	//new Barrier(*this, leftTopBarrierCorner, leftDownBarrierCorner);
+	//new Barrier(*this, leftDownBarrierCorner, RightDownBarrierCorner);
+	//new Barrier(*this, RightTopBarrierCorner, RightDownBarrierCorner);
+	//new Barrier(*this, leftTopBarrierCorner, RightTopBarrierCorner);
+
 }
 
 

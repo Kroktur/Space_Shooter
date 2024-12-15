@@ -29,7 +29,20 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage();
 				std::cout << "ennemie touched me";
 			}
-
+			if ((A->gettype() == Type_Ennemie_Missile && B->gettype() == Type_Missile)
+				|| (A->gettype() == Type_Missile && B->gettype() == Type_Ennemie_Missile))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+				std::cout << "Missile against Missile";
+			}
+			if ((A->gettype() == Type_Barrier )
+				|| ( B->gettype() == Type_Barrier))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+				std::cout << "Barrier";
+			}
 		}
 		
 	

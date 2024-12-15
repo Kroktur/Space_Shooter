@@ -107,8 +107,8 @@ void IaInput::processinput( sf::Event& event)
 		break;
 	case Move_Closer_Player:
 		
-		objectenemie.m_position.x = objectenemie.m_delta.x / m_magnetude;
-		objectenemie.m_position.y = objectenemie.m_delta.y / m_magnetude;
+		objectenemie.m_position.x = (objectenemie.m_delta.x / m_magnetude)* m_velocity;
+		objectenemie.m_position.y = (objectenemie.m_delta.y / m_magnetude)* m_velocity;
 		m_actioncout++;
 		break;
 	case Shoot:

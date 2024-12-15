@@ -5,6 +5,7 @@
 #include "MyMath.h"
 class GameInput;
 class Ship;
+class Barrier;
 class Iinput;
 class Game : public SceneBase
 {
@@ -37,4 +38,5 @@ private :
     Ship* m_player;
     bool m_showAABB = false;
     Iinput* m_input;
+    float m_Borderlimit;
 };

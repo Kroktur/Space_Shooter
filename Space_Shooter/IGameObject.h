@@ -9,7 +9,7 @@ enum  GameOvject
     ,Type_Ennemie_Ship = 1
     , Type_Missile = 2
     , Type_Ennemie_Missile = 3
-
+    , Type_Barrier =4
 };
 class IGameObject
 {
