@@ -12,7 +12,8 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 			if ((A->gettype() == Type_Missile && B->gettype() == Type_Ennemie_Ship)
 				|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Missile))
 			{
-				std::cout << "i touched ennemie";
+				/*A->TakeDomage();
+				B->TakeDomage();*/
 			}
 			if ((A->gettype() == Type_Ship && B->gettype() == Type_Ennemie_Ship)
 					|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Ship))

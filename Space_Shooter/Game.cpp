@@ -78,8 +78,12 @@ void Game::addObject()
 
 void Game::deleteObject()
 {
-	for(auto idx =0; idx < m_toberemovedGameObject.size();++ idx )
-	m_allGameObject.erase(m_toberemovedGameObject.begin() , m_toberemovedGameObject.end() , idx)
+	/*for (auto idx = 0; idx < m_toberemovedGameObject.size(); ++idx)
+	{
+		auto it = std::find(m_toberemovedGameObject.begin(), m_toberemovedGameObject.end(), idx);
+		m_allGameObject.erase(it);
+	}*/
+	/*m_toberemovedGameObject.clear();*/
 }
 
-
+ 
