@@ -24,7 +24,14 @@ void Game::processInput(const sf::Event& event)
 
 void Game::update(const float& deltaTime)
 {
-	m_allGameObject = m_goingtoaddGameObject;
+	
+	m_allGameObject.insert(
+		m_allGameObject.end(),
+		m_goingtoaddGameObject.begin(),
+		m_goingtoaddGameObject.end()
+	);
+	m_goingtoaddGameObject.clear();
+
 	for (auto Object : m_allGameObject)
 	{
 		Object->update(deltaTime);
@@ -35,14 +42,20 @@ void Game::update(const float& deltaTime)
 		{
 			testColision(m_allGameObject[idx_x], m_allGameObject[idx_y]);
 		}
-	}
-	for (auto obj : m_objectsToRemove)
-	{
-		auto it = std::find(m_allGameObject.begin(), m_allGameObject.end(), obj);
-		if (it != m_allGameObject.end())
+
+		for (auto it = m_objectsToRemove.begin(); it != m_objectsToRemove.end(); )
 		{
-			delete *it;
-			m_allGameObject.erase(it);
+			auto gameObjIt = std::find(m_allGameObject.begin(), m_allGameObject.end(), *it);
+			if (gameObjIt != m_allGameObject.end())
+			{
+				delete* gameObjIt;
+				m_allGameObject.erase(gameObjIt);
+				it = m_objectsToRemove.erase(it);
+			}
+			else
+			{
+				++it;
+			}
 		}
 	}
 
