@@ -104,7 +104,7 @@ private:
 class Barrier : public IGameObject
 {
 public:
-    Barrier(Game& game, Vec2& Position1 , Vec2& Position2);
+    Barrier(Game& game, Vec2& Centre, float distance, int Position);
     void initBarrer();
     void input(sf::Event event);
     void update(float deltatime);
@@ -116,10 +116,11 @@ public:
 private:
     Vec2 Amin;
     Vec2 Amax;
-    Vec2& Position_min;
-    Vec2& Position_max;
+    Vec2& m_Centre;
+    float& m_Distance;
+    int& m_position; 
     int m_type;
-    sf::RectangleShape m_Barrer;
+    sf::RectangleShape m_Barrier;
 
 };
 

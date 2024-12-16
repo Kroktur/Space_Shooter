@@ -50,10 +50,8 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 }
 
 bool Game::colision(AABB A, AABB B)
-{
-	
-	
-	if (A.Amax.x < B.Amin.x || A.Amin.x > B.Amax.x || A.Amax.y < B.Amin.y || A.Amin.y > B.Amax.y)
+{	
+	if (A.Amax.x <= B.Amin.x || A.Amin.x >= B.Amax.x || A.Amax.y <= B.Amin.y || A.Amin.y >= B.Amax.y)
 		return false;
 	else 
 	return true;

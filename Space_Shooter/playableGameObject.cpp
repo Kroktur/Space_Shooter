@@ -287,17 +287,37 @@ void Missile::TakeDomage()
 		m_game.toberemoved(this);
 }
 
-Barrier::Barrier(Game& game, Vec2& position1, Vec2& Position2) :IGameObject(game), Position_min(position1), Position_max(Position2), m_type(Type_Barrier)
+Barrier::Barrier(Game& game, Vec2& Centre, float distance, int Position) :IGameObject(game), m_Centre(Centre), m_Distance(distance), m_type(Type_Barrier) , m_position(Position)
 {
 	initBarrer();
 }
 
 void Barrier::initBarrer()
 {
-	
-	m_Barrer.setSize(sf::Vector2f(std::abs(Position_max.x - Position_min.x), std::abs(Position_max.y - Position_min.y)));
-	m_Barrer.setOrigin(m_Barrer.getSize().x / 2, m_Barrer.getSize().y / 2);
-	m_Barrer.setPosition(sf::Vector2f(Position_min.x +(Position_max.x-Position_min.x)/2, Position_min.y + std::abs(Position_max.y - Position_min.y) / 2));
+	if (m_position == Position_Left)
+	{
+		m_Barrier.setSize(sf::Vector2f(10, m_Distance *2));
+		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x/2, m_Barrier.getSize().y/2));
+		m_Barrier.setPosition(sf::Vector2f(m_Centre.x - m_Distance, m_Centre.y));
+    }
+	if (m_position == Position_Right)
+	{
+		m_Barrier.setSize(sf::Vector2f(10, m_Distance * 2));
+		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x/2, m_Barrier.getSize().y / 2));
+		m_Barrier.setPosition(sf::Vector2f(m_Centre.x + m_Distance, m_Centre.y));
+	}
+	if (m_position == Position_Top)
+	{
+		m_Barrier.setSize(sf::Vector2f(m_Distance * 2,10));
+		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
+		m_Barrier.setPosition(sf::Vector2f(m_Centre.x, m_Centre.y -m_Distance ));
+	}
+	if (m_position == Position_Botom)
+	{
+		m_Barrier.setSize(sf::Vector2f(m_Distance * 2, 10));
+		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
+		m_Barrier.setPosition(sf::Vector2f(m_Centre.x, m_Centre.y + m_Distance));
+	}
 }
 
 void Barrier::input(sf::Event event)
@@ -310,7 +330,7 @@ void Barrier::update(float deltatime)
 
 void Barrier::render()
 {
-	m_game.getWindow()->draw(m_Barrer);
+	m_game.getWindow()->draw(m_Barrier);
 
 }
 
@@ -321,11 +341,11 @@ int& Barrier::gettype()
 
 AABB Barrier::GetBoundingBox()
 {
-	Amin.x = m_Barrer.getPosition().x - m_Barrer.getSize().x/2;
-	Amin.y = m_Barrer.getPosition().y - m_Barrer.getSize().y/2;
+	Amin.x = m_Barrier.getPosition().x - m_Barrier.getSize().x /2;
+	Amin.y = m_Barrier.getPosition().y - m_Barrier.getSize().y/2;
 
-	Amax.x = m_Barrer.getPosition().x + m_Barrer.getSize().x/2;
-	Amax.y = m_Barrer.getPosition().y + m_Barrer.getSize().y/2;
+	Amax.x = m_Barrier.getPosition().x + m_Barrier.getSize().x/2;
+	Amax.y = m_Barrier.getPosition().y + m_Barrier.getSize().y /2;
 
 	AABB boundingbox(Amin, Amax);
 	return boundingbox;

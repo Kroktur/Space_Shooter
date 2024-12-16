@@ -39,7 +39,7 @@ void Game::objectinput(sf::Event& event)
 void Game::update(const float& deltaTime)
 {
 	
-	spawnObject();
+	/*spawnObject();*/
 	addObject();
 	for (auto Object : m_allGameObject)
 	{
@@ -70,17 +70,37 @@ void Game::init()
 {
 	m_Borderlimit = 50;
 	m_player = dynamic_cast<Ship*>(new Ship(*this));
-	auto leftTopBarrierCorner  = Vec2{0,0 };
-	auto leftDownBarrierCorner = Vec2{ 0,static_cast<float>(m_renderwindow->getSize().y)  };
+	/*auto leftTopBarrierCorner  = Vec2{0,0 };
+	auto leftDownBarrierCorner = Vec2{0,static_cast<float>(m_renderwindow->getSize().y)  };
 
 	auto RightTopBarrierCorner = Vec2{  static_cast<float>(m_renderwindow->getSize().x), 0 };
 	auto RightDownBarrierCorner = Vec2{ static_cast<float>(m_renderwindow->getSize().x) ,m_Borderlimit+static_cast<float>(m_renderwindow->getSize().y) };
 	
-	//new Barrier(*this, leftTopBarrierCorner, leftDownBarrierCorner);
-	//new Barrier(*this, leftDownBarrierCorner, RightDownBarrierCorner);
-	//new Barrier(*this, RightTopBarrierCorner, RightDownBarrierCorner);
-	//new Barrier(*this, leftTopBarrierCorner, RightTopBarrierCorner);
+	new Barrier(*this, leftTopBarrierCorner, leftDownBarrierCorner);
+	new Barrier(*this, leftDownBarrierCorner, RightDownBarrierCorner);
+	new Barrier(*this, RightTopBarrierCorner, RightDownBarrierCorner);
+	new Barrier(*this, leftTopBarrierCorner, RightTopBarrierCorner);*/
 
+	/*auto testlfetBarrerP1 = Vec2{ 50,50 };
+	auto testleftBarrerP2 = Vec2{ 55 ,static_cast<float>(m_renderwindow->getSize().y)-45};
+	new Barrier(*this, testlfetBarrerP1, testleftBarrerP2);
+
+	auto testupBarrerP1 = Vec2{ 50,50 };
+	auto testupBarrerP2 = Vec2{ static_cast<float>(m_renderwindow->getSize().x)-45 , 55 };
+	new Barrier(*this, testupBarrerP1, testupBarrerP2);
+
+	auto testRightBarrerP1 = Vec2{ static_cast<float>(m_renderwindow->getSize().x)-45 ,55 };
+	auto testRightBarrerP2 = Vec2{ static_cast<float>(m_renderwindow->getSize().x)- 50 ,static_cast<float>(m_renderwindow->getSize().y) - 50 };
+	new Barrier(*this, testRightBarrerP1, testRightBarrerP2);
+
+	auto testDawnBarrerP1 = Vec2{ 55,static_cast<float>(m_renderwindow->getSize().y) -45 };
+	auto testDawnBarrerP2 = Vec2{ static_cast<float>(m_renderwindow->getSize().x) - 50,static_cast<float>(m_renderwindow->getSize().y) - 50 };
+	new Barrier(*this, testDawnBarrerP1, testDawnBarrerP2);*/
+	auto test = Vec2{ static_cast<float>(m_renderwindow->getSize().x / 2) ,static_cast<float>( m_renderwindow->getSize().y / 2) };
+	new Barrier(*this, test, 50.f, Position_Left);
+	new Barrier(*this, test, 50.f, Position_Right);
+	new Barrier(*this, test, 50.f, Position_Top);
+	new Barrier(*this, test, 50.f, Position_Botom);
 }
 
 

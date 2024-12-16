@@ -22,4 +22,5 @@ void Rectangle::update(float deltatime)
 
 void Rectangle::render()
 {
+
 }

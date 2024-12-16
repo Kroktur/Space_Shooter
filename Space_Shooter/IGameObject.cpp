@@ -4,7 +4,7 @@
 IGameObject::~IGameObject()
 {
 
-}
+ }
 
 IGameObject::IGameObject(Game& game) : m_game(game)
 {

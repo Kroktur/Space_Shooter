@@ -11,6 +11,13 @@ enum  GameOvject
     , Type_Ennemie_Missile = 3
     , Type_Barrier =4
 };
+enum BarrierPosition
+{
+    Position_Left = 0
+    , Position_Right = 1
+    , Position_Top = 2
+    , Position_Botom = 3
+};
 class IGameObject
 {
 public:
