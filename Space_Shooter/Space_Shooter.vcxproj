@@ -148,6 +148,7 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="MyMath.cpp" />
+    <ClCompile Include="Physic.cpp" />
     <ClCompile Include="playableGameObject.cpp" />
     <ClCompile Include="Ressource.cpp" />
     <ClCompile Include="SceneBase.cpp" />

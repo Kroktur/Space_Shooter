@@ -2,10 +2,9 @@
 #include "Input.h"
 #include <cmath>
 
-
 Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
-	
+
 	m_type = Type_Ship;
 	m_vie = 3;
 	setShip();
@@ -26,10 +25,12 @@ void Ship::setShip()
 	//input
 	m_input = new PlayerInput(*this);
 }
+
 void Ship::anglecalcul()
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*m_game.getWindow());
 	sf::Vector2f shipPos = m_ship.getPosition();
+	Vec2 acceleration{ 0.f, 0.f };
 	float deltaX = mousePos.x - shipPos.x;
 	float deltaY = mousePos.y - shipPos.y;
 	float angle = std::atan2(deltaY, deltaX) * 180 / 3.14159f;
@@ -37,9 +38,9 @@ void Ship::anglecalcul()
 }
 
 void Ship::input(sf::Event event)
-{		
+{
 	resetmooveposition();
-	m_input->processinput( event);
+	m_input->processinput(event);
 }
 
 void Ship::update(float deltatime)
@@ -52,6 +53,13 @@ void Ship::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ship, Type_Missile);
 	}
+
+
+		if (m_isAccelerating)
+		{
+			accelerating += Vec2{ std::cos(m_angle), std::sin(m_angle) };
+		}
+
 }
 
 void Ship::render()
@@ -64,8 +72,6 @@ int& Ship::gettype()
 	return m_type;
 }
 
-
-
 void Ship::resetmooveposition()
 {
 	m_moove.x = 0;
@@ -74,14 +80,17 @@ void Ship::resetmooveposition()
 
 AABB Ship::GetBoundingBox()
 {
-	
-	 Amin.x = m_ship.getPosition().x - m_ship.getRadius();
-	 Amin.y = m_ship.getPosition().y - m_ship.getRadius();
 
-	 Amax.x = m_ship.getPosition().x + m_ship.getRadius();
-	 Amax.y = m_ship.getPosition().y + m_ship.getRadius();
-	 AABB boundingbox(Amin, Amax);
-	 return boundingbox;
+
+		Amin.x = m_ship.getPosition().x - m_ship.getRadius();
+	Amin.y = m_ship.getPosition().y - m_ship.getRadius();
+
+	Amax.x = m_ship.getPosition().x + m_ship.getRadius();
+	Amax.y = m_ship.getPosition().y + m_ship.getRadius();
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+
+
 }
 
 sf::CircleShape& Ship::getcircle()
@@ -94,26 +103,26 @@ void Ship::TakeDomage(int num, int score)
 	/*m_timetotakedomage = m_takedomage.getElapsedTime();
 	if (m_timetotakedomage.asSeconds() > 0.05)
 	{
-		m_score += score;
-		m_vie -= num;
-		if (m_vie == 0)
-		{
-			m_game.addScore(m_score);
-			m_game.toberemoved(this);
-		}
+	m_score += score;
+	m_vie -= num;
+	if (m_vie == 0)
+	{
+	m_game.addScore(m_score);
+	m_game.toberemoved(this);
+	}
 	}
 	m_takedomage.restart();*/
 }
 
 EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :
 	IGameObject(game)
-, m_ennemie(50)
-, m_ship(circle)
-, m_angle(0)
-, m_fire(false)
-, m_firerate(1.f)
-, m_moove(0, 0)
-, m_delta(0, 0)
+	, m_ennemie(50)
+	, m_ship(circle)
+	, m_angle(0)
+	, m_fire(false)
+	, m_firerate(1.f)
+	, m_moove(0, 0)
+	, m_delta(0, 0)
 
 {
 	m_type = Type_Ennemie_Ship;
@@ -130,7 +139,7 @@ EnemieShip::~EnemieShip()
 void EnemieShip::setennemie()
 {
 	//set RandomSpawn
-	m_randPosition = new RandomSpawn(Vec2{ -m_ennemie.getRadius(),-m_ennemie.getRadius() }, Vec2{static_cast<float>(m_game.getWindowSize().x + m_ennemie.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_ennemie.getRadius())});
+	m_randPosition = new RandomSpawn(Vec2{ -m_ennemie.getRadius(),-m_ennemie.getRadius() }, Vec2{ static_cast<float>(m_game.getWindowSize().x + m_ennemie.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_ennemie.getRadius()) });
 	//set EnemieShip position and Origin
 	m_ennemie.setOrigin(m_ennemie.getRadius(), m_ennemie.getRadius());
 	m_ennemie.setPosition(m_randPosition->m_spawnCordonate());
@@ -148,8 +157,10 @@ void EnemieShip::deltapositin()
 void EnemieShip::anglecalcul()
 {
 
-	float angle = atan2(m_delta.y, m_delta.x);
+		float angle = atan2(m_delta.y, m_delta.x);
 	m_angle = angle * 180.0f / 3.1415926f;
+
+
 
 }
 AABB EnemieShip::GetBoundingBox()
@@ -157,11 +168,14 @@ AABB EnemieShip::GetBoundingBox()
 	Amin.x = m_ennemie.getPosition().x - m_ennemie.getRadius();
 	Amin.y = m_ennemie.getPosition().y - m_ennemie.getRadius();
 
-	Amax.x = m_ennemie.getPosition().x + m_ennemie.getRadius();
+
+		Amax.x = m_ennemie.getPosition().x + m_ennemie.getRadius();
 	Amax.y = m_ennemie.getPosition().y + m_ennemie.getRadius();
 
 	AABB boundingbox(Amin, Amax);
 	return boundingbox;
+
+
 }
 void EnemieShip::TakeDomage(int num, int score)
 {
@@ -184,11 +198,10 @@ void EnemieShip::resetmooveposition()
 	m_moove.y = 0;
 }
 
-
 void EnemieShip::input(sf::Event event)
 {
 	resetmooveposition();
-	m_input->processinput( event);
+	m_input->processinput(event);
 }
 
 void EnemieShip::update(float deltatime)
@@ -202,7 +215,7 @@ void EnemieShip::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ennemie, Type_Ennemie_Missile);
 	}
-	
+
 }
 
 void EnemieShip::render()
@@ -215,8 +228,8 @@ int& EnemieShip::gettype()
 	return m_type;
 }
 
-Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(sf::Vector2f(75,15)), m_velocity(12.5f) ,m_shape(circle)
-{	
+Missile::Missile(Game& game, sf::CircleShape& circle, const int& type) :IGameObject(game), m_missile(sf::Vector2f(75, 15)), m_velocity(12.5f), m_shape(circle)
+{
 	m_type = type;
 	m_vie = 1;
 	set();
@@ -230,12 +243,12 @@ void Missile::set()
 	if (m_type == Type_Ennemie_Missile)
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
 	//set Missile position and Origin
-	m_missile.setOrigin(m_missile.getSize().x/2, m_missile.getSize().y / 2);
+	m_missile.setOrigin(m_missile.getSize().x / 2, m_missile.getSize().y / 2);
 	m_missile.setPosition(m_shape.getPosition());
 	//set angle
 	m_angle = m_shape.getRotation();
 	m_missile.setRotation(m_angle);
-	// set move 
+	// set move
 	float angle_rad = m_angle * (3.14159265f / 180.f);
 	m_moove.x = m_velocity * std::cos(angle_rad);
 	m_moove.y = m_velocity * std::sin(angle_rad);
@@ -264,14 +277,16 @@ int& Missile::gettype()
 
 AABB Missile::GetBoundingBox()
 {
-	Amin.x = m_missile.getPosition().x - m_missile.getSize().x/2;
-	Amin.y = m_missile.getPosition().y - m_missile.getSize().y/2;
+	Amin.x = m_missile.getPosition().x - m_missile.getSize().x / 2;
+	Amin.y = m_missile.getPosition().y - m_missile.getSize().y / 2;
 
-	Amax.x = m_missile.getPosition().x + m_missile.getSize().x/2;
-	Amax.y = m_missile.getPosition().y + m_missile.getSize().y/2;
+		Amax.x = m_missile.getPosition().x + m_missile.getSize().x / 2;
+	Amax.y = m_missile.getPosition().y + m_missile.getSize().y / 2;
 
-	AABB boundingbox(Amin, Amax );
+	AABB boundingbox(Amin, Amax);
 	return boundingbox;
+
+
 }
 
 void Missile::TakeDomage(int num, int score)
@@ -290,13 +305,17 @@ void Missile::TakeDomage(int num, int score)
 	m_takedomage.restart();
 }
 
-Barrier::Barrier(Game& game, Vec2& Centre, float distance, int Size_,int Position, int forwhat) :IGameObject(game), m_Centre(Centre), m_Distance(distance) , m_position(Position), m_Size(Size_)
+Barrier::Barrier(Game& game, Vec2& Centre, float distance, int Size_, int Position, int forwhat) :IGameObject(game), m_Centre(Centre), m_Distance(distance), m_position(Position), m_Size(Size_)
 {
 	m_type = Type_Barrier;
 	if (forwhat == Type_Barrier_Only_Misssile)
 		m_type = Type_Barrier_Only_Misssile;
-	
-	initBarrer();
+
+
+		initBarrer();
+
+
+
 }
 
 void Barrier::initBarrer()
@@ -304,20 +323,20 @@ void Barrier::initBarrer()
 	if (m_position == Position_Left)
 	{
 		m_Barrier.setSize(sf::Vector2f(10, m_Size));
-		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x/2, m_Barrier.getSize().y/2));
+		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
 		m_Barrier.setPosition(sf::Vector2f(m_Centre.x - m_Distance, m_Centre.y));
-    }
+	}
 	if (m_position == Position_Right)
 	{
 		m_Barrier.setSize(sf::Vector2f(10, m_Size));
-		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x/2, m_Barrier.getSize().y / 2));
+		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
 		m_Barrier.setPosition(sf::Vector2f(m_Centre.x + m_Distance, m_Centre.y));
 	}
 	if (m_position == Position_Top)
 	{
-		m_Barrier.setSize(sf::Vector2f(m_Size,10));
+		m_Barrier.setSize(sf::Vector2f(m_Size, 10));
 		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
-		m_Barrier.setPosition(sf::Vector2f(m_Centre.x, m_Centre.y -m_Distance ));
+		m_Barrier.setPosition(sf::Vector2f(m_Centre.x, m_Centre.y - m_Distance));
 	}
 	if (m_position == Position_Botom)
 	{
@@ -348,14 +367,16 @@ int& Barrier::gettype()
 
 AABB Barrier::GetBoundingBox()
 {
-	Amin.x = m_Barrier.getPosition().x - m_Barrier.getSize().x /2;
-	Amin.y = m_Barrier.getPosition().y - m_Barrier.getSize().y/2;
+	Amin.x = m_Barrier.getPosition().x - m_Barrier.getSize().x / 2;
+	Amin.y = m_Barrier.getPosition().y - m_Barrier.getSize().y / 2;
 
-	Amax.x = m_Barrier.getPosition().x + m_Barrier.getSize().x/2;
-	Amax.y = m_Barrier.getPosition().y + m_Barrier.getSize().y /2;
+		Amax.x = m_Barrier.getPosition().x + m_Barrier.getSize().x / 2;
+	Amax.y = m_Barrier.getPosition().y + m_Barrier.getSize().y / 2;
 
 	AABB boundingbox(Amin, Amax);
 	return boundingbox;
+
+
 }
 
 void Barrier::TakeDomage(int num, int score)
@@ -363,7 +384,7 @@ void Barrier::TakeDomage(int num, int score)
 
 }
 
-Asteroid::Asteroid(Game& game): IGameObject(game), m_angle(0), m_moove(0, 0)
+Asteroid::Asteroid(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
 {
 	m_timetotakedomage = m_takedomage.getElapsedTime();
 	m_type = Type_Asteroid;
@@ -378,7 +399,7 @@ Asteroid::~Asteroid()
 
 void Asteroid::initAsteroid()
 {
-	//random Size 
+	//random Size
 	m_Asteroid.setRadius(m_rand->getrandomnumber(50, 150));
 	//random speed
 	m_velocity = m_rand->getrandomnumber(1, 5);
@@ -392,7 +413,7 @@ void Asteroid::initAsteroid()
 	// set angle
 	m_angle = m_rand->getrandomnumber(0, 360);
 	m_Asteroid.setRotation(m_angle);
-	// set move 
+	// set move
 	float angle_rad = m_angle * (3.14159265f / 180.f);
 	m_moove.x = m_velocity * std::cos(angle_rad);
 	m_moove.y = m_velocity * std::sin(angle_rad);
@@ -422,17 +443,19 @@ AABB Asteroid::GetBoundingBox()
 	Amin.x = m_Asteroid.getPosition().x - m_Asteroid.getRadius();
 	Amin.y = m_Asteroid.getPosition().y - m_Asteroid.getRadius();
 
-	Amax.x = m_Asteroid.getPosition().x + m_Asteroid.getRadius();
+		Amax.x = m_Asteroid.getPosition().x + m_Asteroid.getRadius();
 	Amax.y = m_Asteroid.getPosition().y + m_Asteroid.getRadius();
 	AABB boundingbox(Amin, Amax);
 	return boundingbox;
+
+
 }
 
-void Asteroid::TakeDomage(int num, int score )
+void Asteroid::TakeDomage(int num, int score)
 {
 
-	m_timetotakedomage = m_takedomage.getElapsedTime();
-	if(m_timetotakedomage.asSeconds() > 0.05 )
+		m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
 	{
 		m_score += score;
 		m_vie -= num;
@@ -443,4 +466,6 @@ void Asteroid::TakeDomage(int num, int score )
 		}
 	}
 	m_takedomage.restart();
+
+
 }
