@@ -139,3 +139,26 @@ private:
     sf::CircleShape m_Asteroid;
     sf::Vector2f m_moove;
 };
+class Commette : public IGameObject
+{
+public:
+    Commette(Game& game);
+    ~Commette();
+    void initCommette();
+    void input(sf::Event event);
+    void update(float deltatime);
+    void render();
+    int& gettype();
+    AABB GetBoundingBox();
+    void TakeDomage(int num = 1, int score = 0);
+private:
+
+
+    float m_velocity;
+
+    float m_angle;
+
+    sf::CircleShape m_Commette;
+    sf::Vector2f m_moove;
+};
+

@@ -379,7 +379,7 @@ Asteroid::~Asteroid()
 void Asteroid::initAsteroid()
 {
 	//random Size 
-	m_Asteroid.setRadius(m_rand->getrandomnumber(50, 150));
+	m_Asteroid.setRadius(m_rand->getrandomnumber(75, 200));
 	//random speed
 	m_velocity = m_rand->getrandomnumber(1, 5);
 	//set RandomPosition
@@ -433,6 +433,87 @@ void Asteroid::TakeDomage(int num, int score )
 
 	m_timetotakedomage = m_takedomage.getElapsedTime();
 	if(m_timetotakedomage.asSeconds() > 0.05 )
+	{
+		m_score += score;
+		m_vie -= num;
+		if (m_vie == 0)
+		{
+			m_game.addScore(m_score);
+			m_game.toberemoved(this);
+		}
+	}
+	m_takedomage.restart();
+}
+Commette::Commette(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	m_type = Type_Asteroid;
+	m_vie = 5;
+	initCommette();
+}
+
+Commette::~Commette()
+{
+	delete m_randPosition;
+}
+
+void Commette::initCommette()
+{
+	//random Size 
+	m_Commette.setRadius(m_rand->getrandomnumber(25, 50));
+	//random speed
+	m_velocity = m_rand->getrandomnumber(5, 20);
+	//set RandomPosition
+	m_randPosition = new RandomSpawn(Vec2{ -m_Commette.getRadius(),-m_Commette.getRadius() }, Vec2{ static_cast<float>(m_game.getWindowSize().x + m_Commette.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_Commette.getRadius()) });
+	//set Asteroid position and Origin
+	m_Commette.setOrigin(m_Commette.getRadius(), m_Commette.getRadius());
+	m_Commette.setPosition(m_randPosition->m_spawnCordonate());
+	//set texture
+	m_Commette.setTexture(&m_game.gettexture().getTexture("resource\\Commette.png"));
+	// set angle
+	m_angle = m_rand->getrandomnumber(0, 360);
+	m_Commette.setRotation(m_angle);
+	// set move 
+	float angle_rad = m_angle * (3.14159265f / 180.f);
+	m_moove.x = m_velocity * std::cos(angle_rad);
+	m_moove.y = m_velocity * std::sin(angle_rad);
+}
+
+void Commette::input(sf::Event event)
+{
+}
+
+void Commette::update(float deltatime)
+{
+	m_Commette.move(m_moove.x, m_moove.y);
+}
+
+void Commette::render()
+{
+	m_game.getWindow()->draw(m_Commette);
+}
+
+int& Commette::gettype()
+{
+	return m_type;
+}
+
+AABB Commette::GetBoundingBox()
+{
+	Amin.x = m_Commette.getPosition().x - m_Commette.getRadius();
+	Amin.y = m_Commette.getPosition().y - m_Commette.getRadius();
+
+	Amax.x = m_Commette.getPosition().x + m_Commette.getRadius();
+	Amax.y = m_Commette.getPosition().y + m_Commette.getRadius();
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void Commette::TakeDomage(int num, int score)
+{
+
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
 	{
 		m_score += score;
 		m_vie -= num;
