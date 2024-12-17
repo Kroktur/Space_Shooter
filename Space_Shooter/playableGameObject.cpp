@@ -2,10 +2,11 @@
 #include "Input.h"
 #include <cmath>
 
-//a enlever
-#include <iostream>
-Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_type(Type_Ship), m_position(0, 0), m_vie(3)
+
+Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
+	
+	m_type = Type_Ship;
 	m_vie = 3;
 	setShip();
 }
@@ -45,7 +46,7 @@ void Ship::update(float deltatime)
 {
 	anglecalcul();
 	m_ship.setRotation(m_angle);
-	m_ship.move(m_position.x, m_position.y);
+	m_ship.move(m_moove.x, m_moove.y);
 	if (m_fire)
 	{
 		m_fire = false;
@@ -67,8 +68,8 @@ int& Ship::gettype()
 
 void Ship::resetmooveposition()
 {
-	m_position.x = 0;
-	m_position.y = 0;
+	m_moove.x = 0;
+	m_moove.y = 0;
 }
 
 AABB Ship::GetBoundingBox()
@@ -88,15 +89,34 @@ sf::CircleShape& Ship::getcircle()
 	return m_ship;
 }
 
-void Ship::TakeDomage()
+void Ship::TakeDomage(int num, int score)
 {
-	/*--m_vie;
-	if (m_vie == 0)
-		m_game.toberemoved(this);*/
+	/*m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+		if (m_vie == 0)
+		{
+			m_game.addScore(m_score);
+			m_game.toberemoved(this);
+		}
+	}
+	m_takedomage.restart();*/
 }
 
-EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :IGameObject(game), m_ennemie(50), m_ship(circle), m_angle(0), m_fire(false), m_firerate(1.f), m_type(Type_Ennemie_Ship), m_position(0, 0), m_delta(0, 0), m_vie(1)
+EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :
+	IGameObject(game)
+, m_ennemie(50)
+, m_ship(circle)
+, m_angle(0)
+, m_fire(false)
+, m_firerate(1.f)
+, m_moove(0, 0)
+, m_delta(0, 0)
+
 {
+	m_type = Type_Ennemie_Ship;
 	m_vie = 1;
 	setennemie();
 }
@@ -104,13 +124,16 @@ EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :IGameObject(game), 
 EnemieShip::~EnemieShip()
 {
 	delete m_input;
+	delete m_randPosition;
 }
 
 void EnemieShip::setennemie()
 {
+	//set RandomSpawn
+	m_randPosition = new RandomSpawn(Vec2{ -m_ennemie.getRadius(),-m_ennemie.getRadius() }, Vec2{static_cast<float>(m_game.getWindowSize().x + m_ennemie.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_ennemie.getRadius())});
 	//set EnemieShip position and Origin
 	m_ennemie.setOrigin(m_ennemie.getRadius(), m_ennemie.getRadius());
-	m_ennemie.setPosition(SetrandomPosition());
+	m_ennemie.setPosition(m_randPosition->m_spawnCordonate());
 	//set texture
 	m_ennemie.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie.png"));
 	//input
@@ -140,56 +163,27 @@ AABB EnemieShip::GetBoundingBox()
 	AABB boundingbox(Amin, Amax);
 	return boundingbox;
 }
-void EnemieShip::TakeDomage()
+void EnemieShip::TakeDomage(int num, int score)
 {
-	--m_vie;
-	if (m_vie == 0)
-		m_game.toberemoved(this);
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+		if (m_vie == 0)
+		{
+			m_game.addScore(m_score);
+			m_game.toberemoved(this);
+		}
+	}
+	m_takedomage.restart();
 }
 void EnemieShip::resetmooveposition()
 {
-	m_position.x = 0;
-	m_position.y = 0;
+	m_moove.x = 0;
+	m_moove.y = 0;
 }
-sf::Vector2f EnemieShip::SetrandomPosition()
-{
-	
-	sf::Vector2f position;
-	int min_x = m_ennemie.getRadius();
-	int max_x = m_game.getWindowSize().x - m_ennemie.getRadius();
-	int min_y = m_ennemie.getRadius();
-	int max_y = m_game.getWindowSize().y - m_ennemie.getRadius();
-	int min = 0;
-	int max = 3;
-	int random_border = m_rand->getrandomnumber(min, max);
-	int rabdom_Window_x = m_rand->getrandomnumber(min_x, max_x);
-	int rabdom_Window_y = m_rand->getrandomnumber(min_y, max_y);
-	switch (random_border)
-	{
-	case 0:
-		position.x = min_x;
-		position.y = rabdom_Window_y;
-		return position;
-		break;
-	case 1:
-		position.x = rabdom_Window_x;
-		position.y = min_y;
-		return position;
-		break;
-	case 2:
-		position.x = max_x;
-		position.y = rabdom_Window_y;
-		return position;
-		break;
-	case 3:
-		position.x = rabdom_Window_x;
-		position.y = max_y;
-		return position;
-		break;
-	default:
-		break;
-	}
-}
+
 
 void EnemieShip::input(sf::Event event)
 {
@@ -201,7 +195,7 @@ void EnemieShip::update(float deltatime)
 {
 	deltapositin();
 	anglecalcul();
-	m_ennemie.move(m_position.x, m_position.y);
+	m_ennemie.move(m_moove.x, m_moove.y);
 	m_ennemie.setRotation(m_angle);
 	if (m_fire)
 	{
@@ -221,9 +215,10 @@ int& EnemieShip::gettype()
 	return m_type;
 }
 
-Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(sf::Vector2f(25,5)), m_velocity(12.5f) ,m_shape(circle), m_type(type), m_vie(1)
+Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(sf::Vector2f(75,15)), m_velocity(12.5f) ,m_shape(circle)
 {	
-
+	m_type = type;
+	m_vie = 1;
 	set();
 }
 
@@ -242,8 +237,8 @@ void Missile::set()
 	m_missile.setRotation(m_angle);
 	// set move 
 	float angle_rad = m_angle * (3.14159265f / 180.f);
-	m_position.x = m_velocity * std::cos(angle_rad);
-	m_position.y = m_velocity * std::sin(angle_rad);
+	m_moove.x = m_velocity * std::cos(angle_rad);
+	m_moove.y = m_velocity * std::sin(angle_rad);
 
 }
 
@@ -253,14 +248,13 @@ void Missile::input(sf::Event event)
 
 void Missile::update(float deltatime)
 {
-	m_missile.move(m_position.x, m_position.y);
+	m_missile.move(m_moove.x, m_moove.y);
 }
 
 void Missile::render()
 {
 	m_game.getWindow()->draw(m_missile);
-	std::cout << m_missile.getPosition().x << " , " << m_missile.getPosition().y;
-	std::cout << std::endl;
+
 }
 
 int& Missile::gettype()
@@ -280,15 +274,28 @@ AABB Missile::GetBoundingBox()
 	return boundingbox;
 }
 
-void Missile::TakeDomage()
+void Missile::TakeDomage(int num, int score)
 {
-	--m_vie;
-	if (m_vie == 0)
-		m_game.toberemoved(this);
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+		if (m_vie == 0)
+		{
+			m_game.addScore(m_score);
+			m_game.toberemoved(this);
+		}
+	}
+	m_takedomage.restart();
 }
 
-Barrier::Barrier(Game& game, Vec2& Centre, float distance, int Position) :IGameObject(game), m_Centre(Centre), m_Distance(distance), m_type(Type_Barrier) , m_position(Position)
+Barrier::Barrier(Game& game, Vec2& Centre, float distance, int Size_,int Position, int forwhat) :IGameObject(game), m_Centre(Centre), m_Distance(distance) , m_position(Position), m_Size(Size_)
 {
+	m_type = Type_Barrier;
+	if (forwhat == Type_Barrier_Only_Misssile)
+		m_type = Type_Barrier_Only_Misssile;
+	
 	initBarrer();
 }
 
@@ -296,25 +303,25 @@ void Barrier::initBarrer()
 {
 	if (m_position == Position_Left)
 	{
-		m_Barrier.setSize(sf::Vector2f(10, m_Distance *2));
+		m_Barrier.setSize(sf::Vector2f(10, m_Size));
 		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x/2, m_Barrier.getSize().y/2));
 		m_Barrier.setPosition(sf::Vector2f(m_Centre.x - m_Distance, m_Centre.y));
     }
 	if (m_position == Position_Right)
 	{
-		m_Barrier.setSize(sf::Vector2f(10, m_Distance * 2));
+		m_Barrier.setSize(sf::Vector2f(10, m_Size));
 		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x/2, m_Barrier.getSize().y / 2));
 		m_Barrier.setPosition(sf::Vector2f(m_Centre.x + m_Distance, m_Centre.y));
 	}
 	if (m_position == Position_Top)
 	{
-		m_Barrier.setSize(sf::Vector2f(m_Distance * 2,10));
+		m_Barrier.setSize(sf::Vector2f(m_Size,10));
 		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
 		m_Barrier.setPosition(sf::Vector2f(m_Centre.x, m_Centre.y -m_Distance ));
 	}
 	if (m_position == Position_Botom)
 	{
-		m_Barrier.setSize(sf::Vector2f(m_Distance * 2, 10));
+		m_Barrier.setSize(sf::Vector2f(m_Size, 10));
 		m_Barrier.setOrigin(sf::Vector2f(m_Barrier.getSize().x / 2, m_Barrier.getSize().y / 2));
 		m_Barrier.setPosition(sf::Vector2f(m_Centre.x, m_Centre.y + m_Distance));
 	}
@@ -351,7 +358,89 @@ AABB Barrier::GetBoundingBox()
 	return boundingbox;
 }
 
-void Barrier::TakeDomage()
+void Barrier::TakeDomage(int num, int score)
 {
 
+}
+
+Asteroid::Asteroid(Game& game): IGameObject(game), m_angle(0), m_moove(0, 0)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	m_type = Type_Asteroid;
+	m_vie = 5;
+	initAsteroid();
+}
+
+Asteroid::~Asteroid()
+{
+	delete m_randPosition;
+}
+
+void Asteroid::initAsteroid()
+{
+	//random Size 
+	m_Asteroid.setRadius(m_rand->getrandomnumber(50, 150));
+	//random speed
+	m_velocity = m_rand->getrandomnumber(1, 5);
+	//set RandomPosition
+	m_randPosition = new RandomSpawn(Vec2{ -m_Asteroid.getRadius(),-m_Asteroid.getRadius() }, Vec2{ static_cast<float>(m_game.getWindowSize().x + m_Asteroid.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_Asteroid.getRadius()) });
+	//set Asteroid position and Origin
+	m_Asteroid.setOrigin(m_Asteroid.getRadius(), m_Asteroid.getRadius());
+	m_Asteroid.setPosition(m_randPosition->m_spawnCordonate());
+	//set texture
+	m_Asteroid.setTexture(&m_game.gettexture().getTexture("resource\\Asteroid.png"));
+	// set angle
+	m_angle = m_rand->getrandomnumber(0, 360);
+	m_Asteroid.setRotation(m_angle);
+	// set move 
+	float angle_rad = m_angle * (3.14159265f / 180.f);
+	m_moove.x = m_velocity * std::cos(angle_rad);
+	m_moove.y = m_velocity * std::sin(angle_rad);
+}
+
+void Asteroid::input(sf::Event event)
+{
+}
+
+void Asteroid::update(float deltatime)
+{
+	m_Asteroid.move(m_moove.x, m_moove.y);
+}
+
+void Asteroid::render()
+{
+	m_game.getWindow()->draw(m_Asteroid);
+}
+
+int& Asteroid::gettype()
+{
+	return m_type;
+}
+
+AABB Asteroid::GetBoundingBox()
+{
+	Amin.x = m_Asteroid.getPosition().x - m_Asteroid.getRadius();
+	Amin.y = m_Asteroid.getPosition().y - m_Asteroid.getRadius();
+
+	Amax.x = m_Asteroid.getPosition().x + m_Asteroid.getRadius();
+	Amax.y = m_Asteroid.getPosition().y + m_Asteroid.getRadius();
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void Asteroid::TakeDomage(int num, int score )
+{
+
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if(m_timetotakedomage.asSeconds() > 0.05 )
+	{
+		m_score += score;
+		m_vie -= num;
+		if (m_vie == 0)
+		{
+			m_game.addScore(m_score);
+			m_game.toberemoved(this);
+		}
+	}
+	m_takedomage.restart();
 }

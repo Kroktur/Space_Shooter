@@ -25,16 +25,16 @@ void PlayerInput::processinput( sf::Event& event)
 	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && (m_ship.getPosition().x + m_ship.getRadius()) < windowsize.x)
 	
-		objectship.m_position.x = 5.f;
+		objectship.m_moove.x = 5.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q)&& (m_ship.getPosition().x - m_ship.getRadius()) > 0)
 	
-		objectship.m_position.x = -5.f;
+		objectship.m_moove.x = -5.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && (m_ship.getPosition().y + m_ship.getRadius()) < windowsize.y)
 
-		objectship.m_position.y = 5.f;
+		objectship.m_moove.y = 5.f;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && (m_ship.getPosition().y - m_ship.getRadius()) > 0)
 	
-		objectship.m_position.y = -5.f;
+		objectship.m_moove.y = -5.f;
 }
 
 
@@ -52,7 +52,6 @@ void IaInput::processinput( sf::Event& event)
 	auto& objectenemie = dynamic_cast<EnemieShip&>(m_object);
 	auto& m_ennemie = objectenemie.m_ennemie;
 	objectenemie.m_elapsedTime = objectenemie.m_clock.getElapsedTime();
-	auto remainingDistance = 0;
 	
 	if (m_actioncout == 500)
 		m_actioncout = 0;
@@ -64,51 +63,26 @@ void IaInput::processinput( sf::Event& event)
 
 	switch (m_random_number)
 	{
-	case Move_Right:
-		if ((m_ennemie.getPosition().x + m_ennemie.getRadius()) < objectenemie.m_game.getWindowSize().x)
-		{
-			if (remainingDistance = objectenemie.m_game.getWindowSize().x - (m_ennemie.getPosition().x + m_ennemie.getRadius()) < m_velocity)
-				objectenemie.m_position.x = remainingDistance;
-			else
-				objectenemie.m_position.x = m_velocity;
-		}
+	case Move_Right:	
+		objectenemie.m_moove.x = m_velocity;
 		m_actioncout++;
 		break;
 	case Move_Left:
-		if ((m_ennemie.getPosition().x - m_ennemie.getRadius()) > 0)
-		{
-			if (remainingDistance = m_ennemie.getPosition().x - m_ennemie.getRadius() < m_velocity)
-				objectenemie.m_position.x = -remainingDistance;
-			else
-				objectenemie.m_position.x = -m_velocity;
-		}
+		objectenemie.m_moove.x = -m_velocity;
 		m_actioncout++;
 		break;
 	case Move_Down:
-		if ((m_ennemie.getPosition().y + m_ennemie.getRadius()) < objectenemie.m_game.getWindowSize().y)
-		{
-			if (remainingDistance = objectenemie.m_game.getWindowSize().y - (m_ennemie.getPosition().y + m_ennemie.getRadius()) < m_velocity)
-				objectenemie.m_position.y = remainingDistance;
-			else
-				objectenemie.m_position.y = m_velocity;
-
-		}
+		objectenemie.m_moove.y = m_velocity;
 		m_actioncout++;
 		break;
 	case Move_Up:
-		if ((m_ennemie.getPosition().y - m_ennemie.getRadius()) > 0)
-		{
-			if (remainingDistance = m_ennemie.getPosition().y - m_ennemie.getRadius() < m_velocity)
-				objectenemie.m_position.y = -remainingDistance;
-			else
-				objectenemie.m_position.y = -m_velocity;
-		}
+		objectenemie.m_moove.y = -m_velocity;
 		m_actioncout++;
 		break;
 	case Move_Closer_Player:
 		
-		objectenemie.m_position.x = (objectenemie.m_delta.x / m_magnetude)* m_velocity;
-		objectenemie.m_position.y = (objectenemie.m_delta.y / m_magnetude)* m_velocity;
+		objectenemie.m_moove.x = (objectenemie.m_delta.x / m_magnetude)* m_velocity;
+		objectenemie.m_moove.y = (objectenemie.m_delta.y / m_magnetude)* m_velocity;
 		m_actioncout++;
 		break;
 	case Shoot:

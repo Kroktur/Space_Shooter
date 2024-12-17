@@ -10,6 +10,8 @@ enum  GameOvject
     , Type_Missile = 2
     , Type_Ennemie_Missile = 3
     , Type_Barrier =4
+    , Type_Barrier_Only_Misssile = 5
+    ,Type_Asteroid =6
 };
 enum BarrierPosition
 {
@@ -29,11 +31,17 @@ public:
     virtual void render() = 0;
     virtual int& gettype() =0;
     virtual AABB GetBoundingBox() = 0;
-    virtual void TakeDomage() = 0;
+    virtual void TakeDomage(int num = 1, int score = 0) = 0;
 protected:
     Game& m_game;
     Randomnumber* m_rand;
-  
-   
+    RandomSpawn* m_randPosition;
+    int m_score;
+    int m_vie;
+    Vec2 Amin;
+    Vec2 Amax;
+    int m_type;
+    sf::Clock m_takedomage;
+    sf::Time m_timetotakedomage;
 };
 

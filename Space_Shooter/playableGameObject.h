@@ -22,19 +22,18 @@ public:
     AABB GetBoundingBox() override;
    
     sf::CircleShape& getcircle();
-    void TakeDomage();
+    void TakeDomage(int num = 1, int score =0);
 private:
     
-    Vec2 Amin;
-    Vec2 Amax;
+    
 
     sf::CircleShape m_ship;
-    sf::Vector2f m_position;
+    sf::Vector2f m_moove;
     float m_angle;
-     int m_type;
+    
 
     Iinput* m_input;
-    int m_vie;
+ 
     bool m_fire;
     const float m_firerate;
     sf::Clock m_clock;
@@ -47,7 +46,6 @@ public:
     EnemieShip(Game& game, sf::CircleShape& circle);
     ~EnemieShip();
     void setennemie();
-    sf::Vector2f SetrandomPosition();
     void input(sf::Event event) override;
     void update(float deltatime)override;
     void render() override;
@@ -56,21 +54,18 @@ public:
     void deltapositin();
     void anglecalcul();
     AABB GetBoundingBox() override;
-    void TakeDomage();
+    void TakeDomage(int num = 1, int score =0);
 private:
 
-    Vec2 Amin;
-    Vec2 Amax;
-
+   
+   
     sf::Vector2f m_delta;
     sf::CircleShape m_ennemie;
     sf::CircleShape& m_ship;
-    sf::Vector2f m_position;
+    sf::Vector2f m_moove;
     float m_angle;
-  int m_type;
-
      Iinput* m_input;
-     int m_vie;
+
     bool m_fire;
     const float m_firerate;
     sf::Clock m_clock;
@@ -87,31 +82,30 @@ public:
     void render() override;
     int& gettype() override;
     AABB GetBoundingBox() override;
-    void TakeDomage();
+    void TakeDomage(int num = 1, int score = 0);
 private:
 
-    Vec2 Amin;
-    Vec2 Amax;
+  
 
-    int m_vie;
+   
     float m_angle;
     sf::RectangleShape m_missile;
-    sf::Vector2f m_position;
+    sf::Vector2f m_moove;
     float m_velocity;
     sf::CircleShape& m_shape;
-     int m_type;
+     
 };
 class Barrier : public IGameObject
 {
 public:
-    Barrier(Game& game, Vec2& Centre, float distance, int Position);
+    Barrier(Game& game, Vec2& Centre, float distance, int Size_, int Position ,int forwhat = 0);
     void initBarrer();
     void input(sf::Event event);
     void update(float deltatime);
     void render();
     int& gettype();
     AABB GetBoundingBox();
-    void TakeDomage();
+    void TakeDomage(int num = 1, int score = 0);
 
 private:
     Vec2 Amin;
@@ -119,9 +113,29 @@ private:
     Vec2& m_Centre;
     float& m_Distance;
     int& m_position; 
-    int m_type;
+    int& m_Size;
     sf::RectangleShape m_Barrier;
 
 };
+class Asteroid : public IGameObject
+{
+public:
+    Asteroid(Game& game);
+    ~Asteroid();
+    void initAsteroid();
+    void input(sf::Event event) ;
+     void update(float deltatime);
+     void render() ;
+     int& gettype() ;
+     AABB GetBoundingBox();
+     void TakeDomage(int num = 1, int score = 0) ;
+private:
 
-
+  
+    float m_velocity;
+   
+    float m_angle;
+    
+    sf::CircleShape m_Asteroid;
+    sf::Vector2f m_moove;
+};

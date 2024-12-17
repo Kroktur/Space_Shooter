@@ -29,6 +29,7 @@ public:
     void toberemoved(IGameObject* it);
     void deleteObject();
     void renderAABB();
+    void addScore(int score = 1); 
 private :
 
     sf::RectangleShape m_Background;
@@ -39,4 +40,8 @@ private :
     bool m_showAABB = false;
     Iinput* m_input;
     float m_Borderlimit;
+    Randomnumber m_rand;
+    sf::Clock m_spawn;
+    sf::Time m_spawnrime;
+    int m_scorebase;
 };

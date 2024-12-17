@@ -18,4 +18,5 @@ protected:
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;
     TextureCache m_texture;
+    int m_totalscore;
 };
