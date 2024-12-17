@@ -141,6 +141,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="MyMath.cpp" />
+    <ClCompile Include="Physic.cpp" />
+    <ClCompile Include="playableGameObject.cpp" />
+    <ClCompile Include="Ressource.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="Scenemanager.cpp" />
+    <ClCompile Include="WidgetGameObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="MyMath.h" />
+    <ClInclude Include="playableGameObject.h" />
+    <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="MyGame.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Ressource.h" />
+    <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="Scenemanager.h" />
+    <ClInclude Include="WidgetGameObject.h" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
