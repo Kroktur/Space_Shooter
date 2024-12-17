@@ -109,6 +109,41 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage();
 				
 			}
+			//Commette against Missile
+			if ((A->gettype() == Type_Commette && B->gettype() == Type_Missile))
+			{
+				A->TakeDomage(1, m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Missile && B->gettype() == Type_Commette))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, m_scorebase);
+			}
+			//Commette against Ship
+			if ((A->gettype() == Type_Commette && B->gettype() == Type_Ship)
+				|| (A->gettype() == Type_Ship && B->gettype() == Type_Commette))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+
+			}
+			//Commette against Ennemie Missile
+			if ((A->gettype() == Type_Commette && B->gettype() == Type_Ennemie_Missile)
+				|| (A->gettype() == Type_Ennemie_Missile && B->gettype() == Type_Commette))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+
+			}
+			//Commette against Ennemie Ship
+			if ((A->gettype() == Type_Commette && B->gettype() == Type_Ennemie_Ship)
+				|| (A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_Commette))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+
+			}
 		
 		}
 		

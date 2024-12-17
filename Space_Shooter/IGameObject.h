@@ -12,6 +12,7 @@ enum  GameOvject
     , Type_Barrier =4
     , Type_Barrier_Only_Misssile = 5
     ,Type_Asteroid =6
+    ,Type_Commette = 7
 };
 enum BarrierPosition
 {

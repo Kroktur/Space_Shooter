@@ -119,9 +119,9 @@ void Game::spawnObject()
 		new EnemieShip(*this, m_player->getcircle());
 		++Enemiecount;
 	}
-	if (m_spawnrime.asSeconds() >= 1.5)
+	if (m_spawnrime.asSeconds() >= 0.5)
 	{
-		if(m_rand.getrandomnumber(0,2) == 1)
+		if(m_rand.getrandomnumber(0,5) == 1)
 		new Asteroid(*this);
 		if (m_rand.getrandomnumber(0, 1) == 1)
 			new Commette(*this);

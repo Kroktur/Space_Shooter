@@ -111,7 +111,7 @@ EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :
 , m_ship(circle)
 , m_angle(0)
 , m_fire(false)
-, m_firerate(1.f)
+, m_firerate(2.5f)
 , m_moove(0, 0)
 , m_delta(0, 0)
 
@@ -130,7 +130,8 @@ EnemieShip::~EnemieShip()
 void EnemieShip::setennemie()
 {
 	//set RandomSpawn
-	m_randPosition = new RandomSpawn(Vec2{ -m_ennemie.getRadius(),-m_ennemie.getRadius() }, Vec2{static_cast<float>(m_game.getWindowSize().x + m_ennemie.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_ennemie.getRadius())});
+	m_randPosition = new RandomSpawn(Vec2{ -m_ennemie.getRadius(),-m_ennemie.getRadius() },
+		Vec2{static_cast<float>(m_game.getWindowSize().x + m_ennemie.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_ennemie.getRadius())});
 	//set EnemieShip position and Origin
 	m_ennemie.setOrigin(m_ennemie.getRadius(), m_ennemie.getRadius());
 	m_ennemie.setPosition(m_randPosition->m_spawnCordonate());
@@ -215,7 +216,10 @@ int& EnemieShip::gettype()
 	return m_type;
 }
 
-Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):IGameObject(game), m_missile(sf::Vector2f(75,15)), m_velocity(12.5f) ,m_shape(circle)
+Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):
+	IGameObject(game)
+	, m_missile(sf::Vector2f(75,15))
+	,m_shape(circle)
 {	
 	m_type = type;
 	m_vie = 1;
@@ -226,9 +230,15 @@ void Missile::set()
 {
 	//set texture
 	if (m_type == Type_Missile)
+	{
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_paw.png"));
+		m_velocity = 25.f;
+	}
 	if (m_type == Type_Ennemie_Missile)
+	{
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
+		m_velocity = 12.5f;
+	}
 	//set Missile position and Origin
 	m_missile.setOrigin(m_missile.getSize().x/2, m_missile.getSize().y / 2);
 	m_missile.setPosition(m_shape.getPosition());
@@ -447,8 +457,8 @@ void Asteroid::TakeDomage(int num, int score )
 Commette::Commette(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
 {
 	m_timetotakedomage = m_takedomage.getElapsedTime();
-	m_type = Type_Asteroid;
-	m_vie = 5;
+	m_type = Type_Commette;
+	m_vie = 1;
 	initCommette();
 }
 
@@ -462,7 +472,7 @@ void Commette::initCommette()
 	//random Size 
 	m_Commette.setRadius(m_rand->getrandomnumber(25, 50));
 	//random speed
-	m_velocity = m_rand->getrandomnumber(5, 20);
+	m_velocity = m_rand->getrandomnumber(5, 15);
 	//set RandomPosition
 	m_randPosition = new RandomSpawn(Vec2{ -m_Commette.getRadius(),-m_Commette.getRadius() }, Vec2{ static_cast<float>(m_game.getWindowSize().x + m_Commette.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_Commette.getRadius()) });
 	//set Asteroid position and Origin
@@ -477,6 +487,7 @@ void Commette::initCommette()
 	float angle_rad = m_angle * (3.14159265f / 180.f);
 	m_moove.x = m_velocity * std::cos(angle_rad);
 	m_moove.y = m_velocity * std::sin(angle_rad);
+
 }
 
 void Commette::input(sf::Event event)
