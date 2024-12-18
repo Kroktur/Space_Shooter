@@ -56,6 +56,9 @@ void Game::update(const float& deltaTime)
 		}
 	}
 	deleteObject();
+
+
+
 }
 
 void Game::render()

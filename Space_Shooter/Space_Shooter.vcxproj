@@ -159,6 +159,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MyMath.h" />
+    <ClInclude Include="Physic.h" />
     <ClInclude Include="playableGameObject.h" />
     <ClInclude Include="IGameObject.h" />
     <ClInclude Include="MyGame.h" />

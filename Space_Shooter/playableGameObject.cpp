@@ -1,6 +1,7 @@
 #include "playableGameObject.h"
 #include "Input.h"
 #include <cmath>
+#include "Physic.h"
 
 Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
@@ -53,12 +54,6 @@ void Ship::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ship, Type_Missile);
 	}
-
-
-		if (m_isAccelerating)
-		{
-			accelerating += Vec2{ std::cos(m_angle), std::sin(m_angle) };
-		}
 
 }
 

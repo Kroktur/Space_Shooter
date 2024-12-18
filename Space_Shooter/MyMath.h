@@ -1,6 +1,7 @@
 #pragma once
 #include <random>
 #include <ctime>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 
 struct  Vec2
@@ -10,6 +11,8 @@ struct  Vec2
 	float y;
 
 	Vec2& operator+=(const Vec2& op2);
+	float dotProduct(const Vec2 op1, const Vec2 op2);
+
 
 };
 
@@ -19,6 +22,7 @@ struct AABB
 	Vec2 Amin;
 	Vec2 Amax;
 };
+
 
 Vec2 operator+(const Vec2& op1, const Vec2& op2);
 Vec2 operator-(const Vec2& op1, const Vec2& op2);
@@ -73,3 +77,19 @@ private:
 	Vec2 m_Min;
 	Vec2 m_Max;
 };
+
+
+float Vec2::dotProduct(const Vec2 op1, const Vec2 op2)
+{
+	return op1.x * op2.x + op1.y * op2.y;
+}
+
+Vec2 normalize(const Vec2& vec) 
+{
+	float length = std::sqrt(vec.x * vec.x + vec.y * vec.y);
+	if (length > 0) 
+	{
+		return Vec2{ vec.x / length, vec.y / length };
+	}
+	return Vec2{ 0.f, 0.f };
+}
