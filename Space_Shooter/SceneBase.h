@@ -13,10 +13,11 @@ public:
     sf::Time getRefreshTime()const;
     
     TextureCache& gettexture();
-    
+    FontCache& getfont();
 protected:
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;
     TextureCache m_texture;
+    FontCache m_font;
     int m_totalscore;
 };

@@ -14,3 +14,16 @@ private:
 	};
 	std::vector<TextureInfo> m_allTextureInfos;
 };
+
+class FontCache
+{
+public:
+	sf::Font& getFont(const std::string& path);
+	~FontCache();
+private:
+	struct Fontinfo {
+		sf::Font* font;
+		std::string path;
+	};
+	std::vector<Fontinfo> m_allFontInfos;
+};

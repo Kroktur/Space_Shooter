@@ -209,6 +209,8 @@ void EnemieShip::update(float deltatime)
 void EnemieShip::render()
 {
 	m_game.getWindow()->draw(m_ennemie);
+
+	
 }
 
 int& EnemieShip::gettype()

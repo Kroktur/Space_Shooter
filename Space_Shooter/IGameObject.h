@@ -13,6 +13,7 @@ enum  GameOvject
     , Type_Barrier_Only_Misssile = 5
     ,Type_Asteroid =6
     ,Type_Commette = 7
+    ,Type_RectangleWidget =8
 };
 enum BarrierPosition
 {

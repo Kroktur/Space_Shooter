@@ -58,7 +58,7 @@ public:
 private:
 
    
-   
+ 
     sf::Vector2f m_delta;
     sf::CircleShape m_ennemie;
     sf::CircleShape& m_ship;

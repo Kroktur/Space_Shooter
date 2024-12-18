@@ -14,3 +14,8 @@ TextureCache& SceneBase::gettexture()
 {
 	return m_texture;
 }
+
+FontCache& SceneBase::getfont()
+{
+	return m_font;
+}

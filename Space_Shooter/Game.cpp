@@ -2,6 +2,7 @@
 #include "playableGameObject.h"
 #include "Input.h"
 #include "MyMath.h"
+#include "WidgetGameObject.h"
 
 // a enlever
 #include <iostream>
@@ -89,6 +90,12 @@ void Game::init()
 	new Barrier(*this, centerpointinwindow, m_renderwindow->getSize().y/2 + 10, m_renderwindow->getSize().x + 20, Position_Top, Type_Barrier_Only_Misssile);
 	new Barrier(*this, centerpointinwindow,  m_renderwindow->getSize().y /2 + 10, m_renderwindow->getSize().x + 20, Position_Botom, Type_Barrier_Only_Misssile);
 	
+	auto test = Vec2{ static_cast<float>(m_renderwindow->getSize().x/2),static_cast<float>(m_renderwindow->getSize().y/2 )};
+	auto test2 = Vec2{ 100,50 };
+	tmps = new Rectangle(*this, test, test2);
+	std::string teststr = "C:\\Users\\arthu\\Downloads\\hawthorne_vintage\\Hawthorne Vintage.otf";
+	tmps->setFont(teststr);
+	tmps->setText("hello", 12, sf::Color::Red);
 }
 
 
