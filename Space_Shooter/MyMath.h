@@ -2,6 +2,7 @@
 #include <random>
 #include <ctime>
 #include <cmath>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 struct  Vec2
@@ -10,11 +11,18 @@ struct  Vec2
 	float x;
 	float y;
 
-	Vec2& operator+=(const Vec2& op2);
-	float dotProduct(const Vec2 op1, const Vec2 op2);
-
+	float getlenght();
+	Vec2& operator+=(const Vec2& op1);
+	Vec2& operator-=(const Vec2& op1);
 
 };
+
+Vec2 operator+(const Vec2& op1, const Vec2& op2);
+Vec2 operator-(const Vec2& op1, const Vec2& op2);
+Vec2 operator/(const Vec2& op1, const float& op2);
+Vec2 operator*(const Vec2& op1, const float& op2);
+Vec2 operator*(const float& op1, const Vec2& op2);
+
 
 struct AABB
 {
@@ -24,41 +32,6 @@ struct AABB
 };
 
 
-Vec2 operator+(const Vec2& op1, const Vec2& op2);
-Vec2 operator-(const Vec2& op1, const Vec2& op2);
-Vec2 operator/(const Vec2& op1, const float& op2);
-Vec2 operator*(const Vec2& op1, const float& op2);
-
-Vec2::Vec2(float x_, float y_) : x(x_), y(y_)
-{
-}
-
-Vec2 operator+(const Vec2& op1, const Vec2& op2)
-{
-	return { op1.x + op2.x, op1.y + op2.y };
-}
-
-Vec2 operator-(const Vec2& op1, const Vec2& op2)
-{
-	return { op1.x - op2.x, op1.y - op2.y };
-}
-
-Vec2 operator/(const Vec2& op1, const float& op2)
-{
-	return { op1.x / op2, op1.y / op2 };
-}
-
-Vec2 operator*(const Vec2& op1, const float& op2)
-{
-	return { op1.x * op2, op1.y * op2 };
-}
-
-Vec2& Vec2::operator+=(const Vec2& op2)
-{
-	x += op2.x;
-	y += op2.y;
-	return *this;
-}
 
 class Randomnumber
 {
@@ -79,17 +52,4 @@ private:
 };
 
 
-float Vec2::dotProduct(const Vec2 op1, const Vec2 op2)
-{
-	return op1.x * op2.x + op1.y * op2.y;
-}
 
-Vec2 normalize(const Vec2& vec) 
-{
-	float length = std::sqrt(vec.x * vec.x + vec.y * vec.y);
-	if (length > 0) 
-	{
-		return Vec2{ vec.x / length, vec.y / length };
-	}
-	return Vec2{ 0.f, 0.f };
-}

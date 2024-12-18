@@ -1,6 +1,9 @@
 #include "MyMath.h"
 #include <cmath>
 
+
+Vec2::Vec2(float x_, float y_) : x(x_), y(y_) {}
+
 int Randomnumber::getrandomnumber(int min, int max)
 {
 	std::random_device rd;
@@ -52,3 +55,56 @@ RandomSpawn::RandomSpawn(Vec2 Min, Vec2 Max) : m_Min(Min), m_Max(Max)
 {
 
 }
+
+
+
+Vec2 operator+(const Vec2& op1, const Vec2& op2)
+{
+	return { op1.x + op2.x, op1.y + op2.y };
+}
+
+Vec2 operator-(const Vec2& op1, const Vec2& op2)
+{
+	return{ op1.x - op2.x, op1.y - op2.y };
+}
+
+Vec2 operator/(const Vec2& op1, const float& op2)
+{
+	return { op1.x / op2, op1.y / op2 };
+}
+
+Vec2 operator*(const Vec2& op1, const float& op2)
+{
+	return { op1.x * op2,  op1.y * op2 };
+}
+
+Vec2 operator*(const float& op1, const Vec2& op2)
+{
+	return { op1 * op2.x,  op1 * op2.y };
+}
+
+
+Vec2& Vec2::operator+=(const Vec2& op1)
+{
+	x += op1.x;
+	y += op1.y;
+	return *this;
+}
+
+Vec2& Vec2::operator-=(const Vec2& op1)
+{
+	x -= op1.x;
+	y -= op1.y;
+	return *this;
+}
+
+float dotProduct(const Vec2 op1, const Vec2 op2)
+{
+	return op1.x * op2.x + op1.y * op2.y;
+}
+float Vec2::getlenght()
+{
+	return std::sqrt(dotProduct(*this, *this));
+}
+
+

@@ -2,6 +2,7 @@
 #include "Input.h"
 #include <cmath>
 #include "Physic.h"
+#include "MyMath.h"
 
 Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
@@ -44,6 +45,13 @@ void Ship::input(sf::Event event)
 	m_input->processinput(event);
 }
 
+void Ship::handleInput()
+{
+	isAccelerating = (sf::Keyboard::isKeyPressed(sf::Keyboard::Z));
+	isTurningLeft = (sf::Keyboard::isKeyPressed(sf::Keyboard::Q));
+	isTurningRight = (sf::Keyboard::isKeyPressed(sf::Keyboard::D));
+}
+
 void Ship::update(float deltatime)
 {
 	anglecalcul();
@@ -54,7 +62,7 @@ void Ship::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ship, Type_Missile);
 	}
-
+	
 }
 
 void Ship::render()
@@ -77,7 +85,7 @@ AABB Ship::GetBoundingBox()
 {
 
 
-		Amin.x = m_ship.getPosition().x - m_ship.getRadius();
+	Amin.x = m_ship.getPosition().x - m_ship.getRadius();
 	Amin.y = m_ship.getPosition().y - m_ship.getRadius();
 
 	Amax.x = m_ship.getPosition().x + m_ship.getRadius();

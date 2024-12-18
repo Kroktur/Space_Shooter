@@ -16,20 +16,16 @@ public:
 	void anglecalcul();
 	void input(sf::Event event) override;
 	void update(float deltatime)override;
+	void updatePhysique(float deltatime);
 	void render() override;
 	int& gettype() override;
 	void resetmooveposition();
 	AABB GetBoundingBox() override;
-	void updateGravityIntegration(Ship& ship, float totalTime, float deltaTime);
-	void updatePhysique(float deltaTime);
-
-		///////////physique
-	Vec2 getPlayerShipSize() { return{ 32.f, 32.f }; }
-	float getPlayerShipThrust() { return 400.f; }
-	float getPlayerShipMaxVelocity();
-	///////////////
+	
 	sf::CircleShape& getcircle();
 	void TakeDomage(int num = 1, int score = 0);
+
+	void handleInput();
 
 
 private:
@@ -38,10 +34,8 @@ private:
 	sf::Vector2f m_moove;
 	Vec2 m_position{ m_game.getWindowSize().x / 2.f, m_game.getWindowSize().y / 2.f };
 	float m_angle;
-	Vec2 m_velocity{ 0.f, 0.f };
-	Vec2 m_acceleration{ 0.f, 0.f };
-	float m_maxVelocity;
-	float m_rotationSpeed = 180.f;
+	Vec2 m_velocity;
+	Vec2 acceleration{ 0.f,0.f };
 
 	Iinput* m_input;
 
@@ -50,9 +44,9 @@ private:
 	sf::Clock m_clock;
 	sf::Time m_elapsedTime;
 
-	bool m_isAccelerating = false;
-	bool m_isTurningLeft = false;
-	bool m_isTurningRight = false;
+	bool isAccelerating = false;
+	bool isTurningLeft = false;
+	bool isTurningRight = false;
 
 };
 class EnemieShip : public IGameObject

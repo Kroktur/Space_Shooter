@@ -44,4 +44,7 @@ private :
     sf::Clock m_spawn;
     sf::Time m_spawnrime;
     int m_scorebase;
+    bool isAccelerating;
+    bool isTurningLeft;
+    bool isTurningRight;
 };
