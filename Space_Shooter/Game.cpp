@@ -68,7 +68,7 @@ void Game::render()
 	}
 	if (m_showAABB)
 		renderAABB();
-
+	
 	std::cout << m_totalscore << std::endl;
 }
 
@@ -79,7 +79,6 @@ void Game::init()
 	
 	auto centerpointinwindow = Vec2{ static_cast<float>(m_renderwindow->getSize().x / 2) ,static_cast<float>( m_renderwindow->getSize().y / 2) };
 
-	
 	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().x,2*( m_Borderlimit + m_renderwindow->getSize().y), Position_Left );
 	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().x, 2 * (m_Borderlimit + m_renderwindow->getSize().y), Position_Right);
 	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().y, 2 * (m_Borderlimit + m_renderwindow->getSize().x), Position_Top);
@@ -89,13 +88,13 @@ void Game::init()
 	new Barrier(*this, centerpointinwindow,  m_renderwindow->getSize().x/2 + 10, m_renderwindow->getSize().y + 20, Position_Right, Type_Barrier_Only_Misssile);
 	new Barrier(*this, centerpointinwindow, m_renderwindow->getSize().y/2 + 10, m_renderwindow->getSize().x + 20, Position_Top, Type_Barrier_Only_Misssile);
 	new Barrier(*this, centerpointinwindow,  m_renderwindow->getSize().y /2 + 10, m_renderwindow->getSize().x + 20, Position_Botom, Type_Barrier_Only_Misssile);
-	
-	auto test = Vec2{ static_cast<float>(m_renderwindow->getSize().x/2),static_cast<float>(m_renderwindow->getSize().y/2 )};
-	auto test2 = Vec2{ 100,50 };
-	tmps = new Rectangle(*this, test, test2);
-	std::string teststr = "C:\\Users\\arthu\\Downloads\\hawthorne_vintage\\Hawthorne Vintage.otf";
-	tmps->setFont(teststr);
-	tmps->setText("hello", 12, sf::Color::Red);
+
+	auto scalescorerectangle = Vec2{ 200,40 };
+	auto positionscorerectangle = Vec2{ static_cast<float>(m_renderwindow->getSize().x/2),0 + scalescorerectangle.y};
+
+	tmps = new Rectanglewidgetupdatable(*this, positionscorerectangle, scalescorerectangle, "total score : ",& m_totalscore);
+	tmps->settextSize(25);
+	tmps->setcolor(sf::Color(sf::Color(255, 215, 0)));
 }
 
 

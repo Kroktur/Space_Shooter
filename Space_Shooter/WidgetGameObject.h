@@ -8,7 +8,12 @@ class Widget : public IGameObject
 public:
     Widget(Game& game);
     virtual void setFont(std::string font) = 0;
-    virtual void setText(std::string text ,int size, sf::Color color) = 0;
+    virtual void setTexture(std::string texture) = 0;
+    virtual void setText(std::string text) = 0;
+    virtual void setcolor(sf::Color color) = 0;
+    virtual void settextSize(int txtsize) = 0;
+    virtual void setTextPosition(Vec2 position) = 0;
+
 
     virtual void input(sf::Event event) = 0;
     virtual void update(float deltatime) = 0;
@@ -20,15 +25,25 @@ public:
 protected:
     Game& m_game;
     sf::Text m_text;
+    std::string m_textcontain;
 };
 
-class Rectangle : public Widget
+class Rectanglewidget : public Widget
 {
 public:
-  Rectangle(Game& game, Vec2& position , Vec2& Size);
+  Rectanglewidget(Game& game, Vec2& position , Vec2& Size ,std::string texte);
   void setrectangle();
+
+
   void setFont(std::string font) ;
-  void setText(std::string text, int size, sf::Color color);
+  void setText(std::string text);
+  void setTexture(std::string texture);
+  void setcolor(sf::Color color) ;
+  void settextSize(int txtsize);
+  void setTextPosition(Vec2 position);
+
+
+
   void input(sf::Event event)override;
   void update(float deltatime) override;
   void render()override;
@@ -40,6 +55,36 @@ private:
     sf::RectangleShape m_rectangle;
     Vec2& m_size;
     Vec2& m_currentposition;
+};
+
+class Rectanglewidgetupdatable : public Widget
+{
+public:
+    Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value);
+    void setrectangle();
+
+
+    void setFont(std::string font);
+    void setText(std::string text);
+    void setTexture(std::string texture);
+    void setcolor(sf::Color color);
+    void settextSize(int txtsize);
+    void setTextPosition(Vec2 position);
+
+
+
+    void input(sf::Event event)override;
+    void update(float deltatime) override;
+    void render()override;
+    int& gettype() override;
+    AABB GetBoundingBox() override;
+    void TakeDomage(int num = 1, int score = 0) override;
+private:
+
+    sf::RectangleShape m_rectangle;
+    Vec2& m_size;
+    Vec2& m_currentposition;
+    int* m_value;
 };
 
 

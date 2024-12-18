@@ -19,5 +19,5 @@ protected:
     sf::Time m_refreshTime;
     TextureCache m_texture;
     FontCache m_font;
-    int m_totalscore;
+    int m_totalscore ;
 };

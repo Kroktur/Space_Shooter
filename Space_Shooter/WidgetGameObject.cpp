@@ -6,66 +6,82 @@ Widget::Widget(Game& game) : IGameObject(game), m_game(game)
 {
 }
 
-Rectangle::Rectangle(Game& game, Vec2& position, Vec2& Size) :Widget(game), m_currentposition(position), m_size(Size)
+Rectanglewidget::Rectanglewidget(Game& game, Vec2& position, Vec2& Size, std::string texte) :Widget(game), m_currentposition(position), m_size(Size)
 {
+	m_textcontain = texte;
+	m_text.setString(m_textcontain);
 	m_type = Type_RectangleWidget;
 	setrectangle();
 }
 
-void Rectangle::setrectangle()
+void Rectanglewidget::setrectangle()
 { 
 	// setSize Origin and Position of widget
 	m_rectangle.setSize(sf::Vector2f(m_size.x, m_size.y));
 	m_rectangle.setOrigin(sf::Vector2f(m_rectangle.getSize().x / 2, m_rectangle.getSize().y / 2));
 	m_rectangle.setPosition(sf::Vector2f(m_currentposition.x, m_currentposition.y));
-	// set position text
+	// set default text
+	
+	m_text.setPosition(m_rectangle.getPosition().x - m_rectangle.getSize().x / 2 , m_rectangle.getPosition().y - m_rectangle.getSize().y / 2);
+	m_text.setFillColor(sf::Color::Red);
+	m_text.setCharacterSize(10);
+	m_text.setFont(m_game.getfont().getFont("C:\\Windows\\Fonts\\Arial.ttf"));
 
-
-	//m_text.setOrigin(m_rectangle.getOrigin());
-	m_text.setPosition(0,0);
-	m_text.setString("Hello World");
-	m_text.setFillColor(sf::Color::White);
-	m_text.setCharacterSize(50);
 }
 
-void Rectangle::setFont(std::string font)
+void Rectanglewidget::setFont(std::string font)
 {
 	m_text.setFont(m_game.getfont().getFont(font));
 }
 
-void Rectangle::setText(std::string text, int size, sf::Color color)
+void Rectanglewidget::setText(std::string text)
 {
-
 	m_text.setString(text);
+}
 
-	// choix de la taille des caractères
-	m_text.setCharacterSize(size); // exprimée en pixels, pas en points !
+void Rectanglewidget::setTexture(std::string texture)
+{
+	m_rectangle.setTexture(&m_game.gettexture().getTexture(texture));
+}
 
-	// choix de la couleur du texte
+void Rectanglewidget::setcolor(sf::Color color)
+{
 	m_text.setFillColor(color);
 }
 
+void Rectanglewidget::settextSize(int txtsize)
+{
+	m_text.setCharacterSize(txtsize);
+}
+
+void Rectanglewidget::setTextPosition(Vec2 position)
+{
+	m_text.setPosition(sf::Vector2f(position.x, position.y));
+}
 
 
-void Rectangle::input(sf::Event event)
+
+void Rectanglewidget::input(sf::Event event)
 {
 }
 
-void Rectangle::update(float deltatime)
+void Rectanglewidget::update(float deltatime)
 {
 }
 
-void Rectangle::render()
+void Rectanglewidget::render()
 {
+	m_game.getWindow()->draw(m_rectangle);
+
 	m_game.getWindow()->draw(m_text);
 }
 
-int& Rectangle::gettype()
+int& Rectanglewidget::gettype()
 {
 	return m_type;
 }
 
-AABB Rectangle::GetBoundingBox()
+AABB Rectanglewidget::GetBoundingBox()
 {
 	Amin.x = m_rectangle.getPosition().x - m_rectangle.getSize().x / 2;
 	Amin.y = m_rectangle.getPosition().y - m_rectangle.getSize().y / 2;
@@ -77,7 +93,105 @@ AABB Rectangle::GetBoundingBox()
 	return boundingbox;
 }
 
-void Rectangle::TakeDomage(int num, int score)
+void Rectanglewidget::TakeDomage(int num, int score)
+{
+}
+
+
+
+Rectanglewidgetupdatable::Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
+{
+	m_textcontain = texte;
+	
+	m_type = Type_RectangleWidgetupdatable;
+	setrectangle();
+}
+
+void Rectanglewidgetupdatable::setrectangle()
+{
+	// setSize Origin and Position of widget
+	m_rectangle.setSize(sf::Vector2f(m_size.x, m_size.y));
+	m_rectangle.setOrigin(sf::Vector2f(m_rectangle.getSize().x / 2, m_rectangle.getSize().y / 2));
+	m_rectangle.setPosition(sf::Vector2f(m_currentposition.x, m_currentposition.y));
+	// set default text
+
+	m_text.setPosition(m_rectangle.getPosition().x - m_rectangle.getSize().x / 2, m_rectangle.getPosition().y - m_rectangle.getSize().y / 2);
+	m_text.setFillColor(sf::Color::Red);
+	m_text.setCharacterSize(10);
+	m_text.setFont(m_game.getfont().getFont("C:\\Windows\\Fonts\\Arial.ttf"));
+
+}
+
+void Rectanglewidgetupdatable::setFont(std::string font)
+{
+	m_text.setFont(m_game.getfont().getFont(font));
+}
+
+void Rectanglewidgetupdatable::setText(std::string text)
+{
+	m_text.setString(text);
+}
+
+void Rectanglewidgetupdatable::setTexture(std::string texture)
+{
+	m_rectangle.setTexture(&m_game.gettexture().getTexture(texture));
+}
+
+void Rectanglewidgetupdatable::setcolor(sf::Color color)
+{
+	m_text.setFillColor(color);
+}
+
+void Rectanglewidgetupdatable::settextSize(int txtsize)
+{
+	m_text.setCharacterSize(txtsize);
+}
+
+void Rectanglewidgetupdatable::setTextPosition(Vec2 position)
+{
+	m_text.setPosition(sf::Vector2f(position.x, position.y));
+}
+
+
+
+void Rectanglewidgetupdatable::input(sf::Event event)
+{
+}
+
+void Rectanglewidgetupdatable::update(float deltatime)
+
+{
+	if(m_value == nullptr)
+	m_text.setString(m_textcontain + std::to_string(0));
+	else 
+		m_text.setString(m_textcontain + std::to_string(*m_value));
+}
+
+void Rectanglewidgetupdatable::render()
+{
+	m_game.getWindow()->draw(m_rectangle);
+
+	m_game.getWindow()->draw(m_text);
+}
+
+int& Rectanglewidgetupdatable::gettype()
+{
+	return m_type;
+}
+
+AABB Rectanglewidgetupdatable::GetBoundingBox()
+{
+	Amin.x = m_rectangle.getPosition().x - m_rectangle.getSize().x / 2;
+	Amin.y = m_rectangle.getPosition().y - m_rectangle.getSize().y / 2;
+
+	Amax.x = m_rectangle.getPosition().x + m_rectangle.getSize().x / 2;
+	Amax.y = m_rectangle.getPosition().y + m_rectangle.getSize().y / 2;
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void Rectanglewidgetupdatable::TakeDomage(int num, int score)
 {
 }
 

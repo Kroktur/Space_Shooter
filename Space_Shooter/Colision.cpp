@@ -5,7 +5,18 @@
 
 void Game::testColision(IGameObject* A, IGameObject* B)
 {
-	
+	//allway destroy the lives  
+	if ((A->gettype() == Type_Live))
+	{
+		A->TakeDomage();
+		
+	}
+	if ((B->gettype() == Type_Live))
+	{
+		B->TakeDomage();
+
+	}
+
 		if (colision(A->GetBoundingBox(), B->GetBoundingBox()) == true)
 		{
 			// i touched Ennemie
@@ -144,7 +155,7 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage();
 
 			}
-		
+			
 		}
 		
 	

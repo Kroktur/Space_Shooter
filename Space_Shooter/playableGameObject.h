@@ -161,4 +161,23 @@ private:
     sf::CircleShape m_Commette;
     sf::Vector2f m_moove;
 };
+class Lives : public IGameObject
+{
+public:
 
+  
+    Lives(Game& game, Vec2 position, Vec2 Size);
+    ~Lives();
+
+    void initlives();
+    void input(sf::Event event);
+    void update(float deltatime);
+    void render();
+    int& gettype();
+    AABB GetBoundingBox();
+    void TakeDomage(int num = 1, int score = 0);
+protected:
+    sf::RectangleShape m_lives;
+    Vec2& m_position;
+    Vec2& m_Size;
+};

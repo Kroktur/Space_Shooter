@@ -14,6 +14,8 @@ enum  GameOvject
     ,Type_Asteroid =6
     ,Type_Commette = 7
     ,Type_RectangleWidget =8
+    , Type_RectangleWidgetupdatable = 9
+    , Type_Live = 10
 };
 enum BarrierPosition
 {

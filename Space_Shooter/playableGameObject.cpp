@@ -7,7 +7,7 @@ Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false)
 {
 	
 	m_type = Type_Ship;
-	m_vie = 3;
+	m_vie = 10;
 	setShip();
 }
 
@@ -25,6 +25,8 @@ void Ship::setShip()
 	m_ship.setPosition(m_game.getWindowSize().x / 2, m_game.getWindowSize().y / 2);
 	//input
 	m_input = new PlayerInput(*this);
+	
+	
 }
 void Ship::anglecalcul()
 {
@@ -52,11 +54,27 @@ void Ship::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ship, Type_Missile);
 	}
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+	auto countlive = m_vie;
+	Vec2 position = { 0 + 50,static_cast<float>(m_game.getWindowSize().y) - 50 };
+	Vec2 Size = { 50, 50 };
+	while (countlive > 0)
+	{
+		new Lives(m_game, position, Size);
+		position.x += 70;
+
+		--countlive;
+	}
 }
 
 void Ship::render()
 {
 	m_game.getWindow()->draw(m_ship);
+	
 }
 
 int& Ship::gettype()
@@ -91,18 +109,15 @@ sf::CircleShape& Ship::getcircle()
 
 void Ship::TakeDomage(int num, int score)
 {
-	/*m_timetotakedomage = m_takedomage.getElapsedTime();
+	m_timetotakedomage = m_takedomage.getElapsedTime();
 	if (m_timetotakedomage.asSeconds() > 0.05)
 	{
 		m_score += score;
 		m_vie -= num;
-		if (m_vie == 0)
-		{
-			m_game.addScore(m_score);
-			m_game.toberemoved(this);
-		}
+		
 	}
-	m_takedomage.restart();*/
+	m_takedomage.restart();
+
 }
 
 EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :
@@ -171,11 +186,7 @@ void EnemieShip::TakeDomage(int num, int score)
 	{
 		m_score += score;
 		m_vie -= num;
-		if (m_vie == 0)
-		{
-			m_game.addScore(m_score);
-			m_game.toberemoved(this);
-		}
+		
 	}
 	m_takedomage.restart();
 }
@@ -203,7 +214,11 @@ void EnemieShip::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ennemie, Type_Ennemie_Missile);
 	}
-	
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
 }
 
 void EnemieShip::render()
@@ -261,6 +276,11 @@ void Missile::input(sf::Event event)
 void Missile::update(float deltatime)
 {
 	m_missile.move(m_moove.x, m_moove.y);
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
 }
 
 void Missile::render()
@@ -293,11 +313,7 @@ void Missile::TakeDomage(int num, int score)
 	{
 		m_score += score;
 		m_vie -= num;
-		if (m_vie == 0)
-		{
-			m_game.addScore(m_score);
-			m_game.toberemoved(this);
-		}
+		
 	}
 	m_takedomage.restart();
 }
@@ -377,7 +393,7 @@ void Barrier::TakeDomage(int num, int score)
 
 Asteroid::Asteroid(Game& game): IGameObject(game), m_angle(0), m_moove(0, 0)
 {
-	m_timetotakedomage = m_takedomage.getElapsedTime();
+
 	m_type = Type_Asteroid;
 	m_vie = 5;
 	initAsteroid();
@@ -417,6 +433,11 @@ void Asteroid::input(sf::Event event)
 void Asteroid::update(float deltatime)
 {
 	m_Asteroid.move(m_moove.x, m_moove.y);
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
 }
 
 void Asteroid::render()
@@ -448,11 +469,7 @@ void Asteroid::TakeDomage(int num, int score )
 	{
 		m_score += score;
 		m_vie -= num;
-		if (m_vie == 0)
-		{
-			m_game.addScore(m_score);
-			m_game.toberemoved(this);
-		}
+		
 	}
 	m_takedomage.restart();
 }
@@ -499,6 +516,11 @@ void Commette::input(sf::Event event)
 void Commette::update(float deltatime)
 {
 	m_Commette.move(m_moove.x, m_moove.y);
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
 }
 
 void Commette::render()
@@ -530,11 +552,74 @@ void Commette::TakeDomage(int num, int score)
 	{
 		m_score += score;
 		m_vie -= num;
-		if (m_vie == 0)
-		{
-			m_game.addScore(m_score);
-			m_game.toberemoved(this);
-		}
+		
 	}
 	m_takedomage.restart();
+}
+
+Lives::Lives(Game& game, Vec2 position, Vec2 Size) : IGameObject(game), m_position(position), m_Size(Size)
+{
+	m_type = Type_Live;
+	m_vie = 1;
+	initlives();
+}
+
+Lives::~Lives()
+{
+}
+
+void Lives::initlives()
+{
+	//set size
+	m_lives.setSize(sf::Vector2f(m_Size.x, m_Size.y));
+	// set Position and origin
+	m_lives.setOrigin(m_lives.getSize().x / 2, m_lives.getSize().y / 2);
+	m_lives.setPosition(sf::Vector2f(m_position.x, m_position.y));
+	//set texture
+	m_lives.setTexture(&m_game.gettexture().getTexture("resource\\Asteroid.png"));
+}
+
+void Lives::input(sf::Event event)
+{
+}
+
+void Lives::update(float deltatime)
+{
+	if (m_vie <=  0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+}
+
+void Lives::render()
+{
+	m_game.getWindow()->draw(m_lives);
+}
+
+int& Lives::gettype()
+{
+	return m_type;
+}
+
+AABB Lives::GetBoundingBox()
+{
+	Amin.x = m_lives.getPosition().x - m_lives.getSize().x / 2;
+	Amin.y = m_lives.getPosition().y - m_lives.getSize().y / 2;
+
+	Amax.x = m_lives.getPosition().x + m_lives.getSize().x / 2;
+	Amax.y = m_lives.getPosition().y + m_lives.getSize().y / 2;
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void Lives::TakeDomage(int num, int score)
+{
+
+	
+		m_vie -= num;
+		if (m_vie < 0)
+			m_vie = 0;
+	
 }

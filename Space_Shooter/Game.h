@@ -3,7 +3,8 @@
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
-class Rectangle;
+class Rectanglewidgetupdatable;
+class Rectanglewidget;
 class GameInput;
 class Ship;
 class Barrier;
@@ -45,5 +46,5 @@ private :
     sf::Clock m_spawn;
     sf::Time m_spawnrime;
     int m_scorebase;
-    Rectangle* tmps;
+    Rectanglewidgetupdatable* tmps;
 };
