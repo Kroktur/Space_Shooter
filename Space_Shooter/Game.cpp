@@ -4,8 +4,7 @@
 #include "MyMath.h"
 #include "WidgetGameObject.h"
 
-// a enlever
-#include <iostream>
+
 
 Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize())) , m_scorebase(5)
 {
@@ -69,7 +68,7 @@ void Game::render()
 	if (m_showAABB)
 		renderAABB();
 	
-	std::cout << m_totalscore << std::endl;
+	
 }
 
 void Game::init()
