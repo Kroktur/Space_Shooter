@@ -107,4 +107,3 @@ float Vec2::getlenght()
 	return std::sqrt(dotProduct(*this, *this));
 }
 
-
