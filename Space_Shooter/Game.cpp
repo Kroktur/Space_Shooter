@@ -35,7 +35,11 @@ void Game::processInput(sf::Event& event)
 {
 	m_input->processinput(event);
     objectinput(event);
+<<<<<<< Updated upstream
 			
+=======
+
+>>>>>>> Stashed changes
 }
 
 void Game::objectinput(sf::Event& event)

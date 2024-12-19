@@ -85,7 +85,11 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				A->TakeDomage();
 				B->TakeDomage();
 			}
+<<<<<<< Updated upstream
 			//Barrier spatial Fox boss missile
+=======
+			//Barrier spetial Fox boss missile
+>>>>>>> Stashed changes
 			if ((A->gettype() == Type_Barrier_Only_Misssile && B->gettype() == Type_FoxMissille)
 				|| (A->gettype() == Type_FoxMissille && B->gettype() == Type_Barrier_Only_Misssile))
 			{
@@ -205,7 +209,11 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				A->TakeDomage();
 				B->TakeDomage();
 			}
+<<<<<<< Updated upstream
 			//Player against missile fox boss
+=======
+			//Plyer againsst missile fox boss
+>>>>>>> Stashed changes
 			if ((A->gettype() == Type_FoxMissille && B->gettype() == Type_Ship))
 			{
 				A->TakeDomage(1, -m_scorebase);
