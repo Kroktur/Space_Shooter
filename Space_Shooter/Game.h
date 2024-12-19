@@ -16,7 +16,7 @@ public:
     ~Game();
     void processInput( sf::Event& event);
     void objectinput(sf::Event& event);
-    void update(const float& deltaTime);
+    void update(const float& deltaTime = 0.016f);
     void render();
     void init();
     void testColision(IGameObject* A, IGameObject* B);

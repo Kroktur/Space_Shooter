@@ -16,11 +16,14 @@ public:
 	void anglecalcul();
 	void input(sf::Event event) override;
 	void update(float deltatime)override;
-	void updatePhysique(float deltatime);
+	
 	void render() override;
 	int& gettype() override;
 	void resetmooveposition();
 	AABB GetBoundingBox() override;
+
+	void updatePhysique(float deltatime);
+	void Friction(float friction);
 	
 	sf::CircleShape& getcircle();
 	void TakeDomage(int num = 1, int score = 0);
@@ -35,7 +38,7 @@ private:
 	Vec2 m_position{ m_game.getWindowSize().x / 2.f, m_game.getWindowSize().y / 2.f };
 	float m_angle;
 	Vec2 m_velocity;
-	Vec2 acceleration{ 0.f,0.f };
+	Vec2 acceleration = 300.0f;
 
 	Iinput* m_input;
 
@@ -49,6 +52,7 @@ private:
 	bool isTurningRight = false;
 
 };
+
 class EnemieShip : public IGameObject
 {
 public:

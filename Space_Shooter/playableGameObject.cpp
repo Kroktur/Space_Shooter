@@ -63,9 +63,9 @@ void Ship::update(float deltatime)
 		new Missile(m_game, m_ship, Type_Missile);
 	}
 	updatePhysique(1.0f / 60.f);
+	Friction(0.01f); 
 	
 }
-
 void Ship::render()
 {
 	m_game.getWindow()->draw(m_ship);
