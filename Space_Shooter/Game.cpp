@@ -53,7 +53,6 @@ void Game::objectinput(sf::Event& event)
 void Game::update(const float& deltaTime)
 {
 	
-	spawnObject();
 	addObject();
 	for (auto Object : m_allGameObject)
 	{
