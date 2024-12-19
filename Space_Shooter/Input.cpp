@@ -52,7 +52,7 @@ void IaInput::processinput( sf::Event& event)
 	auto& objectenemie = dynamic_cast<EnemieShip&>(m_object);
 	auto& m_ennemie = objectenemie.m_ennemie;
 	objectenemie.m_elapsedTime = objectenemie.m_clock.getElapsedTime();
-	
+
 	if (m_actioncout == 500)
 		m_actioncout = 0;
 	if (m_actioncout == 0)
@@ -130,11 +130,15 @@ void IaBossFoxInput::processinput(sf::Event& event)
 	auto& objectenemie = dynamic_cast<BossFoxTentacle&>(m_object);
 	auto& m_ennemie = objectenemie.m_bossfox;
 	objectenemie.m_elapsedTime = objectenemie.m_clock.getElapsedTime();
-
+	auto windowsize = objectenemie.m_game.getWindowSize();
 	if (m_actioncout == 500)
 		m_actioncout = 0;
 	if (m_actioncout == 0)
 		m_random_number = objectenemie.m_rand->getrandomnumber(0, 5);
+	if (objectenemie.m_bossfox.getPosition().x <0 || objectenemie.m_bossfox.getPosition().x > windowsize.x
+		|| objectenemie.m_bossfox.getPosition().y < 0 || objectenemie.m_bossfox.getPosition().y > windowsize.y)
+		m_random_number = Move_Closer_Player;
+
 
 	auto m_magnetude = sqrt((objectenemie.m_delta.x) * (objectenemie.m_delta.x) + (objectenemie.m_delta.y) * (objectenemie.m_delta.y));
 	srand(time(0));
@@ -234,11 +238,15 @@ void IaBossLuminuxInput::processinput(sf::Event& event)
 	auto& objectenemie = dynamic_cast<BossLuminux&>(m_object);
 	auto& m_ennemie = objectenemie.m_bossluinux;
 	objectenemie.m_elapsedTime = objectenemie.m_clock.getElapsedTime();
-
+	auto windowsize = objectenemie.m_game.getWindowSize();
 	if (m_actioncout == 500)
 		m_actioncout = 0;
 	if (m_actioncout == 0)
 		m_random_number = objectenemie.m_rand->getrandomnumber(0, 5);
+
+	if (objectenemie.m_bossluinux.getPosition().x <0 || objectenemie.m_bossluinux.getPosition().x > windowsize.x
+		|| objectenemie.m_bossluinux.getPosition().y < 0 || objectenemie.m_bossluinux.getPosition().y > windowsize.y)
+		m_random_number = Move_Closer_Player;
 
 	auto m_magnetude = sqrt((objectenemie.m_delta.x) * (objectenemie.m_delta.x) + (objectenemie.m_delta.y) * (objectenemie.m_delta.y));
 	srand(time(0));

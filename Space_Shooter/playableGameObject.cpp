@@ -302,12 +302,12 @@ void Missile::set()
 	if (m_type == Type_Missile)
 	{
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_paw.png"));
-		m_velocity = 25.f;
+		m_velocity =50.f;
 	}
 	if (m_type == Type_Ennemie_Missile)
 	{
 		m_missile.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_enemie_paw.png"));
-		m_velocity = 12.5f;
+		m_velocity = 6.25f;
 	}
 	//set Missile position and Origin
 	m_missile.setOrigin(m_missile.getSize().x/2, m_missile.getSize().y / 2);

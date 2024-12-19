@@ -6,7 +6,7 @@
 
 
 
-Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta) , m_scorebase(5), m_bossevent(false)
+Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta) , m_scorebase(5), m_bossevent(false), m_bosscount(1), m_bossfactor(500)
 {
 	m_input = new GameInput(*this);
 	m_Background.setSize(sf::Vector2f(m_renderwindow->getSize()));
@@ -53,10 +53,9 @@ void Game::objectinput(sf::Event& event)
 void Game::update(const float& deltaTime)
 {
 	
-	
-	spawnObject();
-	rule();
 	addObject();
+	spawnObject();
+
 	
 	for (auto Object : m_allGameObject)
 	{
@@ -123,98 +122,90 @@ void Game::init()
 
 
 
-void Game::rule()
-{
-	if (m_bossevent )
-	{
-		for (auto Object : m_allGameObject)
-		{
-			auto type = Object->gettype();
-			if (type == Type_Ship || type == Type_Missile|| type == Type_BossFox || type == Type_FoxMissille || type == Type_Carrotboss || type == Type_CarroteMissile || type == Type_LuminuxBoss || type == Type_LuminuxMissile)
-				continue;
-			else 
-				Object->TakeDomage(1000, 0);
 
-		}
-	}
-		if (m_bossevent && !bossalive)
-		{
-			auto bossrand = m_rand.getrandomnumber(0, 2);
-			switch (bossrand)
-			{
-			case 0:
-				new BossFoxTentacle(*this, m_player->getcircle());
-				m_bossevent = false;
-				bossalive = true;
-				break;
-			case 1:
-				new BossLuminux(*this, m_player->getcircle());
-				m_bossevent = false;
-				bossalive = true;
-				break;
-			case 2:
-				new BossCarrot(*this, m_player->getcircle());
-				bossalive = true;
-				m_bossevent = false;
-				break;
-			default:
-				break;
-			}
-
-
-		}
-		if (m_bossevent && bossalive)
-		{
-			auto coutboss = 0;
-
-			for (auto Object : m_allGameObject)
-			{
-				auto type = Object->gettype();
-				if (type == Type_BossFox || type == Type_Carrotboss  || type == Type_LuminuxBoss )
-				{
-					++coutboss;
-				}
-
-			}
-			if (coutboss == 0)
-			{
-				bossalive = false;
-			}
-		}
-	
-
-}
 
 void Game::spawnObject()
 {
-	if (!m_bossevent)
+	if (m_bossevent)
 	{
-		m_spawnrime = m_spawn.getElapsedTime();
-		auto Enemiecount = 0;
+		bool isalive = false;
 		for (auto Object : m_allGameObject)
 		{
+			if (Object == currentboss)
+				isalive = true;
+		}
+		if (!isalive)
+			m_bossevent = false;
+	}
+	auto minimumennemie = 3;
+	
+	if (m_totalscore >= m_bossfactor * m_bosscount)
+	{
+		m_bossfactor += 250;
+		bossspawn();
+		++m_bosscount;
+	}
+	m_spawntime = m_spawn.getElapsedTime();
+	m_spawntime = m_spawn.getElapsedTime();
+	auto Enemiecount = 0;
+	for (auto Object : m_allGameObject)
+	{
 			if (Object->gettype() == Type_Ennemie_Ship)
 				++Enemiecount;
-		}
-		while (Enemiecount < 8)
+	}
+	if (!m_bossevent)
+	{
+		auto enemiethistime = m_totalscore / 100 + minimumennemie;
+		if (enemiethistime >= 20)
+			enemiethistime = 10;
+		while (Enemiecount < enemiethistime )
 		{
 			new EnemieShip(*this, m_player->getcircle());
 			++Enemiecount;
 		}
-		if (m_spawnrime.asSeconds() >= 0.5)
+		if (m_spawntime.asSeconds() >= 0.5)
 		{
-			if (m_rand.getrandomnumber(0, 5) == 1)
+			auto rand = m_rand.getrandomnumber(0, 4);
+			if (rand == 0)
 				new Asteroid(*this);
-			if (m_rand.getrandomnumber(6, 7) == 6)
+			if (rand == 1 || rand == 2)
 				new Commette(*this);
-			if (m_rand.getrandomnumber(1, 30) == 1)
-			{
-				m_bossevent = true;
-			}
+
 			m_spawn.restart();
 		}
 	}
+	
+	
+	
+}
 
+void Game::bossspawn()
+{
+	for (auto Object : m_allGameObject)
+	{
+		if (Object->gettype() == Type_Ship || Object->gettype() == Type_Missile)
+			continue;
+		else
+			Object->TakeDomage(100, 0);
+	}
+	auto rand = m_rand.getrandomnumber(0, 2);
+	switch (rand)
+	{
+	case 0:
+		currentboss = new BossLuminux(*this, m_player->getcircle());
+		m_bossevent = true;
+		break;
+	case 1: 
+		currentboss = new BossFoxTentacle(*this, m_player->getcircle());
+		m_bossevent = true;
+		break;
+	case 2:
+		currentboss = new BossCarrot(*this, m_player->getcircle());
+		m_bossevent = true;
+		break;
+	default:
+		break;
+	}
 }
 
 

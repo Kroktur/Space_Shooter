@@ -24,22 +24,26 @@ public:
     void testColision(IGameObject* A, IGameObject* B);
     bool colision(AABB A, AABB B);
     //window 
-    void rule();
-    void spawnObject();
    
+    void spawnObject();
+    void bossspawn();
     void renderAABB();
     
 private :
 
-    bool bossalive = false;
+   
     bool m_bossevent;
+    int m_bosscount;
+    int m_bossfactor;
+    IGameObject* currentboss;
+
     Ship* m_player;
     bool m_showAABB = false;
     Iinput* m_input;
     float m_Borderlimit;
     Randomnumber m_rand;
     sf::Clock m_spawn;
-    sf::Time m_spawnrime;
+    sf::Time m_spawntime;
     int m_scorebase;
     Rectanglewidgetupdatable* tmps;
 };
