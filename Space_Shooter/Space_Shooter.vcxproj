@@ -146,6 +146,10 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuHighScore.cpp" />
+    <ClCompile Include="MenuKeyBinding.cpp" />
+    <ClCompile Include="MenuOption.cpp" />
+    <ClCompile Include="MenuResolution.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="MyMath.cpp" />
     <ClCompile Include="playableGameObject.cpp" />
@@ -157,6 +161,10 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="MenuHighScore.h" />
+    <ClInclude Include="MenuKeyBinding.h" />
+    <ClInclude Include="MenuOption.h" />
+    <ClInclude Include="MenuResolution.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="playableGameObject.h" />
     <ClInclude Include="IGameObject.h" />
