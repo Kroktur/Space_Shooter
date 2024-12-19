@@ -10,7 +10,7 @@ enum AI_move
 	,Move_Up
 	,Move_Closer_Player
 	,Shoot
-	,Do_Nothing
+	,Rotate
 };
 
 class Iinput 
@@ -61,6 +61,18 @@ class IaBossFoxInput : public Iinput
 public:
 
 	IaBossFoxInput(IGameObject& object);
+	void processinput(sf::Event& event) override;
+private:
+	int m_actioncout;
+	float m_velocity;
+	int  m_random_number;
+	IGameObject& m_object;
+};
+class IaBossCarrotInput : public Iinput
+{
+public:
+
+	IaBossCarrotInput(IGameObject& object);
 	void processinput(sf::Event& event) override;
 private:
 	int m_actioncout;

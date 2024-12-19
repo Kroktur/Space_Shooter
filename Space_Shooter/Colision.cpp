@@ -86,8 +86,8 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage();
 			}
 			//Barrier spetial Fox boss missile
-			if ((A->gettype() == Type_Barrier_Only_Misssile && B->gettype() == Yype_FoxMissille)
-				|| (A->gettype() == Yype_FoxMissille && B->gettype() == Type_Barrier_Only_Misssile))
+			if ((A->gettype() == Type_Barrier_Only_Misssile && B->gettype() == Type_FoxMissille)
+				|| (A->gettype() == Type_FoxMissille && B->gettype() == Type_Barrier_Only_Misssile))
 			{
 				A->TakeDomage(100,0);
 				B->TakeDomage(100, 0);
@@ -195,23 +195,23 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage(1, -m_scorebase);
 			}
 			//missile againsst missile fox boss
-			if ((A->gettype() == Yype_FoxMissille && B->gettype() == Type_Missile))
+			if ((A->gettype() == Type_FoxMissille && B->gettype() == Type_Missile))
 			{
 				A->TakeDomage();
 				B->TakeDomage();
 			}
-			if ((A->gettype() == Type_Missile && B->gettype() == Yype_FoxMissille))
+			if ((A->gettype() == Type_Missile && B->gettype() == Type_FoxMissille))
 			{
 				A->TakeDomage();
 				B->TakeDomage();
 			}
 			//Plyer againsst missile fox boss
-			if ((A->gettype() == Yype_FoxMissille && B->gettype() == Type_Ship))
+			if ((A->gettype() == Type_FoxMissille && B->gettype() == Type_Ship))
 			{
 				A->TakeDomage(1, -m_scorebase);
 				B->TakeDomage();
 			}
-			if ((A->gettype() == Type_Ship && B->gettype() == Yype_FoxMissille))
+			if ((A->gettype() == Type_Ship && B->gettype() == Type_FoxMissille))
 			{
 				A->TakeDomage();
 				B->TakeDomage(1, -m_scorebase);

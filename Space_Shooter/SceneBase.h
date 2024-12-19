@@ -15,6 +15,7 @@ public:
     sf::Time getRefreshTime()const;
     void addObject();
     void toberemoved(IGameObject* it);
+
     void deleteObject();
     void addScore(int score = 1);
     sf::Vector2u getWindowSize();
@@ -22,6 +23,7 @@ public:
     TextureCache& gettexture();
     FontCache& getfont();
 protected:
+    sf::RectangleShape m_Background;
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;
     TextureCache m_texture;

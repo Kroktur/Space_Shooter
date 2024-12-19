@@ -31,7 +31,7 @@ public:
     
 private :
 
-    sf::RectangleShape m_Background;
+   
  
     Ship* m_player;
     bool m_showAABB = false;

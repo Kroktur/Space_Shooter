@@ -3,11 +3,14 @@
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
+class Rectanglewidgetupdatable;
+class Rectanglewidget;
 class Menu : public SceneBase
 {
 public:
 
     Menu(sf::RenderWindow* window, const float& framerate);
+    ~Menu();
     void init();
     void processInput(sf::Event& event);
     
@@ -17,7 +20,7 @@ public:
     
 
 private:
-    std::vector<IGameObject*> m_allGameObject;
-    sf::RectangleShape m_Background;
+    
+    Rectanglewidgetupdatable* tmps;
 };
 

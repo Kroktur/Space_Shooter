@@ -17,7 +17,8 @@ enum  GameOvject
     , Type_RectangleWidgetupdatable = 9
     , Type_Live = 10
     , Type_BossFox = 11
-    , Yype_FoxMissille = 12
+    , Type_FoxMissille = 12
+    ,Type_Carrotboss = 13
 };
 enum BarrierPosition
 {
@@ -25,6 +26,7 @@ enum BarrierPosition
     , Position_Right = 1
     , Position_Top = 2
     , Position_Botom = 3
+   
 };
 class IGameObject
 {

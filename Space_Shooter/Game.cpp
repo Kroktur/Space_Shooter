@@ -6,10 +6,10 @@
 
 
 
-Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize())) , m_scorebase(5)
+Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta) , m_scorebase(5)
 {
 	m_input = new GameInput(*this);
-	
+	m_Background.setSize(sf::Vector2f(m_renderwindow->getSize()));
 	switch (m_rand.getrandomnumber(0, 2))
 	{
 	case 0:
@@ -53,7 +53,7 @@ void Game::objectinput(sf::Event& event)
 void Game::update(const float& deltaTime)
 {
 	
-	spawnObject();
+	/*spawnObject();*/
 	addObject();
 	for (auto Object : m_allGameObject)
 	{
@@ -108,7 +108,8 @@ void Game::init()
 	tmps->setTexture("resource\\etiquette.png");
 	tmps->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
 	tmps->setTextPosition({positionscorerectangle.x - scalescorerectangle.x /4 - 40,positionscorerectangle.y - scalescorerectangle.y/4 +5 });
-	new BossTentacle(*this, m_player->getcircle());
+	/*new BossFoxTentacle(*this, m_player->getcircle());*/
+	new BossCarrot(*this, m_player->getcircle());
 }
 
 
