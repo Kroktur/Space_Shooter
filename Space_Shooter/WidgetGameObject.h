@@ -5,12 +5,13 @@
 #include<vector>
 enum Widget_type
 {
-    Classic_Widget
+    Classic_Widget = 0
+
 };
 class Widget : public IGameObject
 {
 public:
-    Widget(Game& game);
+    Widget(SceneBase& game);
     virtual void setFont(std::string font) = 0;
     virtual void setTexture(std::string texture) = 0;
     virtual void setText(std::string text) = 0;
@@ -28,7 +29,7 @@ public:
 
 protected:
     int m_typewidget;
-    Game& m_game;
+    SceneBase& m_game;
     sf::Text m_text;
     std::string m_textcontain;
 };
@@ -36,7 +37,7 @@ protected:
 class Rectanglewidget : public Widget
 {
 public:
-  Rectanglewidget(Game& game, Vec2& position , Vec2& Size ,std::string texte , int typewidget = Classic_Widget );
+  Rectanglewidget(SceneBase& game, Vec2& position , Vec2& Size ,std::string texte , int typewidget = Classic_Widget );
   void setrectangle();
 
 
@@ -65,7 +66,7 @@ private:
 class Rectanglewidgetupdatable : public Widget
 {
 public:
-    Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget = Classic_Widget);
+    Rectanglewidgetupdatable(SceneBase& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget = Classic_Widget);
     void setrectangle();
 
 

@@ -3,7 +3,7 @@
 #include <cmath>
 
 
-Ship::Ship(Game& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
+Ship::Ship(SceneBase& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
 	
 	m_type = Type_Ship;
@@ -120,7 +120,7 @@ void Ship::TakeDomage(int num, int score)
 
 }
 
-EnemieShip::EnemieShip(Game& game, sf::CircleShape& circle) :
+EnemieShip::EnemieShip(SceneBase& game, sf::CircleShape& circle) :
 	IGameObject(game)
 , m_ennemie(50)
 , m_ship(circle)
@@ -233,7 +233,7 @@ int& EnemieShip::gettype()
 	return m_type;
 }
 
-Missile::Missile(Game& game, sf::CircleShape& circle ,const int& type):
+Missile::Missile(SceneBase& game, sf::CircleShape& circle ,const int& type):
 	IGameObject(game)
 	, m_missile(sf::Vector2f(75,15))
 	,m_shape(circle)
@@ -318,7 +318,7 @@ void Missile::TakeDomage(int num, int score)
 	m_takedomage.restart();
 }
 
-Barrier::Barrier(Game& game, Vec2& Centre, float distance, int Size_,int Position, int forwhat) :IGameObject(game), m_Centre(Centre), m_Distance(distance) , m_position(Position), m_Size(Size_)
+Barrier::Barrier(SceneBase& game, Vec2& Centre, float distance, int Size_,int Position, int forwhat) :IGameObject(game), m_Centre(Centre), m_Distance(distance) , m_position(Position), m_Size(Size_)
 {
 	m_type = Type_Barrier;
 	if (forwhat == Type_Barrier_Only_Misssile)
@@ -391,7 +391,7 @@ void Barrier::TakeDomage(int num, int score)
 
 }
 
-Asteroid::Asteroid(Game& game): IGameObject(game), m_angle(0), m_moove(0, 0)
+Asteroid::Asteroid(SceneBase& game): IGameObject(game), m_angle(0), m_moove(0, 0)
 {
 
 	m_type = Type_Asteroid;
@@ -473,7 +473,7 @@ void Asteroid::TakeDomage(int num, int score )
 	}
 	m_takedomage.restart();
 }
-Commette::Commette(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
+Commette::Commette(SceneBase& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
 {
 	m_timetotakedomage = m_takedomage.getElapsedTime();
 	m_type = Type_Commette;
@@ -557,7 +557,7 @@ void Commette::TakeDomage(int num, int score)
 	m_takedomage.restart();
 }
 
-Lives::Lives(Game& game, Vec2 position, Vec2 Size) : IGameObject(game), m_position(position), m_Size(Size)
+Lives::Lives(SceneBase& game, Vec2 position, Vec2 Size) : IGameObject(game), m_position(position), m_Size(Size)
 {
 	m_type = Type_Live;
 	m_vie = 1;
@@ -623,7 +623,7 @@ void Lives::TakeDomage(int num, int score)
 			m_vie = 0;
 	
 }
-BossTentacle::BossTentacle(Game& game, sf::CircleShape& circle ):
+BossTentacle::BossTentacle(SceneBase& game, sf::CircleShape& circle ):
 	IGameObject(game)
 	, m_bossfox(300)
 	,m_ship(circle)
@@ -728,7 +728,7 @@ int& BossTentacle::gettype()
 {
 	return m_type;
 }
-FoxMissille::FoxMissille(Game& game, sf::CircleShape& circle, float angle) :
+FoxMissille::FoxMissille(SceneBase& game, sf::CircleShape& circle, float angle) :
 	IGameObject(game)
 	, m_fishmissile(sf::Vector2f(75, 15))
 	, m_shape(circle)
@@ -808,7 +808,7 @@ void FoxMissille::TakeDomage(int num, int score)
 	m_takedomage.restart();
 }
 
-void lunchroudmissile::lunch(int numofmissille, Game& game, sf::CircleShape& circle, int type )
+void lunchroudmissile::lunch(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type )
 {
 	auto angle_of_missile = 360 / numofmissille;
 	auto start_angle = 0;

@@ -11,14 +11,14 @@ class IaBossFoxInput;
 class lunchroudmissile
 {
 public:
-    void lunch(int numofmissille, Game& game, sf::CircleShape& circle, int type);
+    void lunch(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type);
 };
 
 class Ship : public IGameObject
 {
 public:
     friend PlayerInput;
-    Ship(Game& game);
+    Ship(SceneBase& game);
     ~Ship();
     void setShip();
     void anglecalcul();
@@ -51,7 +51,7 @@ class EnemieShip : public IGameObject
 {
 public:
     friend IaInput;
-    EnemieShip(Game& game, sf::CircleShape& circle);
+    EnemieShip(SceneBase& game, sf::CircleShape& circle);
     ~EnemieShip();
     void setennemie();
     void input(sf::Event event) override;
@@ -83,7 +83,7 @@ private:
 class Missile : public IGameObject
 {
 public:
-    Missile(Game& game , sf::CircleShape& circle , const int& type );
+    Missile(SceneBase& game , sf::CircleShape& circle , const int& type );
     void set();
     void input(sf::Event event) override;
     void update(float deltatime)override;
@@ -106,7 +106,7 @@ private:
 class Barrier : public IGameObject
 {
 public:
-    Barrier(Game& game, Vec2& Centre, float distance, int Size_, int Position ,int forwhat = 0);
+    Barrier(SceneBase& game, Vec2& Centre, float distance, int Size_, int Position ,int forwhat = 0);
     void initBarrer();
     void input(sf::Event event);
     void update(float deltatime);
@@ -128,7 +128,7 @@ private:
 class Asteroid : public IGameObject
 {
 public:
-    Asteroid(Game& game);
+    Asteroid(SceneBase& game);
     ~Asteroid();
     void initAsteroid();
     void input(sf::Event event) ;
@@ -150,7 +150,7 @@ private:
 class Commette : public IGameObject
 {
 public:
-    Commette(Game& game);
+    Commette(SceneBase& game);
     ~Commette();
     void initCommette();
     void input(sf::Event event);
@@ -174,7 +174,7 @@ class Lives : public IGameObject
 public:
 
   
-    Lives(Game& game, Vec2 position, Vec2 Size);
+    Lives(SceneBase& game, Vec2 position, Vec2 Size);
     ~Lives();
 
     void initlives();
@@ -193,7 +193,7 @@ class BossTentacle : public IGameObject
 {
 public:
     friend IaBossFoxInput;
-    BossTentacle(Game& game, sf::CircleShape& circle);
+    BossTentacle(SceneBase& game, sf::CircleShape& circle);
     ~BossTentacle();
     void setennemie();
     void input(sf::Event event) override;
@@ -224,7 +224,7 @@ private:
 class FoxMissille : public IGameObject
 {
 public:
-    FoxMissille(Game& game, sf::CircleShape& circle, float angmle);
+    FoxMissille(SceneBase& game, sf::CircleShape& circle, float angmle);
     void set();
     void input(sf::Event event) override;
     void update(float deltatime)override;

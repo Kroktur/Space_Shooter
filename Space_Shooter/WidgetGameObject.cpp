@@ -2,11 +2,11 @@
 
 // a elenver
 #include <iostream>
-Widget::Widget(Game& game) : IGameObject(game), m_game(game)
+Widget::Widget(SceneBase& game) : IGameObject(game), m_game(game)
 {
 }
 
-Rectanglewidget::Rectanglewidget(Game& game, Vec2& position, Vec2& Size, std::string texte, int typewidget ) :Widget(game), m_currentposition(position), m_size(Size)
+Rectanglewidget::Rectanglewidget(SceneBase& game, Vec2& position, Vec2& Size, std::string texte, int typewidget ) :Widget(game), m_currentposition(position), m_size(Size)
 {
 	typewidget = typewidget;
 	m_textcontain = texte;
@@ -105,7 +105,7 @@ void Rectanglewidget::TakeDomage(int num, int score)
 
 
 
-Rectanglewidgetupdatable::Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
+Rectanglewidgetupdatable::Rectanglewidgetupdatable(SceneBase& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
 {
 	typewidget = typewidget;
 	m_textcontain = texte;

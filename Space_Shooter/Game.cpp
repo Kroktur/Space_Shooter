@@ -115,15 +115,7 @@ void Game::init()
 
 
 
-sf::Vector2u Game::getWindowSize()
-{
-	return m_renderwindow->getSize();
-}
 
-sf::RenderWindow* Game::getWindow()
-{
-	return m_renderwindow;
-}
 
 void Game::spawnObject()
 {
@@ -149,36 +141,7 @@ void Game::spawnObject()
 	}
 }
 
-void Game::addObject()
-{
-	for (auto toaddgameobject : m_tobeaddGameObject)
-		m_allGameObject.push_back(toaddgameobject);
-	m_tobeaddGameObject.clear();
-}
 
-void Game::toberemoved(IGameObject* it)
-{
-m_toberemovedGameObject.push_back(it);
-}
-
-void Game::deleteObject()
-{
-	
-	for (auto it = m_toberemovedGameObject.begin(); it != m_toberemovedGameObject.end(); )
-	{
-		auto gameObjIt = std::find(m_allGameObject.begin(), m_allGameObject.end(), *it);
-		if (gameObjIt != m_allGameObject.end())
-		{
-			delete* gameObjIt;
-			m_allGameObject.erase(gameObjIt);
-			it = m_toberemovedGameObject.erase(it);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
 
 void Game::renderAABB()
 {
@@ -208,10 +171,7 @@ void Game::renderAABB()
 
 }
 
-void Game::addScore(int score)
-{
-	m_totalscore += score;
-}
+
 
 
 
