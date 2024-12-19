@@ -73,6 +73,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)externpart\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)externpart\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <PublicIncludeDirectories>
+    </PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)externpart\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
@@ -140,11 +142,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Colision.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="IGameObject.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="MyMath.cpp" />
+    <ClCompile Include="OptionMenu.cpp" />
+    <ClCompile Include="playableGameObject.cpp" />
+    <ClCompile Include="Ressource.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="Scenemanager.cpp" />
+    <ClCompile Include="WidgetGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="MyMath.h" />
+    <ClInclude Include="OptionMenu.h" />
+    <ClInclude Include="playableGameObject.h" />
+    <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="MyGame.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Ressource.h" />
+    <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="Scenemanager.h" />
+    <ClInclude Include="WidgetGameObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
