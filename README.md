@@ -2,19 +2,19 @@
 
 You have 10 lives
 
-##The Enemy :
+## The Enemy :
 lives : 1
 damages : 1
 
-##Comets :
+## Comets :
 lives : 1
 damages : 1
 
-##Asteroid :
+## Asteroid :
 lives : 5
 damages : 3
  
-##The Fox Boss :
+## The Fox Boss :
 lives : 15
 damages : 3
 missile damage : 3
