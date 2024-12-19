@@ -208,7 +208,6 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				A->TakeDomage();
 				B->TakeDomage();
 			}
->>>>>>> Stashed changes
 		}
 		
 	
