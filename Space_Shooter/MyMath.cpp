@@ -63,14 +63,30 @@ Vec2 operator+(const Vec2& op1, const Vec2& op2)
 	return { op1.x + op2.x, op1.y + op2.y };
 }
 
+
 Vec2 operator-(const Vec2& op1, const Vec2& op2)
 {
 	return{ op1.x - op2.x, op1.y - op2.y };
 }
 
+Vec2 operator+(const Vec2& op1, const sf::Vector2f& op2)
+{
+	return { op1.x + op2.x, op1.y + op2.y };
+}
+
+Vec2 operator-(const Vec2& op1, const sf::Vector2f& op2) 
+{
+	return { op1.x - op2.x, op1.y - op2.y };
+}
+
 Vec2 operator/(const Vec2& op1, const float& op2)
 {
 	return { op1.x / op2, op1.y / op2 };
+}
+
+Vec2 operator*(const Vec2& op1, const Vec2& op2) 
+{
+	return { op1.x * op2.x, op1.y * op2.y };
 }
 
 Vec2 operator*(const Vec2& op1, const float& op2)
@@ -91,6 +107,7 @@ Vec2& Vec2::operator+=(const Vec2& op1)
 	y += op1.y;
 	return *this;
 }
+
 
 Vec2& Vec2::operator-=(const Vec2& op1)
 {

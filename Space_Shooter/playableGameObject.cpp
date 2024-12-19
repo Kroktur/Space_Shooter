@@ -43,7 +43,7 @@ void Ship::input(sf::Event event)
 {/*
 	resetmooveposition();*/
 	m_input->processinput(event);
-	handleInput();
+	void handleInput();
 }
 
 void Ship::handleInput()
@@ -65,9 +65,13 @@ void Ship::update(float deltatime)
 		new Missile(m_game, m_ship, Type_Missile);
 	}
 
+	if (m_velocity.getlenght() > 0.1f) {
+		float driftAngle = std::atan2(m_velocity.y, m_velocity.x) * 180.f / 3.14159f;
+		m_ship.setRotation(driftAngle); // Le drift suit la vélocité
+	}
+
 	handleInput();
 	updatePhysique(deltatime);
-	
 	
 }
 void Ship::render()
@@ -80,11 +84,6 @@ int& Ship::gettype()
 	return m_type;
 }
 
-//void Ship::resetmooveposition()
-//{
-//	m_moove.x = 0;
-//	m_moove.y = ;
-//}
 
 AABB Ship::GetBoundingBox()
 {

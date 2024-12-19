@@ -15,11 +15,16 @@ struct  Vec2
 	Vec2& operator+=(const Vec2& op1);
 	Vec2& operator-=(const Vec2& op1);
 
+	operator sf::Vector2f() const 
+	{
+		return sf::Vector2f(x, y);
+	}
 };
 
 Vec2 operator+(const Vec2& op1, const Vec2& op2);
 Vec2 operator-(const Vec2& op1, const Vec2& op2);
 Vec2 operator/(const Vec2& op1, const float& op2);
+Vec2 operator*(const Vec2& op1, const Vec2& op2);
 Vec2 operator*(const Vec2& op1, const float& op2);
 Vec2 operator*(const float& op1, const Vec2& op2);
 

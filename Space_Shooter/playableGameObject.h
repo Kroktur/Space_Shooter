@@ -24,11 +24,10 @@ public:
 
 
 	void updatePhysique(float deltaTime);
+	void handleInput();
 	
 	sf::CircleShape& getcircle();
 	void TakeDomage(int num = 1, int score = 0);
-
-	void handleInput();
 
 
 private:
@@ -61,14 +60,14 @@ public:
 	EnemieShip(Game& game, sf::CircleShape& circle);
 	~EnemieShip();
 	void setennemie();
-	void input(sf::Event event) override;
+	void input(sf::Event event)override;
 	void update(float deltatime)override;
-	void render() override;
-	int& gettype() override;
+	void render()override;
+	int& gettype()override;
 	void resetmooveposition();
 	void deltapositin();
 	void anglecalcul();
-	AABB GetBoundingBox() override;
+	AABB GetBoundingBox()override;
 	void TakeDomage(int num = 1, int score = 0);
 private:
 
