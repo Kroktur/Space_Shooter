@@ -78,6 +78,7 @@ Vec2 operator*(const Vec2& op1, const float& op2)
 	return { op1.x * op2,  op1.y * op2 };
 }
 
+
 Vec2 operator*(const float& op1, const Vec2& op2)
 {
 	return { op1 * op2.x,  op1 * op2.y };

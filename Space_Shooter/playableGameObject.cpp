@@ -32,7 +32,7 @@ void Ship::anglecalcul()
 {
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*m_game.getWindow());
 	sf::Vector2f shipPos = m_ship.getPosition();
-	Vec2 acceleration{ 0.f, 0.f };
+	Vec2 acceleration;
 	float deltaX = mousePos.x - shipPos.x;
 	float deltaY = mousePos.y - shipPos.y;
 	float angle = std::atan2(deltaY, deltaX) * 180 / 3.14159f;
@@ -50,6 +50,7 @@ void Ship::handleInput()
 	isAccelerating = (sf::Keyboard::isKeyPressed(sf::Keyboard::Z));
 	isTurningLeft = (sf::Keyboard::isKeyPressed(sf::Keyboard::Q));
 	isTurningRight = (sf::Keyboard::isKeyPressed(sf::Keyboard::D));
+
 }
 
 void Ship::update(float deltatime)
@@ -62,8 +63,6 @@ void Ship::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ship, Type_Missile);
 	}
-
-
 
 	updatePhysique(deltatime);
 	
