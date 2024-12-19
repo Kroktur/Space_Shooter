@@ -9,7 +9,16 @@
 Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize())) , m_scorebase(5)
 {
 	m_input = new GameInput(*this);
-	m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
+	
+	switch (m_rand.getrandomnumber(0, 1))
+	{
+	case 0:
+		m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
+		break;
+	case 1:
+		m_Background.setTexture(&m_texture.getTexture("resource\\galaxie2.bmp"));
+		break;
+	}
 	init();
 }
 
@@ -73,12 +82,12 @@ void Game::render()
 
 void Game::init()
 {
-	m_Borderlimit = 500;
+	m_Borderlimit = 1000;
 	m_player = dynamic_cast<Ship*>(new Ship(*this));
 	
 	auto centerpointinwindow = Vec2{ static_cast<float>(m_renderwindow->getSize().x / 2) ,static_cast<float>( m_renderwindow->getSize().y / 2) };
 
-	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().x,2*( m_Borderlimit + m_renderwindow->getSize().y), Position_Left );
+	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().x, 2 * ( m_Borderlimit + m_renderwindow->getSize().y), Position_Left );
 	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().x, 2 * (m_Borderlimit + m_renderwindow->getSize().y), Position_Right);
 	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().y, 2 * (m_Borderlimit + m_renderwindow->getSize().x), Position_Top);
 	new Barrier(*this, centerpointinwindow, m_Borderlimit + m_renderwindow->getSize().y, 2 * (m_Borderlimit + m_renderwindow->getSize().x), Position_Botom);
@@ -88,12 +97,16 @@ void Game::init()
 	new Barrier(*this, centerpointinwindow, m_renderwindow->getSize().y/2 + 10, m_renderwindow->getSize().x + 20, Position_Top, Type_Barrier_Only_Misssile);
 	new Barrier(*this, centerpointinwindow,  m_renderwindow->getSize().y /2 + 10, m_renderwindow->getSize().x + 20, Position_Botom, Type_Barrier_Only_Misssile);
 
-	auto scalescorerectangle = Vec2{ 200,40 };
+	auto scalescorerectangle = Vec2{ 300,80 };
 	auto positionscorerectangle = Vec2{ static_cast<float>(m_renderwindow->getSize().x/2),0 + scalescorerectangle.y};
 
 	tmps = new Rectanglewidgetupdatable(*this, positionscorerectangle, scalescorerectangle, "total score : ",& m_totalscore);
-	tmps->settextSize(25);
-	tmps->setcolor(sf::Color(sf::Color(255, 215, 0)));
+	tmps->settextSize(20);
+	tmps->setcolor(sf::Color(sf::Color::Black));
+	tmps->setTexture("resource\\etiquette.png");
+	tmps->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
+	tmps->setTextPosition({positionscorerectangle.x - scalescorerectangle.x /4 - 40,positionscorerectangle.y - scalescorerectangle.y/4 +5 });
+	new BossTentacle(*this, m_player->getcircle());
 }
 
 

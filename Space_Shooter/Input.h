@@ -56,3 +56,15 @@ private :
 	sf::Time m_Time;
 	float m_lag;
 };
+class IaBossFoxInput : public Iinput
+{
+public:
+
+	IaBossFoxInput(IGameObject& object);
+	void processinput(sf::Event& event) override;
+private:
+	int m_actioncout;
+	float m_velocity;
+	int  m_random_number;
+	IGameObject& m_object;
+};

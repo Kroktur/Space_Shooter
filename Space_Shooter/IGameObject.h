@@ -6,16 +6,18 @@ class Game;
 enum  GameOvject
 {
     Type_Ship = 0
-    ,Type_Ennemie_Ship = 1
+    , Type_Ennemie_Ship = 1
     , Type_Missile = 2
     , Type_Ennemie_Missile = 3
-    , Type_Barrier =4
+    , Type_Barrier = 4
     , Type_Barrier_Only_Misssile = 5
-    ,Type_Asteroid =6
-    ,Type_Commette = 7
-    ,Type_RectangleWidget =8
+    , Type_Asteroid = 6
+    , Type_Commette = 7
+    , Type_RectangleWidget = 8
     , Type_RectangleWidgetupdatable = 9
     , Type_Live = 10
+    , Type_BossFox = 11
+    , Yype_FoxMissille = 12
 };
 enum BarrierPosition
 {

@@ -576,7 +576,7 @@ void Lives::initlives()
 	m_lives.setOrigin(m_lives.getSize().x / 2, m_lives.getSize().y / 2);
 	m_lives.setPosition(sf::Vector2f(m_position.x, m_position.y));
 	//set texture
-	m_lives.setTexture(&m_game.gettexture().getTexture("resource\\Asteroid.png"));
+	m_lives.setTexture(&m_game.gettexture().getTexture("resource\\heart.png"));
 }
 
 void Lives::input(sf::Event event)
@@ -622,4 +622,200 @@ void Lives::TakeDomage(int num, int score)
 		if (m_vie < 0)
 			m_vie = 0;
 	
+}
+BossTentacle::BossTentacle(Game& game, sf::CircleShape& circle ):
+	IGameObject(game)
+	, m_bossfox(300)
+	,m_ship(circle)
+	, m_angle(0)
+	, m_fire(false)
+	, m_firerate(0.5f)
+	, m_moove(0, 0)
+	, m_delta(0, 0)
+
+{
+	m_type = Type_BossFox;
+	m_vie = 90;
+	setennemie();
+}
+
+BossTentacle::~BossTentacle()
+{
+	delete m_input;
+	delete m_randPosition;
+}
+
+void BossTentacle::setennemie()
+{
+	//set RandomSpawn
+	m_randPosition = new RandomSpawn(Vec2{ -m_bossfox.getRadius(),-m_bossfox.getRadius() },
+		Vec2{ static_cast<float>(m_game.getWindowSize().x + m_bossfox.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_bossfox.getRadius()) });
+	//set EnemieShip position and Origin
+	m_bossfox.setOrigin(m_bossfox.getRadius(), m_bossfox.getRadius());
+	m_bossfox.setPosition(m_randPosition->m_spawnCordonate());
+	
+	//set texture
+	m_bossfox.setTexture(&m_game.gettexture().getTexture("resource\\Foxopus.png"));
+	//input
+	m_input = new IaBossFoxInput(*this);
+
+}
+AABB BossTentacle::GetBoundingBox()
+{
+	Amin.x = m_bossfox.getPosition().x - m_bossfox.getRadius();
+	Amin.y = m_bossfox.getPosition().y - m_bossfox.getRadius();
+
+	Amax.x = m_bossfox.getPosition().x + m_bossfox.getRadius();
+	Amax.y = m_bossfox.getPosition().y + m_bossfox.getRadius();
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+void BossTentacle::TakeDomage(int num, int score)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+
+	}
+	m_takedomage.restart();
+}
+void BossTentacle::resetmooveposition()
+{
+	m_moove.x = 0;
+	m_moove.y = 0;
+}
+void BossTentacle::deltapositin()
+{
+	m_delta.x = m_ship.getPosition().x - m_bossfox.getPosition().x;
+	m_delta.y = m_ship.getPosition().y - m_bossfox.getPosition().y;
+}
+
+
+void BossTentacle::input(sf::Event event)
+{
+	resetmooveposition();
+	m_input->processinput(event);
+}
+
+void BossTentacle::update(float deltatime)
+{
+	deltapositin();
+	m_bossfox.move(m_moove.x, m_moove.y);
+	if (m_fire)
+	{
+		m_fire = false;
+		lunchroudmissile lunch;
+		lunch.lunch(m_rand->getrandomnumber(10,50), m_game, m_bossfox, Yype_FoxMissille);
+	}
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+}
+
+void BossTentacle::render()
+{
+	m_game.getWindow()->draw(m_bossfox);
+
+
+}
+
+int& BossTentacle::gettype()
+{
+	return m_type;
+}
+FoxMissille::FoxMissille(Game& game, sf::CircleShape& circle, float angle) :
+	IGameObject(game)
+	, m_fishmissile(sf::Vector2f(75, 15))
+	, m_shape(circle)
+	,m_angle(angle)
+{
+	m_type = Yype_FoxMissille;
+	m_vie = 3;
+	set();
+}
+
+void FoxMissille::set()
+{
+	//set texture
+	
+		m_fishmissile.setTexture(&m_game.gettexture().getTexture("resource\\space_fish.png"));
+		m_velocity = 6;
+	
+	//set Missile position and Origin
+	m_fishmissile.setOrigin(m_fishmissile.getSize().x / 2, m_fishmissile.getSize().y / 2);
+	m_fishmissile.setPosition(m_shape.getPosition());
+	//set angle
+	 
+	m_fishmissile.setRotation(m_angle);
+	// set move 
+	float angle_rad = m_angle * (3.14159265f / 180.f);
+	m_moove.x = m_velocity * std::cos(angle_rad);
+	m_moove.y = m_velocity * std::sin(angle_rad);
+
+}
+
+void FoxMissille::input(sf::Event event)
+{
+}
+
+void FoxMissille::update(float deltatime)
+{
+	m_fishmissile.move(m_moove.x, m_moove.y);
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+}
+
+void FoxMissille::render()
+{
+	m_game.getWindow()->draw(m_fishmissile);
+
+}
+
+int& FoxMissille::gettype()
+{
+	return m_type;
+}
+
+AABB FoxMissille::GetBoundingBox()
+{
+	Amin.x = m_fishmissile.getPosition().x - m_fishmissile.getSize().x / 2;
+	Amin.y = m_fishmissile.getPosition().y - m_fishmissile.getSize().y / 2;
+
+	Amax.x = m_fishmissile.getPosition().x + m_fishmissile.getSize().x / 2;
+	Amax.y = m_fishmissile.getPosition().y + m_fishmissile.getSize().y / 2;
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void FoxMissille::TakeDomage(int num, int score)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+
+	}
+	m_takedomage.restart();
+}
+
+void lunchroudmissile::lunch(int numofmissille, Game& game, sf::CircleShape& circle, int type )
+{
+	auto angle_of_missile = 360 / numofmissille;
+	auto start_angle = 0;
+	for (auto idx = 0; idx < numofmissille ; ++idx)
+	{
+		if(type == Yype_FoxMissille)
+		new FoxMissille(game, circle, start_angle);
+		start_angle += angle_of_missile;
+	}
 }

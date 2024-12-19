@@ -6,6 +6,14 @@
 class Iinput;
 class PlayerInput;
 class IaInput;
+class IaBossFoxInput;
+
+class lunchroudmissile
+{
+public:
+    void lunch(int numofmissille, Game& game, sf::CircleShape& circle, int type);
+};
+
 class Ship : public IGameObject
 {
 public:
@@ -180,4 +188,59 @@ protected:
     sf::RectangleShape m_lives;
     Vec2& m_position;
     Vec2& m_Size;
+};
+class BossTentacle : public IGameObject
+{
+public:
+    friend IaBossFoxInput;
+    BossTentacle(Game& game, sf::CircleShape& circle);
+    ~BossTentacle();
+    void setennemie();
+    void input(sf::Event event) override;
+    void update(float deltatime)override;
+    void render() override;
+    int& gettype() override;
+    void resetmooveposition();
+    void deltapositin();
+    AABB GetBoundingBox() override;
+    void TakeDomage(int num = 1, int score = 0);
+  
+
+private:
+
+
+
+    sf::Vector2f m_delta;
+    sf::CircleShape m_bossfox;
+    sf::Vector2f m_moove;
+    float m_angle;
+    Iinput* m_input;
+    sf::CircleShape& m_ship;
+    bool m_fire;
+    const float m_firerate;
+    sf::Clock m_clock;
+    sf::Time m_elapsedTime;
+};
+class FoxMissille : public IGameObject
+{
+public:
+    FoxMissille(Game& game, sf::CircleShape& circle, float angmle);
+    void set();
+    void input(sf::Event event) override;
+    void update(float deltatime)override;
+    void render() override;
+    int& gettype() override;
+    AABB GetBoundingBox() override;
+    void TakeDomage(int num = 1, int score = 0);
+private:
+
+
+
+
+    float& m_angle;
+    sf::RectangleShape m_fishmissile;
+    sf::Vector2f m_moove;
+    float m_velocity;
+    sf::CircleShape& m_shape;
+
 };
