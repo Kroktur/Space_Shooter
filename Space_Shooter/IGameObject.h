@@ -20,6 +20,8 @@ enum  GameOvject
     , Type_FoxMissille = 12
     ,Type_Carrotboss = 13
     ,Type_CarroteMissile = 14
+    ,Type_LuminuxBoss = 15
+    , Type_LuminuxMissile = 16
 };
 enum BarrierPosition
 {

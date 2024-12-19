@@ -6,10 +6,12 @@ void spetialfire::RoundShoot(int numofmissille, SceneBase& game, sf::CircleShape
 {
 	auto angle_of_missile = 360 / numofmissille;
 	auto start_angle = 0;
-	for (auto idx = 0; idx < numofmissille ; ++idx)
+	for (auto idx = 0; idx < numofmissille; ++idx)
 	{
-		if(type == Type_FoxMissille)
-		new FoxMissille(game, circle, start_angle);
+		if (type == Type_FoxMissille)
+			new FoxMissille(game, circle, start_angle);
+		if (type == Type_LuminuxMissile)
+			new LuminuxMissile(game, circle, start_angle);
 		start_angle += angle_of_missile;
 	}
 }
@@ -20,9 +22,38 @@ void spetialfire::RoundShoot(int numofmissille, SceneBase& game, sf::RectangleSh
 	for (auto idx = 0; idx < numofmissille; ++idx)
 	{
 		if (type == Type_CarroteMissile)
-			
+			new CarrotMissile(game, rectangle, start_angle);
+	
 		start_angle += angle_of_missile;
 	}
+}
+void spetialfire::ConeShoot(int angle,int numofmissille, SceneBase& game, sf::CircleShape& circle, int type)
+{
+	
+	auto angle_of_missile = angle / numofmissille;
+	auto start_angle = -angle/2 + circle.getRotation();
+	for (auto idx = 0; idx < numofmissille; ++idx)
+	{
+		if (type == Type_FoxMissille)
+			new FoxMissille(game, circle, start_angle);
+		if (type == Type_LuminuxMissile)
+			new LuminuxMissile(game, circle, start_angle);
+		start_angle += angle_of_missile;
+	}
+
+}
+void spetialfire::ConeShoot(int angle, int numofmissille, SceneBase& game, sf::RectangleShape& rectangle, int type)
+{
+	auto angle_of_missile = angle / numofmissille;
+	auto start_angle = -angle / 2 + rectangle.getRotation();
+	for (auto idx = 0; idx < numofmissille; ++idx)
+	{
+		if (type == Type_CarroteMissile)
+			new CarrotMissile(game, rectangle, start_angle);
+		
+		start_angle += angle_of_missile;
+	}
+
 }
 Ship::Ship(SceneBase& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
@@ -40,6 +71,7 @@ Ship::~Ship()
 void Ship::setShip()
 {
 	//set texture
+	
 	m_ship.setTexture(&m_game.gettexture().getTexture("resource\\space_cat_.png"));
 	//set Ship position and Origin
 	m_ship.setOrigin(m_ship.getRadius(), m_ship.getRadius());
@@ -836,7 +868,7 @@ BossCarrot::BossCarrot(SceneBase& game, sf::CircleShape& circle) :
 	, m_ship(circle)
 	, m_angle(0)
 	, m_fire(false)
-	, m_firerate(0.5f)
+	, m_firerate(2.f)
 	, m_moove(0, 0)
 	, m_delta(0, 0)
 	, m_action(0)
@@ -919,7 +951,11 @@ void BossCarrot::update(float deltatime)
 	if (m_fire)
 	{
 		m_fire = false;
-	
+		spetialfire lunch;
+		if(m_rand->getrandomnumber(0, 4) == 1)
+			lunch.RoundShoot(m_rand->getrandomnumber(10, 50), m_game, m_bossCarrot, Type_CarroteMissile);
+		else
+		lunch.ConeShoot(m_rand->getrandomnumber(45, 180), m_rand->getrandomnumber(10, 20), m_game, m_bossCarrot, Type_CarroteMissile);
 	}
 	if (m_vie <= 0)
 	{
@@ -1008,6 +1044,204 @@ AABB CarrotMissile::GetBoundingBox()
 }
 
 void CarrotMissile::TakeDomage(int num, int score)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+
+	}
+	m_takedomage.restart();
+}
+BossLuminux::BossLuminux(SceneBase& game, sf::CircleShape& circle ):
+	IGameObject(game)
+	, m_bossluinux(300)
+	,m_ship(circle)
+	, m_angle(0)
+	, m_fire(false)
+	, m_firerate(0.5f)
+	, m_moove(0, 0)
+	, m_delta(0, 0)
+
+{
+	m_type = Type_LuminuxBoss;
+	m_vie = 90;
+	setennemie();
+}
+
+BossLuminux::~BossLuminux()
+{
+	delete m_input;
+	delete m_randPosition;
+}
+
+void BossLuminux::setennemie()
+{
+	//set RandomSpawn
+	m_randPosition = new RandomSpawn(Vec2{ -m_bossluinux.getRadius(),-m_bossluinux.getRadius() },
+		Vec2{ static_cast<float>(m_game.getWindowSize().x + m_bossluinux.getRadius()),static_cast<float>(m_game.getWindowSize().y + m_bossluinux.getRadius()) });
+	//set EnemieShip position and Origin
+	m_bossluinux.setOrigin(m_bossluinux.getRadius(), m_bossluinux.getRadius());
+	m_bossluinux.setPosition(m_randPosition->m_spawnCordonate());
+	
+	//set texture
+	m_bossluinux.setTexture(&m_game.gettexture().getTexture("resource\\LuminuxBoss.png"));
+	//input
+	m_input = new IaBossLuminuxInput(*this);
+
+}
+AABB BossLuminux::GetBoundingBox()
+{
+	Amin.x = m_bossluinux.getPosition().x - m_bossluinux.getRadius();
+	Amin.y = m_bossluinux.getPosition().y - m_bossluinux.getRadius();
+
+	Amax.x = m_bossluinux.getPosition().x + m_bossluinux.getRadius();
+	Amax.y = m_bossluinux.getPosition().y + m_bossluinux.getRadius();
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+void BossLuminux::TakeDomage(int num, int score)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+
+	}
+	m_takedomage.restart();
+}
+void BossLuminux::resetmooveposition()
+{
+	m_moove.x = 0;
+	m_moove.y = 0;
+}
+void BossLuminux::deltapositin()
+{
+	m_delta.x = m_ship.getPosition().x - m_bossluinux.getPosition().x;
+	m_delta.y = m_ship.getPosition().y - m_bossluinux.getPosition().y;
+}
+
+void BossLuminux::anglecalcul()
+{
+	float angle = atan2(m_delta.y, m_delta.x);
+	m_angle = angle * 180.0f / 3.1415926f;
+}
+
+
+void BossLuminux::input(sf::Event event)
+{
+	resetmooveposition();
+	m_input->processinput(event);
+}
+
+void BossLuminux::update(float deltatime)
+{
+	deltapositin();
+	anglecalcul();
+	m_bossluinux.setRotation(m_angle);
+	m_bossluinux.move(m_moove.x, m_moove.y);
+	if (m_fire)
+	{
+		m_fire = false;
+		spetialfire lunch;
+		if (m_rand->getrandomnumber(0, 2) == 1)
+			lunch.RoundShoot(m_rand->getrandomnumber(10, 60), m_game, m_bossluinux, Type_LuminuxMissile);
+		else
+			lunch.ConeShoot(m_rand->getrandomnumber(-180, 180), m_rand->getrandomnumber(10, 40), m_game, m_bossluinux, Type_LuminuxMissile);
+	}
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+}
+
+void BossLuminux::render()
+{
+	m_game.getWindow()->draw(m_bossluinux);
+
+
+}
+
+int& BossLuminux::gettype()
+{
+	return m_type;
+}
+LuminuxMissile::LuminuxMissile(SceneBase& game, sf::CircleShape& circle, float angle) :
+	IGameObject(game)
+	, m_luminuxmissile(sf::Vector2f(75, 15))
+	, m_shape(circle)
+	, m_angle(angle)
+{
+	m_type = Type_LuminuxMissile;
+	m_vie = 1;
+	set();
+}
+
+void LuminuxMissile::set()
+{
+	//set texture
+	if (m_rand->getrandomnumber(0, 1) == 0)
+		m_luminuxmissile.setTexture(&m_game.gettexture().getTexture("resource\\Spike1.png"));
+	else
+		m_luminuxmissile.setTexture(&m_game.gettexture().getTexture("resource\\Spike2.png"));
+	
+	m_velocity = m_rand->getrandomnumber(5, 10);
+
+	//set Missile position and Origin
+	m_luminuxmissile.setOrigin(m_luminuxmissile.getSize().x / 2, m_luminuxmissile.getSize().y / 2);
+	m_luminuxmissile.setPosition(m_shape.getPosition());
+	//set angle
+
+	m_luminuxmissile.setRotation(m_angle);
+	// set move 
+	float angle_rad = m_angle * (3.14159265f / 180.f);
+	m_moove.x = m_velocity * std::cos(angle_rad);
+	m_moove.y = m_velocity * std::sin(angle_rad);
+
+}
+
+void LuminuxMissile::input(sf::Event event)
+{
+}
+
+void LuminuxMissile::update(float deltatime)
+{
+	m_luminuxmissile.move(m_moove.x, m_moove.y);
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+}
+
+void LuminuxMissile::render()
+{
+	m_game.getWindow()->draw(m_luminuxmissile);
+
+}
+
+int& LuminuxMissile::gettype()
+{
+	return m_type;
+}
+
+AABB LuminuxMissile::GetBoundingBox()
+{
+	Amin.x = m_luminuxmissile.getPosition().x - m_luminuxmissile.getSize().x / 2;
+	Amin.y = m_luminuxmissile.getPosition().y - m_luminuxmissile.getSize().y / 2;
+
+	Amax.x = m_luminuxmissile.getPosition().x + m_luminuxmissile.getSize().x / 2;
+	Amax.y = m_luminuxmissile.getPosition().y + m_luminuxmissile.getSize().y / 2;
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void LuminuxMissile::TakeDomage(int num, int score)
 {
 	m_timetotakedomage = m_takedomage.getElapsedTime();
 	if (m_timetotakedomage.asSeconds() > 0.05)

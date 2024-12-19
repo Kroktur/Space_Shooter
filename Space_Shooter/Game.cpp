@@ -109,7 +109,7 @@ void Game::init()
 	tmps->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
 	tmps->setTextPosition({positionscorerectangle.x - scalescorerectangle.x /4 - 40,positionscorerectangle.y - scalescorerectangle.y/4 +5 });
 	/*new BossFoxTentacle(*this, m_player->getcircle());*/
-	new BossCarrot(*this, m_player->getcircle());
+	new BossLuminux(*this, m_player->getcircle());
 }
 
 

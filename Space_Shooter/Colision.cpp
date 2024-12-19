@@ -92,6 +92,20 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				A->TakeDomage(100,0);
 				B->TakeDomage(100, 0);
 			}
+			//Barrier spetial carrot boss missile
+			if ((A->gettype() == Type_Barrier_Only_Misssile && B->gettype() == Type_CarroteMissile)
+				|| (A->gettype() == Type_CarroteMissile && B->gettype() == Type_Barrier_Only_Misssile))
+			{
+				A->TakeDomage(100, 0);
+				B->TakeDomage(100, 0);
+			}
+			//Barrier spetial Luminux boss missile
+			if ((A->gettype() == Type_Barrier_Only_Misssile && B->gettype() == Type_LuminuxMissile)
+				|| (A->gettype() == Type_LuminuxMissile && B->gettype() == Type_Barrier_Only_Misssile))
+			{
+				A->TakeDomage(100, 0);
+				B->TakeDomage(100, 0);
+			}
 			//Asteroid against Missile
 			if ((A->gettype() == Type_Asteroid && B->gettype() == Type_Missile))
 			{
@@ -217,16 +231,93 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage(1, -m_scorebase);
 			}
 
-			//player against bossfox
-			if ((A->gettype() == Type_BossFox && B->gettype() == Type_Ennemie_Ship))
+			//missile againsst bossCarrot
+			if ((A->gettype() == Type_Carrotboss && B->gettype() == Type_Missile))
+			{
+				A->TakeDomage(1, m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Missile && B->gettype() == Type_Carrotboss))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, m_scorebase);
+			}
+			//player against bossCarrot
+			if ((A->gettype() == Type_Carrotboss && B->gettype() == Type_Ship))
 			{
 				A->TakeDomage(1, -m_scorebase);
 				B->TakeDomage();
 			}
-			if ((A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_BossFox))
+			if ((A->gettype() == Type_Ship && B->gettype() == Type_Carrotboss))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, -m_scorebase);
+			}
+			//missile againsst missile carrot boss
+			if ((A->gettype() == Type_CarroteMissile && B->gettype() == Type_Missile))
 			{
 				A->TakeDomage();
 				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Missile && B->gettype() == Type_CarroteMissile))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+			}
+			//Plyer againsst missile carrot boss
+			if ((A->gettype() == Type_CarroteMissile && B->gettype() == Type_Ship))
+			{
+				A->TakeDomage(1, -m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Ship && B->gettype() == Type_CarroteMissile))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, -m_scorebase);
+			}
+			//missile againsst bossLuminux
+			if ((A->gettype() == Type_LuminuxBoss && B->gettype() == Type_Missile))
+			{
+				A->TakeDomage(1, m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Missile && B->gettype() == Type_LuminuxBoss))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, m_scorebase);
+			}
+			//player against BossLuminux
+			if ((A->gettype() == Type_LuminuxBoss && B->gettype() == Type_Ship))
+			{
+				A->TakeDomage(1, -m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Ship && B->gettype() == Type_LuminuxBoss))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, -m_scorebase);
+			}
+			//missile againsst missile Luminux boss
+			if ((A->gettype() == Type_LuminuxMissile && B->gettype() == Type_Missile))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Missile && B->gettype() == Type_LuminuxMissile))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+			}
+			//Plyer againsst missile Luminuw boss
+			if ((A->gettype() == Type_LuminuxMissile && B->gettype() == Type_Ship))
+			{
+				A->TakeDomage(1, -m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Ship && B->gettype() == Type_LuminuxMissile))
+			{
+				A->TakeDomage();
+				B->TakeDomage(1, -m_scorebase);
 			}
 		}
 		

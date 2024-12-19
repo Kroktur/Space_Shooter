@@ -8,12 +8,14 @@ class PlayerInput;
 class IaInput;
 class IaBossFoxInput;
 class IaBossCarrotInput;
+class IaBossLuminuxInput;
 class spetialfire
 {
 public:
     void RoundShoot(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type);
     void RoundShoot(int numofmissille, SceneBase& game, sf::RectangleShape& circle, int type);
-
+    void ConeShoot(int angle, int numofmissille, SceneBase& game, sf::CircleShape& circle, int type);
+    void ConeShoot(int angle,int numofmissille, SceneBase& game, sf::RectangleShape& circle, int type);
 };
 
 class Ship : public IGameObject
@@ -300,5 +302,61 @@ private:
     sf::Vector2f m_moove;
     float m_velocity;
     sf::RectangleShape& m_shape;
+
+};
+class BossLuminux : public IGameObject
+{
+public:
+    friend IaBossLuminuxInput;
+    BossLuminux(SceneBase& game, sf::CircleShape& circle);
+    ~BossLuminux();
+    void setennemie();
+    void input(sf::Event event) override;
+    void update(float deltatime)override;
+    void render() override;
+    int& gettype() override;
+    void resetmooveposition();
+    void deltapositin();
+    void anglecalcul();
+    AABB GetBoundingBox() override;
+    void TakeDomage(int num = 1, int score = 0);
+
+
+private:
+
+
+
+    sf::Vector2f m_delta;
+    sf::CircleShape m_bossluinux;
+    sf::Vector2f m_moove;
+    float m_angle;
+    Iinput* m_input;
+    sf::CircleShape& m_ship;
+    bool m_fire;
+    const float m_firerate;
+    sf::Clock m_clock;
+    sf::Time m_elapsedTime;
+};
+class LuminuxMissile : public IGameObject
+{
+public:
+    LuminuxMissile(SceneBase& game, sf::CircleShape& circle, float angmle);
+    void set();
+    void input(sf::Event event) override;
+    void update(float deltatime)override;
+    void render() override;
+    int& gettype() override;
+    AABB GetBoundingBox() override;
+    void TakeDomage(int num = 1, int score = 0);
+private:
+
+
+
+
+    float& m_angle;
+    sf::RectangleShape m_luminuxmissile;
+    sf::Vector2f m_moove;
+    float m_velocity;
+    sf::CircleShape& m_shape;
 
 };
