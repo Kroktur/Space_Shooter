@@ -3,6 +3,10 @@
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
+
+class Rectanglewidgetupdatable;
+class Rectanglewidget;
+
 class Menu : public SceneBase
 {
 public:

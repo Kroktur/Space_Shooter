@@ -1,4 +1,8 @@
 #include "Menu.h"
+#include "playableGameObject.h"
+#include "Input.h"
+#include "MyMath.h"
+#include "WidgetGameObject.h"
 
  Menu::Menu(sf::RenderWindow* window, const float& framerate) : SceneBase(window, framerate), m_Background(sf::Vector2f(m_renderwindow->getSize()))
 {
@@ -8,7 +12,7 @@
 
 void Menu::init()
 {
-
+	/*auto play = new Rectanglewidget(*this, )*/
 
 
 
