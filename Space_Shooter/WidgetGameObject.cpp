@@ -6,8 +6,9 @@ Widget::Widget(Game& game) : IGameObject(game), m_game(game)
 {
 }
 
-Rectanglewidget::Rectanglewidget(Game& game, Vec2& position, Vec2& Size, std::string texte) :Widget(game), m_currentposition(position), m_size(Size)
+Rectanglewidget::Rectanglewidget(Game& game, Vec2& position, Vec2& Size, std::string texte, int typewidget ) :Widget(game), m_currentposition(position), m_size(Size)
 {
+	typewidget = typewidget;
 	m_textcontain = texte;
 	m_text.setString(m_textcontain);
 	m_type = Type_RectangleWidget;
@@ -61,6 +62,11 @@ void Rectanglewidget::setTextPosition(Vec2 position)
 
 
 
+int& Rectanglewidget::getwidgettype()
+{
+	return m_typewidget;
+}
+
 void Rectanglewidget::input(sf::Event event)
 {
 }
@@ -99,8 +105,9 @@ void Rectanglewidget::TakeDomage(int num, int score)
 
 
 
-Rectanglewidgetupdatable::Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
+Rectanglewidgetupdatable::Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
 {
+	typewidget = typewidget;
 	m_textcontain = texte;
 	
 	m_type = Type_RectangleWidgetupdatable;
@@ -153,6 +160,11 @@ void Rectanglewidgetupdatable::setTextPosition(Vec2 position)
 }
 
 
+
+int& Rectanglewidgetupdatable::getwidgettype()
+{
+	return m_typewidget;
+}
 
 void Rectanglewidgetupdatable::input(sf::Event event)
 {

@@ -10,7 +10,7 @@ Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window,
 {
 	m_input = new GameInput(*this);
 	
-	switch (m_rand.getrandomnumber(0, 1))
+	switch (m_rand.getrandomnumber(0, 2))
 	{
 	case 0:
 		m_Background.setTexture(&m_texture.getTexture("resource\\galaxie.bmp"));
@@ -18,6 +18,8 @@ Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window,
 	case 1:
 		m_Background.setTexture(&m_texture.getTexture("resource\\galaxie2.bmp"));
 		break;
+	case 2:
+		m_Background.setTexture(&m_texture.getTexture("resource\\galaxie3.png"));
 	}
 	init();
 }
