@@ -3,6 +3,7 @@
 #include "Ressource.h"
 #include "IGameObject.h"
 
+class SceneManager;
 class SceneBase
 {
 public:
@@ -15,7 +16,6 @@ public:
     sf::Time getRefreshTime()const;
     void addObject();
     void toberemoved(IGameObject* it);
-
     void deleteObject();
     void addScore(int score = 1);
     sf::Vector2u getWindowSize();

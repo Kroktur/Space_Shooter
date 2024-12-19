@@ -5,7 +5,12 @@
 #include<vector>
 enum Widget_type
 {
-    Classic_Widget = 0
+    Classic_Widget = 0,
+    Play_Widget = 1,
+    Title_Widget = 2,
+    Option_Widget = 3,
+    Highscore_Widget = 4,
+    Quit_Widget = 5
 
 };
 class Widget : public IGameObject

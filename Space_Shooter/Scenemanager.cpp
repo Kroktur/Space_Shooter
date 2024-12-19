@@ -45,6 +45,8 @@ sf::RenderWindow* SceneManager::getWindow()
     return m_window.get();
 }
 
+
+
 void SceneManager::Exe()
 {
     // We start the clock

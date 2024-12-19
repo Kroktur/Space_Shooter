@@ -24,15 +24,15 @@ public:
     void testColision(IGameObject* A, IGameObject* B);
     bool colision(AABB A, AABB B);
     //window 
-   
+    void rule();
     void spawnObject();
    
     void renderAABB();
     
 private :
 
-   
- 
+    bool bossalive = false;
+    bool m_bossevent;
     Ship* m_player;
     bool m_showAABB = false;
     Iinput* m_input;

@@ -1,5 +1,5 @@
 #include "SceneBase.h"
-
+#include "Scenemanager.h"
 SceneBase::SceneBase(sf::RenderWindow* window, const float& framerate) : m_renderwindow(window), m_refreshTime(sf::seconds(1.f / framerate)), m_totalscore(0)
 {
 	
@@ -30,6 +30,9 @@ void SceneBase::toberemoved(IGameObject* it)
 {
 	m_toberemovedGameObject.push_back(it);
 }
+
+
+
 
 void SceneBase::deleteObject()
 {

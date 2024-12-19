@@ -12,7 +12,7 @@ public:
     void push_back(std::unique_ptr<SceneBase> scene);
     void setCurrentScene(const int& index);
     sf::RenderWindow* getWindow();
-           
+    
            
 private:
     std::unique_ptr<sf::RenderWindow> m_window;
