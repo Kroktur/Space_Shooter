@@ -40,9 +40,10 @@ void Ship::anglecalcul()
 }
 
 void Ship::input(sf::Event event)
-{
-	resetmooveposition();
+{/*
+	resetmooveposition();*/
 	m_input->processinput(event);
+	handleInput();
 }
 
 void Ship::handleInput()
@@ -64,6 +65,7 @@ void Ship::update(float deltatime)
 		new Missile(m_game, m_ship, Type_Missile);
 	}
 
+	handleInput();
 	updatePhysique(deltatime);
 	
 	
@@ -78,11 +80,11 @@ int& Ship::gettype()
 	return m_type;
 }
 
-void Ship::resetmooveposition()
-{
-	m_moove.x = 0;
-	m_moove.y = 0;
-}
+//void Ship::resetmooveposition()
+//{
+//	m_moove.x = 0;
+//	m_moove.y = ;
+//}
 
 AABB Ship::GetBoundingBox()
 {

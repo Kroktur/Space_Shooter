@@ -14,11 +14,9 @@ void Ship::updatePhysique(float deltaTime)
 		m_angle += 10.f;
 
 	if (!isAccelerating)
-		m_acceleration = -0.8f * m_velocity;
+		m_acceleration = -8.f * m_velocity;
 	if (isAccelerating)
 		m_acceleration += Vec2{ std::cos(m_angle - 3.14f / 2.f),std::sin(m_angle - 3.14f / 2.f) }*100;
-
-	
 
 	if (m_velocity.getlenght() > 200)
 		m_velocity = m_velocity * (200 / m_velocity.getlenght());
@@ -33,7 +31,7 @@ void Ship::updatePhysique(float deltaTime)
 	
 	if (m_velocity.getlenght() > 0.01f)
 	{
-		m_velocity = m_velocity * (1.0f - friction);
+		m_velocity = m_velocity * friction;
 	}
 
 	else
