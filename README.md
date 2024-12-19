@@ -4,10 +4,12 @@ You have 10 lives
 
 ## The Enemy :
 lives : 1
+<br/><br/>
 missile damages : 1
 
 ## Comets :
 lives : 1
+<br/><br/>
 missile damages : 1
 
 ## Asteroid :
