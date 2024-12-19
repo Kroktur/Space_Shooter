@@ -8,10 +8,12 @@ class PlayerInput;
 class IaInput;
 class IaBossFoxInput;
 class IaBossCarrotInput;
-class lunchroudmissile
+class spetialfire
 {
 public:
-    void lunch(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type);
+    void RoundShoot(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type);
+    void RoundShoot(int numofmissille, SceneBase& game, sf::RectangleShape& circle, int type);
+
 };
 
 class Ship : public IGameObject
@@ -269,11 +271,34 @@ private:
     sf::RectangleShape m_bossCarrot;
     sf::Vector2f m_moove;
     float m_angle;
-    float angle;
+    int m_action;
     Iinput* m_input;
     sf::CircleShape& m_ship;
     bool m_fire;
     const float m_firerate;
     sf::Clock m_clock;
     sf::Time m_elapsedTime;
+};
+class CarrotMissile : public IGameObject
+{
+public:
+    CarrotMissile(SceneBase& game, sf::RectangleShape& rectangle, float angmle);
+    void set();
+    void input(sf::Event event) override;
+    void update(float deltatime)override;
+    void render() override;
+    int& gettype() override;
+    AABB GetBoundingBox() override;
+    void TakeDomage(int num = 1, int score = 0);
+private:
+
+
+
+
+    float& m_angle;
+    sf::RectangleShape m_carottemissile;
+    sf::Vector2f m_moove;
+    float m_velocity;
+    sf::RectangleShape& m_shape;
+
 };

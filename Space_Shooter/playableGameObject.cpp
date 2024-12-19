@@ -2,7 +2,28 @@
 #include "Input.h"
 #include <cmath>
 
-
+void spetialfire::RoundShoot(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type )
+{
+	auto angle_of_missile = 360 / numofmissille;
+	auto start_angle = 0;
+	for (auto idx = 0; idx < numofmissille ; ++idx)
+	{
+		if(type == Type_FoxMissille)
+		new FoxMissille(game, circle, start_angle);
+		start_angle += angle_of_missile;
+	}
+}
+void spetialfire::RoundShoot(int numofmissille, SceneBase& game, sf::RectangleShape& rectangle , int type)
+{
+	auto angle_of_missile = 360 / numofmissille;
+	auto start_angle = 0;
+	for (auto idx = 0; idx < numofmissille; ++idx)
+	{
+		if (type == Type_CarroteMissile)
+			
+		start_angle += angle_of_missile;
+	}
+}
 Ship::Ship(SceneBase& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(false), m_firerate(0.25f), m_moove(0, 0)
 {
 	
@@ -707,8 +728,8 @@ void BossFoxTentacle::update(float deltatime)
 	if (m_fire)
 	{
 		m_fire = false;
-		lunchroudmissile lunch;
-		lunch.lunch(m_rand->getrandomnumber(10,50), m_game, m_bossfox, Type_FoxMissille);
+		spetialfire lunch;
+		lunch.RoundShoot(m_rand->getrandomnumber(10,50), m_game, m_bossfox, Type_FoxMissille);
 	}
 	if (m_vie <= 0)
 	{
@@ -735,7 +756,7 @@ FoxMissille::FoxMissille(SceneBase& game, sf::CircleShape& circle, float angle) 
 	,m_angle(angle)
 {
 	m_type = Type_FoxMissille;
-	m_vie = 3;
+	m_vie = 1;
 	set();
 }
 
@@ -808,17 +829,7 @@ void FoxMissille::TakeDomage(int num, int score)
 	m_takedomage.restart();
 }
 
-void lunchroudmissile::lunch(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type )
-{
-	auto angle_of_missile = 360 / numofmissille;
-	auto start_angle = 0;
-	for (auto idx = 0; idx < numofmissille ; ++idx)
-	{
-		if(type == Type_FoxMissille)
-		new FoxMissille(game, circle, start_angle);
-		start_angle += angle_of_missile;
-	}
-}
+
 BossCarrot::BossCarrot(SceneBase& game, sf::CircleShape& circle) :
 	IGameObject(game)
 	, m_bossCarrot(sf::Vector2f(600, 200))
@@ -828,6 +839,7 @@ BossCarrot::BossCarrot(SceneBase& game, sf::CircleShape& circle) :
 	, m_firerate(0.5f)
 	, m_moove(0, 0)
 	, m_delta(0, 0)
+	, m_action(0)
 
 {
 	m_type = Type_Carrotboss;
@@ -844,11 +856,10 @@ BossCarrot::~BossCarrot()
 void BossCarrot::setennemie()
 {
 	//set RandomSpawn
-	m_randPosition = new RandomSpawn(Vec2{ -m_bossCarrot.getSize().x,-m_bossCarrot.getSize().y },
-		Vec2{ static_cast<float>(m_game.getWindowSize().x + m_bossCarrot.getSize().x),static_cast<float>(m_game.getWindowSize().y + m_bossCarrot.getSize().y) });
+	
 	//set EnemieShip position and Origin
 	m_bossCarrot.setOrigin(m_bossCarrot.getSize().x/2, m_bossCarrot.getSize().y/2);
-	m_bossCarrot.setPosition(m_randPosition->m_spawnCordonate());
+	m_bossCarrot.setPosition(m_bossCarrot.getSize().x / 2 , -m_bossCarrot.getSize().y);
 
 	//set texture
 	m_bossCarrot.setTexture(&m_game.gettexture().getTexture("C:resource\\CarrotWomen.png"));
@@ -857,7 +868,7 @@ void BossCarrot::setennemie()
 	m_input = new IaBossCarrotInput(*this);
 
 
-	m_bossCarrot.setRotation(45);
+	
 
 }
 AABB BossCarrot::GetBoundingBox()
@@ -927,4 +938,83 @@ void BossCarrot::render()
 int& BossCarrot::gettype()
 {
 	return m_type;
+}
+CarrotMissile::CarrotMissile(SceneBase& game, sf::RectangleShape& rectangle, float angle) :
+	IGameObject(game)
+	, m_carottemissile(sf::Vector2f(75, 15))
+	, m_shape(rectangle)
+	, m_angle(angle)
+{
+	m_type = Type_CarroteMissile;
+	m_vie = 1;
+	set();
+}
+
+void CarrotMissile::set()
+{
+	//set texture
+
+	m_carottemissile.setTexture(&m_game.gettexture().getTexture("resource\\carrote.png"));
+	m_velocity = 6;
+
+	//set Missile position and Origin
+	m_carottemissile.setOrigin(m_carottemissile.getSize().x / 2, m_carottemissile.getSize().y / 2);
+	m_carottemissile.setPosition(m_shape.getPosition());
+	//set angle
+
+	m_carottemissile.setRotation(m_angle);
+	// set move 
+	float angle_rad = m_angle * (3.14159265f / 180.f);
+	m_moove.x = m_velocity * std::cos(angle_rad);
+	m_moove.y = m_velocity * std::sin(angle_rad);
+
+}
+
+void CarrotMissile::input(sf::Event event)
+{
+}
+
+void CarrotMissile::update(float deltatime)
+{
+	m_carottemissile.move(m_moove.x, m_moove.y);
+	if (m_vie <= 0)
+	{
+		m_game.addScore(m_score);
+		m_game.toberemoved(this);
+	}
+}
+
+void CarrotMissile::render()
+{
+	m_game.getWindow()->draw(m_carottemissile);
+
+}
+
+int& CarrotMissile::gettype()
+{
+	return m_type;
+}
+
+AABB CarrotMissile::GetBoundingBox()
+{
+	Amin.x = m_carottemissile.getPosition().x - m_carottemissile.getSize().x / 2;
+	Amin.y = m_carottemissile.getPosition().y - m_carottemissile.getSize().y / 2;
+
+	Amax.x = m_carottemissile.getPosition().x + m_carottemissile.getSize().x / 2;
+	Amax.y = m_carottemissile.getPosition().y + m_carottemissile.getSize().y / 2;
+
+	AABB boundingbox(Amin, Amax);
+	return boundingbox;
+}
+
+void CarrotMissile::TakeDomage(int num, int score)
+{
+	m_timetotakedomage = m_takedomage.getElapsedTime();
+	if (m_timetotakedomage.asSeconds() > 0.05)
+	{
+		m_score += score;
+		m_vie -= num;
+
+	}
+	m_takedomage.restart();
 }
