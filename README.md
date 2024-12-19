@@ -21,6 +21,6 @@ missile damages : 3
 lives : 15
 <br/><br/>
 missile damages : 3
-<br/><br/><br/><br/><br/><br/>
+<br/><br/>
 
 ### You are dead, you loose!
