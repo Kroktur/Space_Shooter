@@ -473,7 +473,7 @@ void Asteroid::TakeDomage(int num, int score )
 	}
 	m_takedomage.restart();
 }
-Commette::Commette(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
+comets::comets(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
 {
 	m_timetotakedomage = m_takedomage.getElapsedTime();
 	m_type = Type_Commette;
@@ -481,12 +481,12 @@ Commette::Commette(Game& game) : IGameObject(game), m_angle(0), m_moove(0, 0)
 	initCommette();
 }
 
-Commette::~Commette()
+comets::~comets()
 {
 	delete m_randPosition;
 }
 
-void Commette::initCommette()
+void comets::initCommette()
 {
 	//random Size 
 	m_Commette.setRadius(m_rand->getrandomnumber(25, 50));
@@ -509,11 +509,11 @@ void Commette::initCommette()
 
 }
 
-void Commette::input(sf::Event event)
+void comets::input(sf::Event event)
 {
 }
 
-void Commette::update(float deltatime)
+void comets::update(float deltatime)
 {
 	m_Commette.move(m_moove.x, m_moove.y);
 	if (m_vie <= 0)
@@ -523,17 +523,17 @@ void Commette::update(float deltatime)
 	}
 }
 
-void Commette::render()
+void comets::render()
 {
 	m_game.getWindow()->draw(m_Commette);
 }
 
-int& Commette::gettype()
+int& comets::gettype()
 {
 	return m_type;
 }
 
-AABB Commette::GetBoundingBox()
+AABB comets::GetBoundingBox()
 {
 	Amin.x = m_Commette.getPosition().x - m_Commette.getRadius();
 	Amin.y = m_Commette.getPosition().y - m_Commette.getRadius();
@@ -544,7 +544,7 @@ AABB Commette::GetBoundingBox()
 	return boundingbox;
 }
 
-void Commette::TakeDomage(int num, int score)
+void comets::TakeDomage(int num, int score)
 {
 
 	m_timetotakedomage = m_takedomage.getElapsedTime();
@@ -708,7 +708,7 @@ void BossTentacle::update(float deltatime)
 	{
 		m_fire = false;
 		lunchroudmissile lunch;
-		lunch.lunch(m_rand->getrandomnumber(10,50), m_game, m_bossfox, Yype_FoxMissille);
+		lunch.lunch(m_rand->getrandomnumber(10,50), m_game, m_bossfox, Type_FoxMissille);
 	}
 	if (m_vie <= 0)
 	{
@@ -734,7 +734,7 @@ FoxMissille::FoxMissille(Game& game, sf::CircleShape& circle, float angle) :
 	, m_shape(circle)
 	,m_angle(angle)
 {
-	m_type = Yype_FoxMissille;
+	m_type = Type_FoxMissille;
 	m_vie = 3;
 	set();
 }
@@ -814,7 +814,7 @@ void lunchroudmissile::lunch(int numofmissille, Game& game, sf::CircleShape& cir
 	auto start_angle = 0;
 	for (auto idx = 0; idx < numofmissille ; ++idx)
 	{
-		if(type == Yype_FoxMissille)
+		if(type == Type_FoxMissille)
 		new FoxMissille(game, circle, start_angle);
 		start_angle += angle_of_missile;
 	}

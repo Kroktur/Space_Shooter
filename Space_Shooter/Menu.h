@@ -4,7 +4,7 @@
 #include "IGameObject.h"
 #include "MyMath.h"
 
-class Rectanglewidgetupdatable;
+class RectangleWidgetUpdatable;
 class Rectanglewidget;
 
 class Menu : public SceneBase

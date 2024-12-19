@@ -3,12 +3,15 @@
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
-class Rectanglewidgetupdatable;
+
+class RectangleWidgetUpdatable;
 class Rectanglewidget;
 class GameInput;
 class Ship;
 class Barrier;
 class Iinput;
+
+
 class Game : public SceneBase
 {
 public:
@@ -46,5 +49,5 @@ private :
     sf::Clock m_spawn;
     sf::Time m_spawnrime;
     int m_scorebase;
-    Rectanglewidgetupdatable* tmps;
+    RectangleWidgetUpdatable* tmps;
 };

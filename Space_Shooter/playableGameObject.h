@@ -147,11 +147,11 @@ private:
     sf::CircleShape m_Asteroid;
     sf::Vector2f m_moove;
 };
-class Commette : public IGameObject
+class comets : public IGameObject
 {
 public:
-    Commette(Game& game);
-    ~Commette();
+    comets(Game& game);
+    ~comets();
     void initCommette();
     void input(sf::Event event);
     void update(float deltatime);

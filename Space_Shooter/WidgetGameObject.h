@@ -62,10 +62,10 @@ private:
     Vec2& m_currentposition;
 };
 
-class Rectanglewidgetupdatable : public Widget
+class RectangleWidgetUpdatable : public Widget
 {
 public:
-    Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget = Classic_Widget);
+    RectangleWidgetUpdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget = Classic_Widget);
     void setrectangle();
 
 

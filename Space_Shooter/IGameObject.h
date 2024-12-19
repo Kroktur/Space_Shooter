@@ -17,7 +17,7 @@ enum  GameOvject
     , Type_RectangleWidgetupdatable = 9
     , Type_Live = 10
     , Type_BossFox = 11
-    , Yype_FoxMissille = 12
+    , Type_FoxMissille = 12
 };
 enum BarrierPosition
 {
@@ -29,7 +29,7 @@ enum BarrierPosition
 class IGameObject
 {
 public:
-   
+
     virtual ~IGameObject();
     IGameObject(Game& game);
     virtual void input(sf::Event event) = 0;
@@ -38,6 +38,7 @@ public:
     virtual int& gettype() =0;
     virtual AABB GetBoundingBox() = 0;
     virtual void TakeDomage(int num = 1, int score = 0) = 0;
+
 protected:
     Game& m_game;
     Randomnumber* m_rand;

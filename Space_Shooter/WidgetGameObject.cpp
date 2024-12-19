@@ -105,7 +105,7 @@ void Rectanglewidget::TakeDomage(int num, int score)
 
 
 
-Rectanglewidgetupdatable::Rectanglewidgetupdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
+RectangleWidgetUpdatable::RectangleWidgetUpdatable(Game& game, Vec2 position, Vec2 Size, std::string texte, int* value, int typewidget) :Widget(game), m_currentposition(position), m_size(Size), m_value(value)
 {
 	typewidget = typewidget;
 	m_textcontain = texte;
@@ -114,7 +114,7 @@ Rectanglewidgetupdatable::Rectanglewidgetupdatable(Game& game, Vec2 position, Ve
 	setrectangle();
 }
 
-void Rectanglewidgetupdatable::setrectangle()
+void RectangleWidgetUpdatable::setrectangle()
 {
 	// setSize Origin and Position of widget
 	m_rectangle.setSize(sf::Vector2f(m_size.x, m_size.y));
@@ -129,48 +129,48 @@ void Rectanglewidgetupdatable::setrectangle()
 
 }
 
-void Rectanglewidgetupdatable::setFont(std::string font)
+void RectangleWidgetUpdatable::setFont(std::string font)
 {
 	m_text.setFont(m_game.getfont().getFont(font));
 }
 
-void Rectanglewidgetupdatable::setText(std::string text)
+void RectangleWidgetUpdatable::setText(std::string text)
 {
 	m_text.setString(text);
 }
 
-void Rectanglewidgetupdatable::setTexture(std::string texture)
+void RectangleWidgetUpdatable::setTexture(std::string texture)
 {
 	m_rectangle.setTexture(&m_game.gettexture().getTexture(texture));
 }
 
-void Rectanglewidgetupdatable::setcolor(sf::Color color)
+void RectangleWidgetUpdatable::setcolor(sf::Color color)
 {
 	m_text.setFillColor(color);
 }
 
-void Rectanglewidgetupdatable::settextSize(int txtsize)
+void RectangleWidgetUpdatable::settextSize(int txtsize)
 {
 	m_text.setCharacterSize(txtsize);
 }
 
-void Rectanglewidgetupdatable::setTextPosition(Vec2 position)
+void RectangleWidgetUpdatable::setTextPosition(Vec2 position)
 {
 	m_text.setPosition(sf::Vector2f(position.x, position.y));
 }
 
 
 
-int& Rectanglewidgetupdatable::getwidgettype()
+int& RectangleWidgetUpdatable::getwidgettype()
 {
 	return m_typewidget;
 }
 
-void Rectanglewidgetupdatable::input(sf::Event event)
+void RectangleWidgetUpdatable::input(sf::Event event)
 {
 }
 
-void Rectanglewidgetupdatable::update(float deltatime)
+void RectangleWidgetUpdatable::update(float deltatime)
 
 {
 	if(m_value == nullptr)
@@ -179,19 +179,19 @@ void Rectanglewidgetupdatable::update(float deltatime)
 		m_text.setString(m_textcontain + std::to_string(*m_value));
 }
 
-void Rectanglewidgetupdatable::render()
+void RectangleWidgetUpdatable::render()
 {
 	m_game.getWindow()->draw(m_rectangle);
 
 	m_game.getWindow()->draw(m_text);
 }
 
-int& Rectanglewidgetupdatable::gettype()
+int& RectangleWidgetUpdatable::gettype()
 {
 	return m_type;
 }
 
-AABB Rectanglewidgetupdatable::GetBoundingBox()
+AABB RectangleWidgetUpdatable::GetBoundingBox()
 {
 	Amin.x = m_rectangle.getPosition().x - m_rectangle.getSize().x / 2;
 	Amin.y = m_rectangle.getPosition().y - m_rectangle.getSize().y / 2;
@@ -203,7 +203,7 @@ AABB Rectanglewidgetupdatable::GetBoundingBox()
 	return boundingbox;
 }
 
-void Rectanglewidgetupdatable::TakeDomage(int num, int score)
+void RectangleWidgetUpdatable::TakeDomage(int num, int score)
 {
 }
 

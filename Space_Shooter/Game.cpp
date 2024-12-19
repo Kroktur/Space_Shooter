@@ -5,7 +5,7 @@
 #include "WidgetGameObject.h"
 
 
-
+//window
 Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta), m_Background(sf::Vector2f(m_renderwindow->getSize())) , m_scorebase(5)
 {
 	m_input = new GameInput(*this);
@@ -26,7 +26,6 @@ Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window,
 
 Game::~Game()
 {
-
 	for (auto Object : m_allGameObject)
 		delete Object;
 	delete m_input;
@@ -37,8 +36,6 @@ void Game::processInput(sf::Event& event)
 	m_input->processinput(event);
     objectinput(event);
 			
-
-	
 }
 
 void Game::objectinput(sf::Event& event)
@@ -78,8 +75,7 @@ void Game::render()
 	}
 	if (m_showAABB)
 		renderAABB();
-	
-	
+
 }
 
 void Game::init()
@@ -99,20 +95,17 @@ void Game::init()
 	new Barrier(*this, centerpointinwindow, m_renderwindow->getSize().y/2 + 10, m_renderwindow->getSize().x + 20, Position_Top, Type_Barrier_Only_Misssile);
 	new Barrier(*this, centerpointinwindow,  m_renderwindow->getSize().y /2 + 10, m_renderwindow->getSize().x + 20, Position_Botom, Type_Barrier_Only_Misssile);
 
-	auto scalescorerectangle = Vec2{ 300,80 };
-	auto positionscorerectangle = Vec2{ static_cast<float>(m_renderwindow->getSize().x/2),0 + scalescorerectangle.y};
+	auto scaleScoreRectangle = Vec2{ 300,80 };
+	auto positionScoreRectangle = Vec2{ static_cast<float>(m_renderwindow->getSize().x/2),0 + scaleScoreRectangle.y};
 
-	tmps = new Rectanglewidgetupdatable(*this, positionscorerectangle, scalescorerectangle, "total score : ",& m_totalscore);
+	tmps = new RectangleWidgetUpdatable(*this, positionScoreRectangle, scaleScoreRectangle, "total score : ",& m_totalscore);
 	tmps->settextSize(20);
 	tmps->setcolor(sf::Color(sf::Color::Black));
 	tmps->setTexture("resource\\etiquette.png");
 	tmps->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
-	tmps->setTextPosition({positionscorerectangle.x - scalescorerectangle.x /4 - 40,positionscorerectangle.y - scalescorerectangle.y/4 +5 });
+	tmps->setTextPosition({positionScoreRectangle.x - scaleScoreRectangle.x /4 - 40,positionScoreRectangle.y - scaleScoreRectangle.y/4 +5 });
 	new BossTentacle(*this, m_player->getcircle());
 }
-
-
-
 
 
 sf::Vector2u Game::getWindowSize()
@@ -144,15 +137,15 @@ void Game::spawnObject()
 		if(m_rand.getrandomnumber(0,5) == 1)
 		new Asteroid(*this);
 		if (m_rand.getrandomnumber(0, 1) == 1)
-			new Commette(*this);
+			new comets(*this);
 		m_spawn.restart();
 	}
 }
 
 void Game::addObject()
 {
-	for (auto toaddgameobject : m_tobeaddGameObject)
-		m_allGameObject.push_back(toaddgameobject);
+	for (auto toAddGameObject : m_tobeaddGameObject)
+		m_allGameObject.push_back(toAddGameObject);
 	m_tobeaddGameObject.clear();
 }
 
@@ -180,6 +173,7 @@ void Game::deleteObject()
 	}
 }
 
+//Afficher 
 void Game::renderAABB()
 {
 	for (auto Object : m_allGameObject)
