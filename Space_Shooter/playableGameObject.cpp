@@ -62,8 +62,11 @@ void Ship::update(float deltatime)
 		m_fire = false;
 		new Missile(m_game, m_ship, Type_Missile);
 	}
-	updatePhysique(1.0f / 60.f);
-	Friction(0.01f); 
+
+
+
+	updatePhysique(deltatime);
+	
 	
 }
 void Ship::render()

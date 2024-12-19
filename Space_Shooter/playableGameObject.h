@@ -22,7 +22,8 @@ public:
 	void resetmooveposition();
 	AABB GetBoundingBox() override;
 
-	void updatePhysique(float deltatime);
+
+	void updatePhysique(float deltaTime);
 	void Friction(float friction);
 	
 	sf::CircleShape& getcircle();
@@ -38,7 +39,8 @@ private:
 	Vec2 m_position{ m_game.getWindowSize().x / 2.f, m_game.getWindowSize().y / 2.f };
 	float m_angle;
 	Vec2 m_velocity;
-	Vec2 acceleration = 300.0f;
+	Vec2 m_acceleration = 300.0f;
+	float m_totalTime = 0.0f;
 
 	Iinput* m_input;
 

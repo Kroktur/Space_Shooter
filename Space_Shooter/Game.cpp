@@ -76,6 +76,7 @@ void Game::render()
 
 void Game::init()
 {
+
 	m_Borderlimit = 500;
 	m_player = dynamic_cast<Ship*>(new Ship(*this));
 	
