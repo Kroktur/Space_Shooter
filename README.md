@@ -14,11 +14,13 @@ missile damages : 1
 
 ## Asteroid :
 lives : 5
+<br/><br/>
 missile damages : 3
  
 ## The Tentacle Boss :
 lives : 15
+<br/><br/>
 missile damages : 3
-
+<br/><br/><br/><br/><br/><br/>
 
 ### You are dead, you loose!
