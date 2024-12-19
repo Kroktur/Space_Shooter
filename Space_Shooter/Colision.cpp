@@ -217,6 +217,17 @@ void Game::testColision(IGameObject* A, IGameObject* B)
 				B->TakeDomage(1, -m_scorebase);
 			}
 
+			//player against bossfox
+			if ((A->gettype() == Type_BossFox && B->gettype() == Type_Ennemie_Ship))
+			{
+				A->TakeDomage(1, -m_scorebase);
+				B->TakeDomage();
+			}
+			if ((A->gettype() == Type_Ennemie_Ship && B->gettype() == Type_BossFox))
+			{
+				A->TakeDomage();
+				B->TakeDomage();
+			}
 		}
 		
 	

@@ -17,13 +17,13 @@ void SceneManager::processInput()
 
         if (m_event.type == sf::Event::KeyPressed)
         {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+          /*  if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
             {
                 if (m_currentScene == m_scenes.front().get())
                     m_currentScene = m_scenes.back().get();
                 else if (m_currentScene == m_scenes.back().get())
                     m_currentScene = m_scenes.front().get();
-            }
+            }*/
         }
     }
 }
