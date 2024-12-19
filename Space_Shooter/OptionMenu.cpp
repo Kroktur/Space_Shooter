@@ -19,55 +19,6 @@ void OptionMenu::init()
 	resolutionWidgetInit();
 	controlsWidgetInit();
 	backWidgetInit();
-
-}
-
-void OptionMenu::titleOptionWidgetInit()
-{
-	Vec2 widgetControlsPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 100 };
-	Vec2 sizeOfControls = { 800, 120 };
-	auto play = new Rectanglewidget(*this, widgetControlsPos, sizeOfControls, "Options", Title_Widget);
-	play->settextSize(45);
-	play->setTextPosition({ widgetControlsPos.x - 130, widgetControlsPos.y - 25 });
-	play->setcolor(sf::Color(sf::Color::Magenta));
-	play->setTexture("resource\\etiquette.png");
-	play->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
-}
-
-void OptionMenu::resolutionWidgetInit()
-{
-	Vec2 widgetResolutionPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 350 };
-	Vec2 sizeOfResolution = { 450, 155 };
-	auto play = new Rectanglewidget(*this, widgetResolutionPos, sizeOfResolution, "Resolution", Play_Widget);
-	play->settextSize(45);
-	play->setTextPosition({ widgetResolutionPos.x - 160, widgetResolutionPos.y - 25 });
-	play->setcolor(sf::Color(sf::Color::Blue));
-	play->setTexture("resource\\etiquette.png");
-	play->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
-}
-
-void OptionMenu::controlsWidgetInit()
-{
-	Vec2 widgetControlsPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 600 };
-	Vec2 sizeOfControls = { 450, 155 };
-	auto play = new Rectanglewidget(*this, widgetControlsPos, sizeOfControls, "Controls", Title_Widget);
-	play->settextSize(45);
-	play->setTextPosition({ widgetControlsPos.x - 130, widgetControlsPos.y - 25 });
-	play->setcolor(sf::Color(sf::Color::Blue));
-	play->setTexture("resource\\etiquette.png");
-	play->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
-}
-
-void OptionMenu::backWidgetInit()
-{
-	Vec2 widgetBackPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 850 };
-	Vec2 sizeOfBack = { 450, 155 };
-	auto play = new Rectanglewidget(*this, widgetBackPos, sizeOfBack, "Back", Quit_Widget);
-	play->settextSize(45);
-	play->setTextPosition({ widgetBackPos.x - 55, widgetBackPos.y - 25 });
-	play->setcolor(sf::Color(sf::Color::Blue));
-	play->setTexture("resource\\etiquette.png");
-	play->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
 }
 
 void OptionMenu::processInput(sf::Event& event)
@@ -92,4 +43,56 @@ void OptionMenu::render()
 	{
 		Object->render();
 	}
+}
+
+void OptionMenu::titleOptionWidgetInit()
+{
+	Vec2 widgetControlsPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 100 };
+	Vec2 sizeOfControls = { 800, 120 };
+	auto optionTitle = new Rectanglewidget(*this, widgetControlsPos, sizeOfControls, "Options", Title_Widget);
+	optionTitle->settextSize(45);
+	optionTitle->setTextPosition({ widgetControlsPos.x - 130, widgetControlsPos.y - 25 });
+	optionTitle->setcolor(sf::Color(sf::Color::Magenta));
+	optionTitle->setTexture("resource\\etiquette.png");
+	optionTitle->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
+	optionTitle->GetBoundingBox();
+}
+
+void OptionMenu::resolutionWidgetInit()
+{
+	Vec2 widgetResolutionPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 350 };
+	Vec2 sizeOfResolution = { 450, 155 };
+	auto resolutiontext = new Rectanglewidget(*this, widgetResolutionPos, sizeOfResolution, "Resolution", Play_Widget);
+	resolutiontext->settextSize(45);
+	resolutiontext->setTextPosition({ widgetResolutionPos.x - 160, widgetResolutionPos.y - 25 });
+	resolutiontext->setcolor(sf::Color(sf::Color::Blue));
+	resolutiontext->setTexture("resource\\etiquette.png");
+	resolutiontext->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
+	resolutiontext->GetBoundingBox();
+}
+
+void OptionMenu::controlsWidgetInit()
+{
+	Vec2 widgetControlsPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 600 };
+	Vec2 sizeOfControls = { 450, 155 };
+	auto controltext = new Rectanglewidget(*this, widgetControlsPos, sizeOfControls, "Controls", Title_Widget);
+	controltext->settextSize(45);
+	controltext->setTextPosition({ widgetControlsPos.x - 130, widgetControlsPos.y - 25 });
+	controltext->setcolor(sf::Color(sf::Color::Blue));
+	controltext->setTexture("resource\\etiquette.png");
+	controltext->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
+	controltext->GetBoundingBox();
+}
+
+void OptionMenu::backWidgetInit()
+{
+	Vec2 widgetBackPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 850 };
+	Vec2 sizeOfBack = { 450, 155 };
+	auto backText = new Rectanglewidget(*this, widgetBackPos, sizeOfBack, "Back", Quit_Widget);
+	backText->settextSize(45);
+	backText->setTextPosition({ widgetBackPos.x - 55, widgetBackPos.y - 25 });
+	backText->setcolor(sf::Color(sf::Color::Blue));
+	backText->setTexture("resource\\etiquette.png");
+	backText->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
+	backText->GetBoundingBox();
 }

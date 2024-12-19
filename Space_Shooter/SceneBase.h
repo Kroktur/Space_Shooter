@@ -21,6 +21,7 @@ public:
     sf::RenderWindow* getWindow();
     TextureCache& gettexture();
     FontCache& getfont();
+
 protected:
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;

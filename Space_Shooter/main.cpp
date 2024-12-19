@@ -14,7 +14,7 @@ int main()
     sceneManager.push_back(std::make_unique<Menu>(sceneManager.getWindow(), 30.f));
     sceneManager.push_back(std::make_unique<Game>(sceneManager.getWindow(), 60));
     sceneManager.push_back(std::make_unique<OptionMenu>(sceneManager.getWindow(), 30));
-    sceneManager.setCurrentScene(2);
+    sceneManager.setCurrentScene(0);
     sceneManager.Exe();
   
     return 0;

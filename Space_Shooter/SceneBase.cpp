@@ -19,6 +19,7 @@ FontCache& SceneBase::getfont()
 {
 	return m_font;
 }
+
 void SceneBase::addObject()
 {
 	for (auto toaddgameobject : m_tobeaddGameObject)

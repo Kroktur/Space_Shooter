@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Colision.cpp" />
+    <ClCompile Include="DeathWidget.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IGameObject.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="WidgetGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DeathWidget.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MyMath.h" />

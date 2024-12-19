@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <iostream>
 #include "SceneBase.h"
 #include "IGameObject.h"
 #include "MyMath.h"
@@ -26,10 +28,17 @@ public:
     void optionWidgetInit();
     void highscoreWidgetInit();
     void quitWidgetInit();
+    void MouseNav();
+
+    void SoundInit();
+    void MusicInit();
 
 private:
-
-    sf::RectangleShape m_Background;
-    
+    sf::Music* menuMusic;
+    sf::RectangleShape m_Background;  
+    sf::SoundBuffer hoverBuffer;
+    sf::SoundBuffer clickBuffer;
+    sf::Sound hoverSound;
+    sf::Sound clickSound;
 };
 

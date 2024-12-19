@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class TextureCache
 {
