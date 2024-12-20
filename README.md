@@ -23,4 +23,11 @@ lives : 15
 missile damages : 3
 <br/><br/>
 
+## The Fox Missile :
+lives : 1
+<br/><br/>
+missile damages : 
+<br/><br/>
+
+
 ### You are dead, you loose!
