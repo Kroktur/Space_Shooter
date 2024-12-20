@@ -26,7 +26,7 @@ missile damages : 3
 ## The Fox Missile :
 lives : 1
 <br/><br/>
-missile damages : 
+missile damages : 1
 <br/><br/>
 
 
