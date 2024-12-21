@@ -8,7 +8,7 @@ Widget::Widget(SceneBase& game) : IGameObject(game), m_game(game)
 
 Rectanglewidget::Rectanglewidget(SceneBase& game, Vec2& position, Vec2& Size, std::string texte, int typewidget ) :Widget(game), m_currentposition(position), m_size(Size)
 {
-	typewidget = typewidget;
+	m_typewidget = typewidget;
 	m_textcontain = texte;
 	m_text.setString(m_textcontain);
 	m_type = Type_RectangleWidget;

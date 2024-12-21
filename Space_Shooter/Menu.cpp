@@ -1,6 +1,7 @@
 #include "Menu.h"
-
-Menu::Menu(sf::RenderWindow* window, const float& framerate) : SceneBase(window, framerate)
+// a enlever 
+#include <iostream>
+Menu::Menu(sf::RenderWindow* window, const float& framerate) : SceneBase(window, framerate )
 {
 	m_Background.setSize(sf::Vector2f(m_renderwindow->getSize()));
 	m_Background.setTexture(&m_texture.getTexture("resource\\Menu.png"));
@@ -34,7 +35,7 @@ void Menu::processInput(sf::Event& event)
 
 		for (auto Object : m_allGameObject)
 		{
-			Menuinput(Object);
+			Menuinput(static_cast<Widget*>(Object), mousePos);
 		}
 	}
 	
@@ -54,24 +55,21 @@ void Menu::update(const float& deltaTime)
 
 void Menu::render()
 {
-	/*m_renderwindow->draw(m_Background);*/
+	m_renderwindow->draw(m_Background);
 	for (auto Object : m_allGameObject)
 	{
 		Object->render();
 	}
 }
 
-void Menu::Menuinput(IGameObject* object)
+void Menu::Menuinput(Widget* object, sf::Vector2f mousepos)
 {
-	sf::Vector2i mousePos = sf::Mouse::getPosition(*m_renderwindow);
-	if (mousePos.x > object->GetBoundingBox().Amin.x && mousePos.x < object->GetBoundingBox().Amax.x &&
-		mousePos.y < object->GetBoundingBox().Amin.y && mousePos.y > object->GetBoundingBox().Amax.y)
+	
+	if (mousepos.x > object->GetBoundingBox().Amin.x && mousepos.x  < object->GetBoundingBox().Amax.x
+		&& mousepos.y >object->GetBoundingBox().Amin.y && mousepos.y < object->GetBoundingBox().Amax.y)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			auto myobject = static_cast<Rectanglewidget*>(object);
-			changewindow(myobject->getwidgettype());
-		}
+		if(object->getwidgettype() == Play_Widget)
+		std::cout << "test" << std::endl;
 	}
 
 

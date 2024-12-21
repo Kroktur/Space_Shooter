@@ -6,7 +6,7 @@
 
 
 
-Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta) , m_scorebase(5), m_bossevent(false), m_bosscount(1), m_bossfactor(500)
+Game::Game(sf::RenderWindow* window, const float& framereta) : SceneBase(window, framereta ) , m_scorebase(5), m_bossevent(false), m_bosscount(1), m_bossfactor(500)
 {
 	m_input = new GameInput(*this);
 	m_Background.setSize(sf::Vector2f(m_renderwindow->getSize()));

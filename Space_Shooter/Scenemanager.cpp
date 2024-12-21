@@ -2,7 +2,9 @@
 
 
 
-SceneManager::SceneManager(const int& width, const int& height, const std::string& title, const int& style) :m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title , style))
+SceneManager::SceneManager(const int& width, const int& height, const std::string& title, const int& style) :
+    m_window(std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, style))
+    , m_currentsceneidx(0)
 {
 
 }
@@ -37,7 +39,8 @@ void SceneManager::push_back(std::unique_ptr<SceneBase> scene)
 
 void SceneManager::setCurrentScene(const int& index)
 {
-    m_currentScene = m_scenes[index].get();
+    m_currentsceneidx = index;
+    m_currentScene = m_scenes[m_currentsceneidx].get();
 }
 
 sf::RenderWindow* SceneManager::getWindow()
