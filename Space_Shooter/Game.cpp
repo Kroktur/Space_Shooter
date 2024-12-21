@@ -156,7 +156,9 @@ void Game::spawnObject()
 	if (!m_bossevent)
 	{
 		auto enemiethistime = m_totalscore / 100 + minimumennemie;
-		while (Enemiecount  )
+		if (enemiethistime >= 10)
+			enemiethistime = 10;
+		while (Enemiecount < enemiethistime )
 		{
 			new EnemieShip(*this, m_player->getcircle());
 			++Enemiecount;
