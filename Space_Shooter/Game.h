@@ -14,6 +14,7 @@ class Game : public SceneBase
 public:
     friend GameInput;
     
+
     Game(sf::RenderWindow* window, const float& framereta);
     ~Game();
     void processInput( sf::Event& event);
