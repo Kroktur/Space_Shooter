@@ -19,13 +19,12 @@ void SceneManager::processInput()
 
         if (m_event.type == sf::Event::KeyPressed)
         {
-          /*  if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
-                if (m_currentScene == m_scenes.front().get())
-                    m_currentScene = m_scenes.back().get();
-                else if (m_currentScene == m_scenes.back().get())
-                    m_currentScene = m_scenes.front().get();
-            }*/
+                if (m_currentsceneidx == 1)
+                    m_currentScene = m_scenes[0].get();
+             
+            }
         }
     }
 }
@@ -62,7 +61,8 @@ void SceneManager::Exe()
    /* int counter = 0;*/
     while (m_window->isOpen())
     {
-   
+        m_currentsceneidx = m_currentScene->getceneidx();
+        m_currentScene = m_scenes[m_currentsceneidx].get();
 
         const float current = clock.getElapsedTime().asMilliseconds();
         const auto elapsed = current - previous;

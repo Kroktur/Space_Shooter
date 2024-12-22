@@ -11,6 +11,9 @@ enum Widget_type
     Option_Widget = 3,
     Highscore_Widget = 4,
     Quit_Widget = 5
+    ,Resolution_Widget =6
+    , Control_Widget =7
+    , Back_Widget = 8
 
 };
 class Widget : public IGameObject
@@ -37,6 +40,7 @@ protected:
     SceneBase& m_game;
     sf::Text m_text;
     std::string m_textcontain;
+    sf::Color m_color;
 };
 
 class Rectanglewidget : public Widget
