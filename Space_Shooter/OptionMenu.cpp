@@ -23,6 +23,16 @@ void OptionMenu::init()
 
 void OptionMenu::processInput(sf::Event& event)
 {
+	setsceneidx(2);
+	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+	{
+		sf::Vector2f mousePos = m_renderwindow->mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+
+		for (auto Object : m_allGameObject)
+		{
+			OptionMenuinput(static_cast<Widget*>(Object), mousePos);
+		}
+	}
 }
 
 void OptionMenu::update(const float& deltaTime)
@@ -36,6 +46,17 @@ void OptionMenu::update(const float& deltaTime)
 
 }
 
+void OptionMenu::OptionMenuinput(Widget* object, sf::Vector2f mousepos)
+{
+	if (mousepos.x > object->GetBoundingBox().Amin.x && mousepos.x  < object->GetBoundingBox().Amax.x
+		&& mousepos.y >object->GetBoundingBox().Amin.y && mousepos.y < object->GetBoundingBox().Amax.y)
+	{
+		if (object->getwidgettype() == Back_Widget)
+			setsceneidx(0);
+
+	}
+}
+
 void OptionMenu::render()
 {
 	m_renderwindow->draw(m_Background);
@@ -43,6 +64,16 @@ void OptionMenu::render()
 	{
 		Object->render();
 	}
+}
+
+void OptionMenu::setsceneidx(int idx)
+{
+	m_sceneidx = idx;
+}
+
+int& OptionMenu::getceneidx()
+{
+	return m_sceneidx;
 }
 
 void OptionMenu::titleOptionWidgetInit()
@@ -62,7 +93,7 @@ void OptionMenu::resolutionWidgetInit()
 {
 	Vec2 widgetResolutionPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 350 };
 	Vec2 sizeOfResolution = { 450, 155 };
-	auto resolutiontext = new Rectanglewidget(*this, widgetResolutionPos, sizeOfResolution, "Resolution", Play_Widget);
+	auto resolutiontext = new Rectanglewidget(*this, widgetResolutionPos, sizeOfResolution, "Resolution", Resolution_Widget);
 	resolutiontext->settextSize(45);
 	resolutiontext->setTextPosition({ widgetResolutionPos.x - 160, widgetResolutionPos.y - 25 });
 	resolutiontext->setcolor(sf::Color(sf::Color::Blue));
@@ -75,7 +106,7 @@ void OptionMenu::controlsWidgetInit()
 {
 	Vec2 widgetControlsPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 600 };
 	Vec2 sizeOfControls = { 450, 155 };
-	auto controltext = new Rectanglewidget(*this, widgetControlsPos, sizeOfControls, "Controls", Title_Widget);
+	auto controltext = new Rectanglewidget(*this, widgetControlsPos, sizeOfControls, "Controls", Control_Widget);
 	controltext->settextSize(45);
 	controltext->setTextPosition({ widgetControlsPos.x - 130, widgetControlsPos.y - 25 });
 	controltext->setcolor(sf::Color(sf::Color::Blue));
@@ -88,7 +119,7 @@ void OptionMenu::backWidgetInit()
 {
 	Vec2 widgetBackPos = { static_cast<float>(m_renderwindow->getSize().x / 2),0 + 850 };
 	Vec2 sizeOfBack = { 450, 155 };
-	auto backText = new Rectanglewidget(*this, widgetBackPos, sizeOfBack, "Back", Quit_Widget);
+	auto backText = new Rectanglewidget(*this, widgetBackPos, sizeOfBack, "Back", Back_Widget);
 	backText->settextSize(45);
 	backText->setTextPosition({ widgetBackPos.x - 55, widgetBackPos.y - 25 });
 	backText->setcolor(sf::Color(sf::Color::Blue));

@@ -22,14 +22,15 @@ public:
     void update(const float& deltaTime);
 
     void render()override;
+    void setsceneidx(int idx);
+    int& getceneidx();
     void Menuinput(Widget* object, sf::Vector2f mousepos);
     void playWidgetInit();
     void titleWidgetInit();
     void optionWidgetInit();
     void highscoreWidgetInit();
     void quitWidgetInit();
-    void MouseNav();
-    void changewindow(int type);
+   
     void SoundInit();
     void MusicInit();
 
