@@ -19,8 +19,6 @@ public:
     void processInput( sf::Event& event);
     void objectinput(sf::Event& event);
     void update(const float& deltaTime);
-     void setsceneidx(int idx) ;
-    int& getceneidx();
     void render();
     void init();
     void testColision(IGameObject* A, IGameObject* B);

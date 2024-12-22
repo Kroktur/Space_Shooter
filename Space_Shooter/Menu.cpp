@@ -28,7 +28,7 @@ void Menu::init()
 
 void Menu::processInput(sf::Event& event)
 {
-	setsceneidx(0);
+
 	if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 	{
 		sf::Vector2f mousePos = m_renderwindow->mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
@@ -44,7 +44,6 @@ void Menu::processInput(sf::Event& event)
 
 void Menu::update(const float& deltaTime)
 {
-	
 	addObject();
 	for (auto Object : m_allGameObject)
 	{
@@ -63,31 +62,17 @@ void Menu::render()
 	}
 }
 
-void Menu::setsceneidx(int idx)
-{
-	m_sceneidx = idx;
-}
-
-int& Menu::getceneidx()
-{
-	return m_sceneidx;
-}
-
 void Menu::Menuinput(Widget* object, sf::Vector2f mousepos)
 {
 	
 	if (mousepos.x > object->GetBoundingBox().Amin.x && mousepos.x  < object->GetBoundingBox().Amax.x
 		&& mousepos.y >object->GetBoundingBox().Amin.y && mousepos.y < object->GetBoundingBox().Amax.y)
 	{
-		if (object->getwidgettype() == Play_Widget)
-			setsceneidx(1);
-		if (object->getwidgettype() == Quit_Widget)
-			m_renderwindow->close();
-		if (object->getwidgettype() == Option_Widget)
-			setsceneidx(2);
+		if(object->getwidgettype() == Play_Widget)
+		std::cout << "test" << std::endl;
 	}
 
-	
+
 
 }
 
@@ -169,7 +154,14 @@ void Menu::MusicInit()
 	menuMusic->play();*/
 }
 
+void Menu::changewindow(int type)
+{
 
+	if (type == Play_Widget)
+	{
+		
+	}
+}
 
 void Menu::SoundInit()
 {
