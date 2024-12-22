@@ -7,6 +7,7 @@ class SceneManager;
 class SceneBase
 {
 public:
+    friend SceneManager;
     friend IGameObject;
     SceneBase(sf::RenderWindow* window, const float& framerate);
     virtual ~SceneBase() = default;
@@ -22,7 +23,9 @@ public:
     sf::RenderWindow* getWindow();
     TextureCache& gettexture();
     FontCache& getfont();
+
 protected:
+ 
     sf::RectangleShape m_Background;
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;

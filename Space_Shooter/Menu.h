@@ -22,7 +22,7 @@ public:
     void update(const float& deltaTime);
 
     void render()override;
-    void Menuinput(IGameObject* object);
+    void Menuinput(Widget* object, sf::Vector2f mousepos);
     void playWidgetInit();
     void titleWidgetInit();
     void optionWidgetInit();
