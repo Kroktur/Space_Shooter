@@ -22,9 +22,9 @@ void Rectanglewidget::setrectangle()
 	m_rectangle.setOrigin(sf::Vector2f(m_rectangle.getSize().x / 2, m_rectangle.getSize().y / 2));
 	m_rectangle.setPosition(sf::Vector2f(m_currentposition.x, m_currentposition.y));
 	// set default text
-	
+	m_color = sf::Color::Red;
 	m_text.setPosition(m_rectangle.getPosition().x - m_rectangle.getSize().x / 2 , m_rectangle.getPosition().y - m_rectangle.getSize().y / 2);
-	m_text.setFillColor(sf::Color::Red);
+	m_text.setFillColor(m_color);
 	m_text.setCharacterSize(10);
 	m_text.setFont(m_game.getfont().getFont("C:\\Windows\\Fonts\\Arial.ttf"));
 
@@ -47,7 +47,7 @@ void Rectanglewidget::setTexture(std::string texture)
 
 void Rectanglewidget::setcolor(sf::Color color)
 {
-	m_text.setFillColor(color);
+	m_color = color;
 }
 
 void Rectanglewidget::settextSize(int txtsize)
@@ -73,6 +73,14 @@ void Rectanglewidget::input(sf::Event event)
 
 void Rectanglewidget::update(float deltatime)
 {
+	
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*m_game.getWindow());
+
+	if (mousePos.x > this->GetBoundingBox().Amin.x && mousePos.x  < this->GetBoundingBox().Amax.x
+		&& mousePos.y >this->GetBoundingBox().Amin.y && mousePos.y < this->GetBoundingBox().Amax.y)
+		m_text.setFillColor(sf::Color::Yellow);
+	else 
+		m_text.setFillColor(m_color);
 }
 
 void Rectanglewidget::render()
@@ -121,9 +129,9 @@ void Rectanglewidgetupdatable::setrectangle()
 	m_rectangle.setOrigin(sf::Vector2f(m_rectangle.getSize().x / 2, m_rectangle.getSize().y / 2));
 	m_rectangle.setPosition(sf::Vector2f(m_currentposition.x, m_currentposition.y));
 	// set default text
-
+	m_color = sf::Color::Red;
 	m_text.setPosition(m_rectangle.getPosition().x - m_rectangle.getSize().x / 2, m_rectangle.getPosition().y - m_rectangle.getSize().y / 2);
-	m_text.setFillColor(sf::Color::Red);
+	m_text.setFillColor(m_color);
 	m_text.setCharacterSize(10);
 	m_text.setFont(m_game.getfont().getFont("C:\\Windows\\Fonts\\Arial.ttf"));
 
@@ -146,7 +154,8 @@ void Rectanglewidgetupdatable::setTexture(std::string texture)
 
 void Rectanglewidgetupdatable::setcolor(sf::Color color)
 {
-	m_text.setFillColor(color);
+	m_color = color;
+	m_text.setFillColor(m_color);
 }
 
 void Rectanglewidgetupdatable::settextSize(int txtsize)

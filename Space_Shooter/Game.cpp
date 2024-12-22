@@ -34,6 +34,7 @@ Game::~Game()
 
 void Game::processInput(sf::Event& event)
 {
+	setsceneidx(1);
 	m_input->processinput(event);
     objectinput(event);
 			
@@ -70,6 +71,16 @@ void Game::update(const float& deltaTime)
 	}
 	
 	deleteObject();
+}
+
+void Game::setsceneidx(int idx)
+{
+	m_sceneidx = idx;
+}
+
+int& Game::getceneidx()
+{
+	return m_sceneidx;
 }
 
 void Game::render()

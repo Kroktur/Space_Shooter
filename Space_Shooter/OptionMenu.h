@@ -18,9 +18,10 @@ public:
     void processInput(sf::Event& event);
 
     void update(const float& deltaTime);
-
+    void OptionMenuinput(Widget* object, sf::Vector2f mousepos);
     void render()override;
-
+    void setsceneidx(int idx);
+    int& getceneidx();
     void titleOptionWidgetInit();
     void resolutionWidgetInit();
     void controlsWidgetInit();

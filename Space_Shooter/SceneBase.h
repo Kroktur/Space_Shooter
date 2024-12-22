@@ -14,6 +14,7 @@ public:
     virtual void processInput( sf::Event& event) = 0;
     virtual void update(const float& deltaTime) = 0;
     virtual void render() = 0;
+    virtual int& getceneidx() = 0;
     sf::Time getRefreshTime()const;
     void addObject();
     void toberemoved(IGameObject* it);
@@ -25,7 +26,7 @@ public:
     FontCache& getfont();
 
 protected:
- 
+    int m_sceneidx;
     sf::RectangleShape m_Background;
     sf::RenderWindow* m_renderwindow;
     sf::Time m_refreshTime;
