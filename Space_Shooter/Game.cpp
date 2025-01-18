@@ -47,8 +47,25 @@ void Game::objectinput(sf::Event& event)
 	
 	for (auto Object : m_allGameObject)
 	{
+		if (Object->gettype() == Type_RectangleWidget)
+		{
+			auto myobject = static_cast<Rectanglewidget*>(Object);
+			if (myobject->getwidgettype() == death_object)
+			{
+				sf::Vector2f mousepos = m_renderwindow->mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+				if (mousepos.x > myobject->GetBoundingBox().Amin.x && mousepos.x  < myobject->GetBoundingBox().Amax.x
+					&& mousepos.y >myobject->GetBoundingBox().Amin.y && mousepos.y < myobject->GetBoundingBox().Amax.y)
+				{
+					return exit(0);
+				}
+			}
+			
+		}
+
 		Object->input(event);
+
 	}
+
 }
 
 void Game::update(const float& deltaTime)
@@ -132,6 +149,19 @@ void Game::init()
 
 
 
+void Game::startendgame()
+{
+
+	Vec2 widgetPlayPos = { static_cast<float>(this->getWindow()->getSize().x / 2),0 + 310};
+	Vec2 sizeOfPlay = { 900, 350 };
+	auto play = new Rectanglewidget(*this, widgetPlayPos, sizeOfPlay, "You are dead : exit", death_object);
+	play->settextSize(45);
+	play->setTextPosition({ widgetPlayPos.x - 375, widgetPlayPos.y - 25 });
+	play->setcolor(sf::Color(sf::Color::Blue));
+	play->setTexture("resource\\etiquette.png");
+	play->setFont("resource\\font\\static\\TMT-Paint-Regular.otf");
+	play->GetBoundingBox();
+}
 
 
 

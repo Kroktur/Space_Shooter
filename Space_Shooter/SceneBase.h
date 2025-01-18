@@ -24,7 +24,7 @@ public:
     sf::RenderWindow* getWindow();
     TextureCache& gettexture();
     FontCache& getfont();
-
+   
 protected:
     int m_sceneidx;
     sf::RectangleShape m_Background;

@@ -38,6 +38,7 @@ void SceneBase::toberemoved(IGameObject* it)
 
 
 
+
 void SceneBase::deleteObject()
 {
 

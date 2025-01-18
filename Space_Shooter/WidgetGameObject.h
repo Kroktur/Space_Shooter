@@ -14,7 +14,7 @@ enum Widget_type
     ,Resolution_Widget =6
     , Control_Widget =7
     , Back_Widget = 8
-
+    ,death_object
 };
 class Widget : public IGameObject
 {

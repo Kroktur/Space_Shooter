@@ -17,6 +17,7 @@ Menu::~Menu()
 
 void Menu::init()
 {
+	
 	MusicInit();
 	SoundInit();
 	playWidgetInit();

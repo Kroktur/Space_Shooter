@@ -27,7 +27,7 @@ public:
     void testColision(IGameObject* A, IGameObject* B);
     bool colision(AABB A, AABB B);
     //window 
-   
+    void startendgame();
     void spawnObject();
     void bossspawn();
     void renderAABB();

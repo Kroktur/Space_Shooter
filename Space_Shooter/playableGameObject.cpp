@@ -1,6 +1,7 @@
 #include "playableGameObject.h"
 #include "Input.h"
 #include <cmath>
+#include "WidgetGameObject.h"
 
 void spetialfire::RoundShoot(int numofmissille, SceneBase& game, sf::CircleShape& circle, int type )
 {
@@ -59,12 +60,14 @@ Ship::Ship(SceneBase& game) :IGameObject(game), m_ship(50), m_angle(0), m_fire(f
 {
 	
 	m_type = Type_Ship;
-	m_vie = 10;
+	m_vie = 1;
 	setShip();
 }
 
 Ship::~Ship()
 {
+	static_cast<Game&>(m_game).startendgame();
+	
 	delete m_input;
 }
 
