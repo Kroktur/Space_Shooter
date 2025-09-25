@@ -155,6 +155,7 @@
     <ClCompile Include="Ressource.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="Scenemanager.cpp" />
+    <ClCompile Include="toto.cpp" />
     <ClCompile Include="WidgetGameObject.cpp" />
   </ItemGroup>
   <ItemGroup>
