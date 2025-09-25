@@ -1,5 +1,5 @@
 #include <iostream>
 void toto()
 {
-	std::cout << "TOTO" << std::endl;
+	std::cout << "SUPER TOTO" << std::endl;
 }
